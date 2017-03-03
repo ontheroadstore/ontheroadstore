@@ -1,0 +1,36 @@
+{
+  "name": "ontheroadstore",
+  "version": "1.0.0",
+  "description": "公路商店主站",
+  "author": "psychokiller666 <fucked@psychokiller.me>",
+  "private": true,
+  "dependencies": {
+    "nuxt": "latest"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "devDependencies": {
+    "axios": "^0.15.3",
+    "babel-eslint": "^7.1.1",
+    "element-theme-default": "^1.2.1",
+    "element-ui": "^1.2.1",
+    "eslint": "^3.15.0",
+    "eslint-config-elemefe": "^0.1.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-promise": "^3.4.1",
+    "eslint-plugin-standard": "^2.0.1",
+    "eslint-plugin-vue": "^2.0.1",
+    "node-sass": "^4.5.0",
+    "normalize.css": "^5.0.0",
+    "sass-loader": "^6.0.2",
+    "vue-axios": "^1.2.2"
+  }
+}
