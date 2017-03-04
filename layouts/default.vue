@@ -1,8 +1,10 @@
 <template>
-  <div class="ontheroadstore">
+  <div class="pc">
     <MyHeader ref="header" />
-    <nuxt :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom }" ref="container" />
-    <my-footer ref="footer" />
+    <main :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom }" ref="container">
+      <nuxt />
+    </main>
+    <MyFooter ref="footer" />
   </div>
 </template>
 <script>
@@ -30,7 +32,7 @@
 
 <style lang="scss">
   .container {
-    // position: relative;
-    // z-index: 10;
+    position: relative;
+    z-index: 10;
   }
 </style>

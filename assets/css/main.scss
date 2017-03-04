@@ -1,3 +1,30 @@
 @import '~normalize.css';
+html {
+  background: transparent;
+  body {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.875rem;
+    background-color: #f2f2f2;
+    -webkit-font-smoothing: antialiased;
+  }
+  *:focus {
+    outline: 0 !important;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    outline: 0;
+    &:hover,
+    &:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+
+
+
 
 
