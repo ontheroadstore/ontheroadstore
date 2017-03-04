@@ -40,6 +40,7 @@
     margin: 0;
     z-index: 1030!important;
     background-color: #363c43;
+    border-top: 0.25rem solid #767a7e;
     .el-row {
       padding: 0 1rem;
       flex-shrink: 0;
