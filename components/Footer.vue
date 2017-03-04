@@ -1,18 +1,20 @@
 <template>
   <footer class="footer">
     <el-row :gutter="20">
-      <el-col :span="4">
+      <el-col :span="6" class="copyright">
         &copy; Copyright 2017 公路商店
       </el-col>
-      <el-col :span="4">
+      <el-col :span="6" class="icp">
         京ICP备14015381号-1
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6" class="link">
         <nuxt-link to="/about">关于我们</nuxt-link>
         <nuxt-link to="/job">加入我们</nuxt-link>
-        <nuxt-link to="/service">客服售后</nuxt-link>
+        <nuxt-link to="/service">黑市客服</nuxt-link>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6" class="qrcode">
+        <el-button>微信公众号</el-button>
+        <el-button>APP下载</el-button>
 <!--         <el-tooltip placement="top">
           <div slot="content">
             二维码
@@ -39,10 +41,25 @@
     z-index: 1030!important;
     background-color: #363c43;
     .el-row {
-      height: 3.25rem;
-      line-height: 3.25rem;
+      padding: 0 1rem;
+      flex-shrink: 0;
       .el-col {
-        padding: 0 1rem;
+        height: 3.25rem;
+        line-height: 3.25rem;
+        font-size: 14px;
+        color: #fff;
+        &.link {
+          text-align: right;
+          a {
+            margin-right: 1em;
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
+        &.qrcode {
+          text-align: right;
+        }
       }
     }
   }
