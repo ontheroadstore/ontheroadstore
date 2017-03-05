@@ -4,12 +4,13 @@
       <el-col :span="6" class="copyright">
         &copy; Copyright 2017 公路商店
       </el-col>
-      <el-col :span="6" class="icp">
+      <el-col :span="4" class="icp">
         京ICP备14015381号-1
       </el-col>
-      <el-col :span="6" class="link">
+      <el-col :span="8" class="link">
         <nuxt-link to="/about">关于我们</nuxt-link>
         <nuxt-link to="/job">加入我们</nuxt-link>
+        <nuxt-link to="/contact">联系我们</nuxt-link>
         <nuxt-link to="/service">黑市客服</nuxt-link>
       </el-col>
       <el-col :span="6" class="qrcode">
@@ -40,7 +41,7 @@
     margin: 0;
     z-index: 1030!important;
     background-color: #363c43;
-    border-top: 0.25rem solid #767a7e;
+    border-top: 5px solid #595e63;
     .el-row {
       padding: 0 1rem;
       flex-shrink: 0;
