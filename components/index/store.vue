@@ -1,16 +1,22 @@
 <template>
   <!-- store start /components/index/store.vue -->
   <section class="store-items">
-    <nuxt-link to="/store" class="title"><h2>黑市</h2></nuxt-link>
+    <nuxt-link to="/store" class="title"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
       <el-col :span="12" class="item" v-for="item in store">
-        <nuxt-link to="/">
-          <el-row>
-            <el-col :span="8" class="item-image" v-lazy:background-image.container="item.src"></el-col>
-            <el-col :span="14" class="item-title">拥有黄金牙膏，成为贫民窟的百万富翁</el-col>
-          </el-row>
+        <nuxt-link to="/" class="el-row">
+          <el-col :span="12" class="item-image" v-lazy:background-image.container="item.src"></el-col>
+          <el-col :span="12" class="item-title">
+            <h4>拥有黄金牙膏，成为贫民窟的百万富翁</h4>
+            <p>拥有黄金牙膏，成为贫民窟的百万富翁拥有黄金牙膏，成为贫民窟的百万富翁拥有黄金牙膏，成为贫民窟的百万富翁</p>
+            <div class="item-info">
+              <span class="view"><i class="el-icon-edit"></i> 111111</span>
+              <span class="sales"><i class="el-icon-edit"></i> 123123</span>
+            </div>
+          </el-col>
         </nuxt-link>
       </el-col>
+      <el-col :span="24"><el-button type="primary" :loading="true">加载更多</el-button></el-col>
     </el-row>
   </section>
   <!-- store end -->
@@ -41,6 +47,11 @@
       padding: 1rem 0;
       h2 {
         margin: 0;
+        position: relative;
+        i {
+          position: absolute;
+          right: 0;
+        }
       }
     }
     & > .el-row {
@@ -58,26 +69,44 @@
           border-bottom: 1px solid rgba(120, 130, 140, 0.13);
           padding-top: 1rem;
           padding-bottom: 1rem;
-          .el-row {
-            .item-image {
-              float: left;
-              width: 40%;
-              background-size: cover;
-              background-repeat: no-repeat;
-              background-position: 50% 50%;
-              background-color: rgba(120,120,120,.2);
-              border-radius: 3px;
-              &:after {
-                content: '';
-                display: block;
-                padding-bottom: 56.25%;
-              }
+          position: relative;
+          .item-image {
+            float: left;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-color: rgba(120,120,120,.2);
+            border-radius: 3px;
+            &:after {
+              content: '';
+              display: block;
+              padding-bottom: 60%;
             }
-            .item-title {
-              width: 60%;
-              float: left;
-              box-sizing: border-box;
-              padding-left: 12px;
+          }
+          .item-title {
+            float: left;
+            box-sizing: border-box;
+            padding-left: 12px;
+            h4 {
+              margin: 0;
+            }
+            p {
+              margin: 0;
+              margin-top: .5rem;
+              line-height: 1.4em;
+              height: 2.8em;
+              overflow: hidden;
+              opacity: .6;
+            }
+            .item-info {
+              position: absolute;
+              right: 0;
+              bottom: 1rem;
+              line-height: 0;
+              opacity: .5;
+              .view {
+                margin-right: 1rem;
+              }
             }
           }
         }

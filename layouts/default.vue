@@ -29,10 +29,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .container {
-    position: relative;
-    z-index: 10;
-  }
-</style>

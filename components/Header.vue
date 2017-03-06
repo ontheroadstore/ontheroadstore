@@ -27,6 +27,7 @@
     background-color: #fff;
     margin: inherit;
     box-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+    -webkit-transform: translateZ(0);
     .el-row {
       padding: 0 1rem;
       flex-shrink: 0;

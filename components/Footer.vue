@@ -42,6 +42,7 @@
     z-index: 1030!important;
     background-color: #363c43;
     border-top: 5px solid #595e63;
+    -webkit-transform: translateZ(0);
     .el-row {
       padding: 0 1rem;
       flex-shrink: 0;
