@@ -58,7 +58,7 @@
               background-repeat: no-repeat;
               background-position: 50% 50%;
               background-color: rgba(120,120,120,.2);
-              a{
+              a {
                 &:after {
                   content: '';
                   background-color: rgba(120, 120, 120, 0.1);
@@ -67,24 +67,34 @@
                   width: 100%;
                   height: 100%;
                   position: absolute;
+                  transition-property: background-color;
+                  transition-duration: 0.3s;
+                  transition-timing-function: ease;
                 }
-              }
-              .item-title {
-                position: absolute;
-                box-sizing: border-box;
-                padding: 1rem;
-                width: 100%;
-                height: 100%;
-                h3 {
-                  margin: 0;
-                  color: #fff;
-                  text-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 2px rgba(0,0,0,.1);
+                &:hover {
+                  &:after {
+                    color: inherit;
+                    background-color: rgba(0, 0, 0, 0.1);
+                    border-color: rgba(0, 0, 0, 0.1);
+                  }
                 }
-                p {
-                  color: #fff;
-                  opacity: .6;
-                  text-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 2px rgba(0,0,0,.1);
-                  margin: 1em 0;
+                &.item-title {
+                  position: absolute;
+                  box-sizing: border-box;
+                  padding: 1rem;
+                  width: 100%;
+                  height: 100%;
+                  h3 {
+                    margin: 0;
+                    color: #fff;
+                    text-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 2px rgba(0,0,0,.1);
+                  }
+                  p {
+                    color: #fff;
+                    opacity: .6;
+                    text-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 2px rgba(0,0,0,.1);
+                    margin: 1em 0;
+                  }
                 }
               }
             }
@@ -100,8 +110,21 @@
             background-repeat: no-repeat;
             background-position: 50% 50%;
             background-color: rgba(120,120,120,.2);
+            transition-property: background-color;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
             &:after {
               background-color: rgba(120, 120, 120, 0.1);
+              transition-property: background-color;
+              transition-duration: 0.3s;
+              transition-timing-function: ease;
+            }
+            &:hover {
+              &:after {
+                color: inherit;
+                background-color: rgba(0, 0, 0, 0.1);
+                border-color: rgba(0, 0, 0, 0.1);
+              }
             }
             .item-title {
               position: absolute;

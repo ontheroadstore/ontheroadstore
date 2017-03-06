@@ -18,7 +18,8 @@ module.exports = {
   */
   css: [
     { src: '~assets/css/main.scss', lang: 'scss' },
-    'element-ui/lib/theme-default/index.css'
+    'element-ui/lib/theme-default/index.css',
+    'vue2-animate/dist/vue2-animate.min.css'
   ],
   /*
   ** Customize the progress-bar color

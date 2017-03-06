@@ -16,7 +16,7 @@
           </el-col>
         </nuxt-link>
       </el-col>
-      <el-col :span="24"><el-button type="primary" :loading="true">加载更多</el-button></el-col>
+      <el-col :span="24" class="loading"><el-button :loading="false">加载更多</el-button></el-col>
     </el-row>
   </section>
   <!-- store end -->
@@ -45,6 +45,16 @@
     .title {
       display: block;
       padding: 1rem 0;
+      &:hover {
+        h2 {
+          i {
+            color: #6cc788;
+            transition-property: color;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+          }
+        }
+      }
       h2 {
         margin: 0;
         position: relative;
@@ -61,8 +71,22 @@
         padding-left: 12px;
         padding-right: 12px;
         border-radius: 5px;
+        transition-property: background-color;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
         &:hover {
           background-color: rgba(120, 130, 140, 0.13);
+          a {
+            .item-image {
+              &:after {
+                background-color: rgba(0, 0, 0, 0.2);
+              }
+            }
+            .item-title {
+              opacity: 1;
+              text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1), 0 -2px 2px rgba(0, 0, 0, 0.1);
+            }
+          }
         }
         a {
           display: block;
@@ -87,6 +111,7 @@
             float: left;
             box-sizing: border-box;
             padding-left: 12px;
+            opacity: .9;
             h4 {
               margin: 0;
             }
@@ -111,6 +136,10 @@
           }
         }
       }
+    }
+    .loading {
+      padding: 1rem;
+      text-align: center;
     }
   }
 </style>
