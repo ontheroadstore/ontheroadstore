@@ -17,6 +17,7 @@
           <h3>标题标题标题标题标题标题标题标题标题</h3>
           <p>SummerellaSummerellaSummerellaSummerellaSummerella</p>
         </nuxt-link>
+        <div class="item-shelter"></div>
       </el-col>
     </el-row>
   </section>
@@ -57,6 +58,17 @@
               background-repeat: no-repeat;
               background-position: 50% 50%;
               background-color: rgba(120,120,120,.2);
+              a{
+                &:after {
+                  content: '';
+                  background-color: rgba(120, 120, 120, 0.1);
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                }
+              }
               .item-title {
                 position: absolute;
                 box-sizing: border-box;
@@ -88,6 +100,9 @@
             background-repeat: no-repeat;
             background-position: 50% 50%;
             background-color: rgba(120,120,120,.2);
+            &:after {
+              background-color: rgba(120, 120, 120, 0.1);
+            }
             .item-title {
               position: absolute;
               box-sizing: border-box;

@@ -14,7 +14,7 @@
         </el-col>
         <el-col :span="8">
           <!-- TOP10 -->
-          sdads
+          <MyTop10 />
         </el-col>
       </el-row>
     </section>
@@ -25,6 +25,7 @@
   import MyIndexArticle from '~/components/index/article'
   import MyIndexVideo from '~/components/index/video'
   import MyIndexStore from '~/components/index/store'
+  import MyIndexTop10 from '~/components/index/top10'
 
   export default {
     data () {
@@ -39,7 +40,8 @@
       'MyBanner': MyIndexBanner,
       'MyArticle': MyIndexArticle,
       'MyVideo': MyIndexVideo,
-      'MyStore': MyIndexStore
+      'MyStore': MyIndexStore,
+      'MyTop10': MyIndexTop10
     },
     methods: {
     },
@@ -54,8 +56,6 @@
 <style lang="scss" scoped>
   .content {
     & > .el-row {
-      // padding-left: 1rem;
-      // padding-right: 1rem;
       & > .el-col {
         padding-left: 1.5rem;
         padding-right: 1.5rem;

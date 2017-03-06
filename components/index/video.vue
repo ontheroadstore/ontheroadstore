@@ -1,12 +1,12 @@
 <template>
   <!-- video start /components/index/video.vue -->
   <section class="video-items">
-    <nuxt-link to="/" class="title"><h2>视频</h2></nuxt-link>
+    <nuxt-link to="/" class="title"><h2>视频<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
       <el-col :span="8" class="item" v-for="item in video">
         <nuxt-link :to="item.url">
           <div class="item-image" v-lazy:background-image.container="item.src">
-            <span>混蛋出差</span>
+            <span class="item-time">混蛋出差</span>
           </div>
           <div class="item-title">
             <h3>老公带着小姨子跑路了</h3>
@@ -39,6 +39,11 @@
       padding: 1rem 0;
       h2 {
         margin: 0;
+        position: relative;
+        i {
+          position: absolute;
+          right: 0;
+        }
       }
     }
     .el-row {
@@ -56,7 +61,7 @@
             background-color: rgba(120,120,120,.2);
             border-radius: 0.2rem;
             position: relative;
-            span {
+            .item-time {
               position: absolute;
               bottom: .5rem;
               right: .5rem;
@@ -65,6 +70,7 @@
               border-radius: 0.2rem;
               color: #fff;
               font-size:12px;
+              opacity: .8;
             }
             &:after {
               content: '';
@@ -84,6 +90,7 @@
             p {
               margin: 0;
               margin-bottom: 1em;
+              opacity: .6;
             }
           }
         }
