@@ -59,8 +59,14 @@
               a {
                 font-size: 16px;
                 padding: 0 1rem;
-                &.nuxt-link-active {
+                transition-property: color;
+                transition-duration: 0.3s;
+                transition-timing-function: ease;
+                &:hover, &.nuxt-link-active {
                   color: #6cc788;
+                  transition-property: color;
+                  transition-duration: 0.3s;
+                  transition-timing-function: ease;
                 }
               }
             }

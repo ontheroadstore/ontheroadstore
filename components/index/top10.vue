@@ -50,8 +50,23 @@
       .item {
         padding-left: 12px;
         padding-right: 12px;
+        transition-property: background-color;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        border-radius: 5px;
         &:hover {
           background-color: rgba(120, 130, 140, 0.13);
+          a {
+            .item-image {
+              &:after {
+                background-color: rgba(0, 0, 0, 0.2);
+              }
+            }
+            .item-title {
+              opacity: 1;
+              text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1), 0 -2px 2px rgba(0, 0, 0, 0.1);
+            }
+          }
         }
         a {
           display: block;
@@ -76,6 +91,7 @@
           .item-title {
             box-sizing: border-box;
             padding-left: 12px;
+            opacity: .9;
             h4 {
               font-weight: normal;
               margin: 0;

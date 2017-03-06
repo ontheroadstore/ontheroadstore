@@ -33,6 +33,7 @@
     "sass-loader": "^6.0.2",
     "stickybits": "0.0.4",
     "vue-axios": "^1.2.2",
-    "vue-lazyload": "^1.0.0-rc12"
+    "vue-lazyload": "^1.0.0-rc12",
+    "vue2-animate": "^1.0.4"
   }
 }
