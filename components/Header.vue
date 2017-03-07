@@ -2,12 +2,12 @@
   <header class="header">
     <el-row :gutter="20" class="navber">
       <el-col :span="4" class="logo">
-        <nuxt-link to="/" rel="首页">公路商店 为了你不找边际的企图心</nuxt-link>
+        <nuxt-link to="/" rel="首页" exact>公路商店 为了你不找边际的企图心</nuxt-link>
       </el-col>
       <el-col :span="16" class="nav">
         <ul>
-          <li><nuxt-link to="/">文章</nuxt-link></li>
-          <li><nuxt-link to="/shop">商品</nuxt-link></li>
+          <li><nuxt-link to="/" exact>文章</nuxt-link></li>
+          <li><nuxt-link to="/store">商品</nuxt-link></li>
           <li><nuxt-link to="/video">视频</nuxt-link></li>
         </ul>
       </el-col>
