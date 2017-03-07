@@ -105,6 +105,13 @@
                 a {
                   display: block;
                   position: relative;
+                  &:hover {
+                    .item-image {
+                      &:after {
+                        background: linear-gradient(0deg,rgba(0,0,0,.2),transparent);
+                      }
+                    }
+                  }
                   .item-image {
                     background-size: cover;
                     background-repeat: no-repeat;
@@ -136,6 +143,7 @@
                     position: absolute;
                     bottom: 2.2rem;
                     color: #fff;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px 2px rgba(0, 0, 0, 0.1);
                     h3 {
                       margin: 0;
                     }
