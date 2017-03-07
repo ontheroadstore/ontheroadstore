@@ -95,7 +95,6 @@
           padding-bottom: 1rem;
           position: relative;
           .item-image {
-            float: left;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: 50% 50%;
@@ -108,7 +107,6 @@
             }
           }
           .item-title {
-            float: left;
             box-sizing: border-box;
             padding-left: 12px;
             opacity: .9;
