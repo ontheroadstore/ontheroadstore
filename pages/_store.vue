@@ -69,6 +69,13 @@
     },
     components: {
       'MyTop10': MyIndexTop10
+    },
+    // validate ({ params }) {
+    //   // console.log(params)
+    //   return /^\d+$/.test(params.pages)
+    // },
+    mounted () {
+      console.log(this.$route.params.pages)
     }
   }
 </script>
