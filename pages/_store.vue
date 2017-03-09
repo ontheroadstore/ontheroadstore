@@ -1,52 +1,6 @@
 <template>
   <div class="container">
-    <section class="content">
-      <el-row>
-        <el-col :span="16">
-          <section class="store-list">
-            <div class="title">
-              <el-dropdown class="dropdown">
-                <span class="el-dropdown-link">
-                  <h1>黑市</h1>全部 <i class="el-icon-caret-bottom el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>推荐</el-dropdown-item>
-                  <el-dropdown-item>热门</el-dropdown-item>
-                  <el-dropdown-item>文化</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div>
-            <el-row>
-              <el-col :span="12" class="item" v-for="item in store">
-                <nuxt-link to="/">
-                  <div class="item-image" v-lazy:background-image.container="item.src"></div>
-                  <div class="item-tag">摆摊</div>
-                  <div class="item-title">
-                    <h3>标题标题标题标题标题标题标题标题标题a</h3>
-                  </div>
-                  <div class="item-info">
-                    <span class="item-view"><i class="el-icon-star-off"></i>123</span>
-                    <span class="item-comment"><i class="el-icon-star-off"></i>654</span>
-                    <span class="item-like"><i class="el-icon-star-off"></i>77</span>
-                  </div>
-                  <div class="item-time">2017/3/7</div>
-                </nuxt-link>
-              </el-col>
-              <el-col :span="24"><el-pagination class="pagination" layout="prev, pager, next" :total="1000"></el-pagination></el-col>
-            </el-row>
-          </section>
-        </el-col>
-        <el-col :span="8">
-          <!-- AD -->
-          <section>
-            <h3>分享到微信可购买，或者搜索微信公众号：nbheishi</h3>
-            <p>二维码</p>
-          </section>
-          <!-- TOP10 -->
-          <MyTop10 />
-        </el-col>
-      </el-row>
-    </section>
+  <nuxt-child />
   </div>
 </template>
 <script>
@@ -75,7 +29,7 @@
     //   return /^\d+$/.test(params.pages)
     // },
     mounted () {
-      console.log(this.$route.params.pages)
+      // console.log(this.$route.params.pages)
     }
   }
 </script>
