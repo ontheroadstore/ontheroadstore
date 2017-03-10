@@ -28,7 +28,7 @@ module.exports = {
   /*
   ** 插件
   */
-  plugins: ['~plugins/element-ui.js', '~plugins/lazyload.js'],
+  plugins: ['~plugins/element-ui.js', '~plugins/lazyload.js', '~plugins/qrcode.js'],
   /*
   ** Build configuration
   */
@@ -36,7 +36,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ['axios'],
+    vendor: ['axios', 'vue-qriously'],
     extend (config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({

@@ -34,6 +34,9 @@
     "stickybits": "0.0.4",
     "vue-axios": "^1.2.2",
     "vue-lazyload": "^1.0.0-rc12",
+    "vue-qart": "^1.0.5",
+    "vue-qrious": "0.0.3",
+    "vue-qriously": "^1.0.0",
     "vue2-animate": "^1.0.4"
   }
 }
