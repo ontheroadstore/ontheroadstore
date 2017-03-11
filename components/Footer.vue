@@ -14,9 +14,7 @@
         <nuxt-link to="/service">黑市客服</nuxt-link>
       </el-col>
       <el-col :span="6" class="qrcode">
-        <el-button>微信公众号</el-button>
-        <el-button>APP下载</el-button>
-<!--         <el-tooltip placement="top">
+        <el-tooltip placement="top">
           <div slot="content">
             二维码
           </div>
@@ -27,7 +25,7 @@
             二维码
           </div>
           <el-button>APP下载</el-button>
-        </el-tooltip> -->
+        </el-tooltip>
       </el-col>
     </el-row>
   </footer>
