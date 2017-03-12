@@ -1,88 +1,55 @@
 <template>
   <section class="content">
     <div class="pos-rlt">
-      <div class="page-bg" style="background-image: url('http://flatfull.com/themes/pulse/images/b0.jpg')"></div>
+      <div class="page-bg" v-lazy:background-image="banner[1]"></div>
     </div>
     <div class="store-detail">
-      <el-row class="detail-user-info">
-        <el-col :span="8">
-          <nuxt-link to="/" class="el-row">
-            <el-col :span="8" class="avatar" style="background-image: url('http://wx.qlogo.cn/mmopen/BA8GZZ2EGwWxO6kHR4SeElLhhzIBzdYqf6Pqhnrg7NemZNzsO9tVM98J0GhEqHH3Zan5mNWwUibjXhQWpIu4zWKHxUSSIIf7P/96')"></el-col>
-            <el-col :span="16" class="nickname">
-              <span><label>卖家：</label>最猛是我飞机</span>
-            </el-col>
-          </nuxt-link>
-        </el-col>
-        <el-col :span="16">
-          <el-row class="detail-user-items">
-            <el-col :span="6" class="item">
-              <nuxt-link to="/">
-                <div class="item-image" style="background-image: url('http://flatfull.com/themes/pulse/images/b0.jpg')"></div>
-                <div class="item-title">最猛是我飞机</div>
-              </nuxt-link>
-            </el-col>
-            <el-col :span="6" class="item">
-              <nuxt-link to="/">
-                <div class="item-image" style="background-image: url('http://flatfull.com/themes/pulse/images/b0.jpg')"></div>
-                <div class="item-title">最猛是我飞机</div>
-              </nuxt-link>
-            </el-col>
-            <el-col :span="6" class="item">
-              <nuxt-link to="/">
-                <div class="item-image" style="background-image: url('http://flatfull.com/themes/pulse/images/b0.jpg')"></div>
-                <div class="item-title">最猛是我飞机</div>
-              </nuxt-link>
-            </el-col>
-            <el-col :span="6" class="item">
-              <nuxt-link to="/">
-                <div class="item-image" style="background-image: url('http://flatfull.com/themes/pulse/images/b0.jpg')"></div>
-                <div class="item-title">最猛是我飞机</div>
-              </nuxt-link>
-            </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
+      <!-- 头部卖家信息 -->
+      <Sellers />
       <el-row>
         <el-col :span="16">
-          asd
+          <!-- 图片列表 -->
+          <Images />
+          <!-- 商品内容 -->
+          <MyContent />
         </el-col>
         <el-col :span="8">
-          <div class="detail-info">
-            <h1 class="title">让“瑞士军刀唇膏”润滑你的一切。</h1>
-            <div class="tags">
-              <nuxt-link to="/" class="item">#美好而操蛋的东西</nuxt-link>
-              <nuxt-link to="/" class="item">#淘宝没有的</nuxt-link>
-            </div>
-            <div class="qrcode">
-              生成二维码
-            </div>
-            <div class="price">
-              <span class="left"><h2>￥199.00</h2></span>
-              <span class="right"><h3>运费 ￥11</h3></span>
-            </div>
-          </div>
+          <!-- 商品信息 -->
+          <Infos />
+          <!-- 其他商品 -->
+          <Top10 />
         </el-col>
       </el-row>
     </div>
   </section>
 </template>
 <script>
-  // import VueQArt from 'vue-qart'
+  import Sellers from '~components/store_detail/Sellers'
+  import Images from '~components/store_detail/Images'
+  import Content from '~components/store_detail/Content'
+  import Infos from '~components/store_detail/Infos'
+  import Top10 from '~components/store_detail/Top10'
+
   export default {
     data () {
       return {
-        qrcode: {
-          value: 'https://www.baidu.com',
-          imagePath: '~/assets/logo.png',
-          filter: 'color'
-        }
+        banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
       }
     },
-    // directives: {
-    //   VueQArt
-    // },
+    components: {
+      'Sellers': Sellers,
+      'Images': Images,
+      'MyContent': Content,
+      'Infos': Infos,
+      'Top10': Top10
+    },
     validate ({ params }) {
       return /^\d+$/.test(params.id)
+    },
+    mounted () {
     },
     head: {
       titleTemplate: '测试标题'
@@ -100,7 +67,7 @@
         left: 0;
         right: 0;
         border: none;
-        height: 50vh;
+        height: 80vh;
         background-position: 50% 50%;
         background-size: 0;
         bottom: 0;
@@ -137,96 +104,10 @@
           padding-right: 1.5rem;
           &.el-col-16 {
             border-right: 1px solid rgba(120,130,140,.13);
-          }
-        }
-      }
-      .detail-user-info {
-        padding: 1.5rem 0;
-        border-bottom: 1px solid rgba(120,130,140,.13);
-        position: relative;
-        a {
-          display: block;
-          .avatar {
-            display: block;
-            overflow: hidden;
-            background-size: cover;
-            border-radius: .2rem;
             &:after {
               content: '';
               display: block;
-              padding-top: 100%;
-            }
-          }
-          .nickname {
-            padding: 0 1rem;
-            h3 {
-              margin: 0;
-            }
-          }
-        }
-        .detail-user-items {
-          margin-left: -12px;
-          margin-right: -12px;
-          .item {
-            padding-left: 12px;
-            padding-right: 12px;
-            position: relative;
-            a {
-              display: block;
-              .item-image {
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: 50% 50%;
-                background-color: rgba(120, 120, 120, 0.2);
-                border-radius: 3px;
-                &:after {
-                  content: '';
-                  display: block;
-                  padding-bottom: 56%;
-                }
-              }
-              .item-title {
-                position: absolute;
-                bottom: -2em;
-                line-height: 1em;
-                font-size: 14px;
-              }
-            }
-          }
-        }
-      }
-      .detail-info {
-        padding: 12px 0;
-        .title {
-          margin-top: 0;
-          margin-bottom: 12px;
-        }
-        .tags {
-          margin-bottom: 12px;
-          .item {
-            background-color: #68be8c;
-            color: #fff;
-            display: inline-block;
-            margin-left: .5rem;
-            padding: .4rem;
-            font-size: 14px;
-            &:first-child {
-              margin-left: 0;
-            }
-          }
-        }
-        .price {
-          span {
-            display: inline-block;
-            width: 50%;
-            h2, h3 {
-              margin: 0;
-            }
-            &.left {
-              text-align: left;
-            }
-            &.right {
-              text-align: right;
+              padding-top: 50%;
             }
           }
         }
