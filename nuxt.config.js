@@ -13,6 +13,7 @@ module.exports = {
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  dev: (process.env.NODE_ENV !== 'production'),
   /*
   ** Global CSS
   */
