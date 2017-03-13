@@ -14,10 +14,19 @@
             <div class="item">
               <el-row>
                 <el-col :span="6">
-                  舒服
+                  <div class="avatar">
+                    <img src="https://www.etsy.com/images/avatars/default_avatar_75x75.png" />
+                  </div>
                 </el-col>
                 <el-col :span="18">
-                  sad
+                  <div class="nickname">昵称</div>
+                  <div class="comment-content">回复内容</div>
+                  <div class="sub">
+                    <div class="item">
+                      dlasdjf
+                      <div class="time">aaa</div>
+                    </div>
+                  </div>
                 </el-col>
               </el-row>
             </div>
@@ -73,6 +82,14 @@
     }
     .description {
       line-height: 2em;
+    }
+    .comment {
+      .content {
+        & > .item {
+          padding: 1rem 0;
+          border-bottom: 1px solid #d1dbe5;
+        }
+      }
     }
   }
 </style>
