@@ -102,14 +102,6 @@
         & > .el-col {
           padding-left: 1.5rem;
           padding-right: 1.5rem;
-          &.el-col-16 {
-            border-right: 1px solid rgba(120,130,140,.13);
-            &:after {
-              content: '';
-              display: block;
-              padding-top: 50%;
-            }
-          }
         }
       }
     }
