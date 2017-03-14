@@ -1,6 +1,6 @@
 <template>
   <el-row class="top10-items">
-    <el-col :span="24"><h3>大家还买了什么</h3></el-col>
+    <el-col :span="24" class="title"><h3>大家还买了什么</h3></el-col>
     <el-row>
       <el-col :span="24" class="item" v-for="item in top10">
         <nuxt-link to="/" class="el-row">
@@ -35,7 +35,8 @@
   .top10-items {
     .title {
       display: block;
-      padding: 1rem 0;
+      padding-top: 1rem;
+      padding-bottom: .5rem;
       h3 {
         margin: 0;
         color: inherit;
@@ -72,6 +73,7 @@
           padding-bottom: .5rem;
           border-bottom: 1px solid rgba(120, 130, 140, 0.13);
           position: relative;
+
           .item-image {
             border-radius: inherit;
             background-size: cover;

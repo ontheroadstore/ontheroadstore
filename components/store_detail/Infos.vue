@@ -5,18 +5,22 @@
       <span><i class="el-icon-time"></i> 2017/02/02</span>
       <span><i class="el-icon-view"></i> 13234</span>
     </el-col>
-    <el-col class="tags">
-      <nuxt-link to="/" class="item">#美好而操蛋的东西</nuxt-link>
-      <nuxt-link to="/" class="item">#淘宝没有的</nuxt-link>
-    </el-col>
-    <el-col :span="10" class="qrcode">
-      <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
-    </el-col>
-    <el-col :span="14" class="price">
-      <h2><i>￥</i><span>199.00</span></h2>
-      <h3>运费：<i>￥</i><span>11</span></h3>
-      <h4>库存：<span>2</span></h4>
-      <h4>销量：22</h4>
+    <el-col :span="24">
+      <el-row>
+        <el-col class="tags">
+          <nuxt-link to="/" class="item">#美好而操蛋的东西</nuxt-link>
+          <nuxt-link to="/" class="item">#淘宝没有的</nuxt-link>
+        </el-col>
+        <el-col :span="10" class="qrcode">
+          <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
+        </el-col>
+        <el-col :span="14" class="price">
+          <h2><i>￥</i><span>199.00</span></h2>
+          <h3>运费：<i>￥</i><span>11</span></h3>
+          <h4>库存：<span>2</span></h4>
+          <h4>销量：22</h4>
+        </el-col>
+      </el-row>
     </el-col>
     <el-col :span="24" class="alert">
       <el-alert title="用微信扫二维码进入黑市购买" type="info" :closable="false" show-icon />
@@ -30,7 +34,7 @@
     data () {
       return {
         qrcode: {
-          value: 'https://www.baidu.com',
+          value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/9964.html',
           ec_level: 'M',
           type: 'png',
           size: 5
@@ -46,7 +50,10 @@
   .detail-info {
     padding-top: 1rem;
     .el-col {
-      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      &:last-child {
+        padding-bottom: 0;
+      }
       &.title {
         h1 {
           margin: 0;
@@ -58,7 +65,7 @@
         }
       }
       &.tags {
-        margin-bottom: 12px;
+        // margin-bottom: 12px;
         .item {
           background-color: #68be8c;
           color: #fff;
