@@ -13,19 +13,30 @@
           <div class="content">
             <div class="item">
               <el-row>
-                <el-col :span="6">
+                <el-col :span="4">
                   <div class="avatar">
                     <img src="https://www.etsy.com/images/avatars/default_avatar_75x75.png" />
                   </div>
                 </el-col>
-                <el-col :span="18">
-                  <div class="nickname">昵称</div>
+                <el-col :span="20">
+                  <div class="nickname"><nuxt-link to="/">昵称</nuxt-link><span class="time">03/21</span></div>
                   <div class="comment-content">回复内容</div>
                   <div class="sub">
+
                     <div class="item">
-                      dlasdjf
-                      <div class="time">aaa</div>
+                      <el-row>
+                        <el-col :span="4">
+                          <div class="avatar">
+                            <img src="https://www.etsy.com/images/avatars/default_avatar_75x75.png" />
+                          </div>
+                        </el-col>
+                        <el-col :span="20">
+                          <div class="nickname"><nuxt-link to="/">昵称</nuxt-link><span class="time">03/21</span></div>
+                          <div class="comment-content">回复内容</div>
+                        </el-col>
+                      </el-row>
                     </div>
+
                   </div>
                 </el-col>
               </el-row>
@@ -88,6 +99,20 @@
         & > .item {
           padding: 1rem 0;
           border-bottom: 1px solid #d1dbe5;
+          .el-col-4 {
+            text-align: center;
+          }
+          .el-col-20 {
+            & > .nickname {
+              span {
+                margin-left: 1rem;
+                opacity: .5;
+              }
+            }
+            .comment-content {
+              padding: .5rem 0;
+            }
+          }
         }
       }
     }
