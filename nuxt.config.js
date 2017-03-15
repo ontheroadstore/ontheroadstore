@@ -29,7 +29,7 @@ module.exports = {
   /*
   ** 插件
   */
-  plugins: ['~plugins/element-ui.js', '~plugins/lazyload.js', '~plugins/vuex-router-sync.js'],
+  plugins: ['~plugins/element-ui.js', '~plugins/lazyload.js', '~plugins/vuex-router-sync.js', '~plugins/infiniteScroll.js'],
   /*
   ** Build configuration
   */
