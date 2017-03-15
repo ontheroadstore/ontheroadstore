@@ -12,7 +12,14 @@
         </ul>
       </el-col>
       <el-col :span="4" class="search">
-        <i class="el-icon-search"></i>
+
+        <el-button><i class="el-icon-search"></i></el-button>
+        <el-tooltip class="item" effect="dark" placement="bottom-start">
+          <div slot="content">
+            二维码
+          </div>
+          <el-button>下载app</el-button>
+        </el-tooltip>
       </el-col>
     </el-row>
   </header>

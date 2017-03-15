@@ -1,7 +1,7 @@
 <template>
   <div class="pc">
     <MyHeader ref="header" />
-    <main :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom, 'position': 'absolute' }" ref="container">
+    <main :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom }" class="main" ref="container">
       <nuxt />
     </main>
     <MyFooter ref="footer" />
@@ -29,3 +29,9 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+  .main {
+    position: absolute;
+    width: 100%;
+  }
+</style>
