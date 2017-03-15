@@ -1,7 +1,7 @@
 <template>
   <div class="pc">
     <MyHeader ref="header" />
-    <main :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom }" ref="container">
+    <main :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom, 'position': 'absolute' }" ref="container">
       <nuxt />
     </main>
     <MyFooter ref="footer" />

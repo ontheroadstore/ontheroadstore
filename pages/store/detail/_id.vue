@@ -1,8 +1,7 @@
 <template>
   <section class="content">
-    <div class="pos-rlt">
-      <div class="page-bg" v-lazy:background-image="banner[1]"></div>
-    </div>
+    <div class="page-bg" v-lazy:background-image="banner[1]"></div>
+
     <div class="store-detail">
       <!-- 头部卖家信息 -->
       <Sellers />
@@ -58,41 +57,39 @@
 </script>
 <style lang="scss" scoped>
   .content {
-    .pos-rlt {
-      position: relative;
-      z-index: 1;
-      .page-bg {
-        z-index: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        border: none;
-        height: 80vh;
-        background-position: 50% 50%;
-        background-size: 0;
+    position: relative;
+    z-index: 10;
+    .page-bg {
+      z-index: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      border: none;
+      height: 80vh;
+      background-position: 50% 50%;
+      background-size: 0;
+      bottom: 0;
+      position: absolute;
+      background-repeat: no-repeat;
+      &:after {
+        content: '';
+        height: 50%;
+        width: 100%;
+        background-image: linear-gradient(to bottom,rgba(255,255,255,0),#f2f2f2);
+        background-repeat: repeat-x;
         bottom: 0;
         position: absolute;
+      }
+      &:before {
+        content: '';
+        background-size: cover;
+        background-image: inherit;
+        background-position: inherit;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: .1;
         background-repeat: no-repeat;
-        &:after {
-          content: '';
-          height: 50%;
-          width: 100%;
-          background-image: linear-gradient(to bottom,rgba(255,255,255,0),#f2f2f2);
-          background-repeat: repeat-x;
-          bottom: 0;
-          position: absolute;
-        }
-        &:before {
-          content: '';
-          background-size: cover;
-          background-image: inherit;
-          background-position: inherit;
-          position: absolute;
-          height: 100%;
-          width: 100%;
-          opacity: .1;
-          background-repeat: no-repeat;
-        }
       }
     }
     .store-detail {

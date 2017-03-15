@@ -1,31 +1,19 @@
 <template>
-  <div class="pc">
-    <MyHeader ref="header" />
-    <main :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom }" ref="container">
-      <nuxt-child/>
-    </main>
-    <MyFooter ref="footer" />
+  <div class="container">
+    <nuxt-child />
   </div>
+</div>
 </template>
 <script>
-  import MyHeader from '~components/Header.vue'
-  import MyFooter from '~components/Footer.vue'
-
   export default {
     data () {
-      return {
-        padding: {
-          top: 0,
-          bottom: 0
-        }
-      }
-    },
-    components: {
-      MyFooter, MyHeader
+      return {}
     },
     mounted () {
-      this.padding.top = this.$refs.header.$el.clientHeight + 'px'
-      this.padding.bottom = this.$refs.footer.$el.clientHeight + 'px'
+      if (this.$route.name === 'store') {
+        this.$router.replace({ name: 'store-pages', params: { pages: '1' } })
+      }
+      console.log(this.$route.name)
     }
   }
 </script>

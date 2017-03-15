@@ -105,9 +105,6 @@
           routename: this.routeName
         })
       }
-    },
-    mounted () {
-      console.log(this.prevPage)
     }
   }
 </script>
