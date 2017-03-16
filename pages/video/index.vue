@@ -1,20 +1,153 @@
 <template>
   <div class="container">
-    <div class="bbb">aaa</div>
-    <div class="aaa"><nuxt-child /></div>
+    <section class="content">
+      <el-row>
+        <el-col :span="24" class="title">
+          <h1>视频</h1>
+        </el-col>
+        <el-col :span="24" class="video-list">
+          <el-row>
+            <el-col :xs="{ span: '12' }" :sm="{ span: '12' }" :md="{ span: '8' }" :lg="{ span: '6' }" class="item" v-for="item in video">
+              <nuxt-link :to="{ name: 'video-detail-id', params: { id: '123' } }">
+                <div class="item-image" v-lazy:background-image.container="item.src">
+                  <span class="item-tag">混蛋出差</span>
+                </div>
+                <div class="item-title">
+                  <h3>这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题</h3>
+                  <p>
+                    <span><i class="el-icon-time"></i>2017/02/02</span>
+                    <span><i class="el-icon-view"></i>3k</span>
+                  </p>
+                </div>
+              </nuxt-link>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="24">下拉加载更多</el-col>
+      </el-row>
+    </section>
+    <nuxt-child />
   </div>
 </div>
 </template>
 <script>
   export default {
     data () {
-      return {}
+      return {
+        video: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
+        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+      }
     },
     mounted () {
-      // if (this.$route.name === 'store') {
-      //   this.$router.replace({ name: 'store-pages', params: { pages: '1' } })
-      // }
-      // console.log(this.$route.name)
+
     }
   }
 </script>
+<style lang="scss" scoped>
+  .content {
+    & > .el-row {
+      & > .el-col {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .video-list {
+        .el-row {
+          margin: 0 -12px;
+          .el-col {
+            &.item {
+              padding-left: 12px;
+              padding-right: 12px;
+              padding-bottom: 6px;
+              a {
+                display: block;
+                &:hover {
+                  .item-image {
+                    .item-tag {
+                      background-color: #6cc788;
+                      transition-property: background-color;
+                      transition-duration: 0.3s;
+                      transition-timing-function: ease;
+                    }
+                    &:after {
+                      transition-property: background-color;
+                      transition-duration: 0.3s;
+                      transition-timing-function: ease;
+                      background-color: rgba(0, 0, 0, 0.2);
+                    }
+                  }
+                  .item-title {
+                    opacity: 1;
+                  }
+                }
+                .item-image {
+                  border-radius: inherit;
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-position: 50% 50%;
+                  background-color: rgba(120,120,120,.2);
+                  border-radius: 0.2rem;
+                  position: relative;
+                  .item-tag {
+                    position: absolute;
+                    bottom: .5rem;
+                    right: .5rem;
+                    padding: .4rem;
+                    line-height: 1em;
+                    height: 1em;
+                    background-color: #767a7e;
+                    border-radius: 0.2rem;
+                    color: #fff;
+                    font-size:12px;
+                  }
+                  &:after {
+                    content: '';
+                    display: block;
+                    padding-bottom: 56.25%;
+                  }
+                }
+                .item-title {
+                  display: block;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  opacity: .9;
+                  h3 {
+                    margin: .5em 0;
+                  }
+                  p {
+                    margin: 0;
+                    margin-bottom: 1em;
+                    opacity: .6;
+                    span {
+                      margin-right: 1rem;
+                      i {
+                        margin-right: .5rem;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
