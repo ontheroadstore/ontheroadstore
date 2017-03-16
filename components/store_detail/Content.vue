@@ -79,7 +79,7 @@
   export default {
     data () {
       return {
-        activeName: 'comment',
+        activeName: 'description',
         praise_item: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
         {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
         {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
