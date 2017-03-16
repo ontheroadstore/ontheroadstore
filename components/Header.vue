@@ -1,24 +1,23 @@
 <template>
   <header class="header">
     <el-row :gutter="20" class="navber">
-      <el-col :span="4" class="logo">
+      <el-col :span="6" class="logo">
         <nuxt-link to="/" rel="首页" exact>公路商店 为了你不找边际的企图心</nuxt-link>
       </el-col>
-      <el-col :span="16" class="nav">
+      <el-col :span="12" class="nav">
         <ul>
           <li><nuxt-link to="/" exact>文章</nuxt-link></li>
           <li><nuxt-link to="/store">商品</nuxt-link></li>
           <li><nuxt-link to="/video">视频</nuxt-link></li>
         </ul>
       </el-col>
-      <el-col :span="4" class="search">
-
+      <el-col :span="6" class="search">
         <el-button><i class="el-icon-search"></i></el-button>
         <el-tooltip class="item" effect="dark" placement="bottom-start">
           <div slot="content">
             二维码
           </div>
-          <el-button>下载app</el-button>
+          <el-button>下载APP</el-button>
         </el-tooltip>
       </el-col>
     </el-row>
