@@ -12,17 +12,20 @@
         </ul>
       </el-col>
       <el-col :span="6" class="search">
-        <el-button><i class="el-icon-search"></i></el-button>
-        <el-tooltip class="item" effect="dark" placement="bottom-start">
-          <div slot="content">
-            二维码
-          </div>
-          <el-button>下载APP</el-button>
-        </el-tooltip>
+        <!-- <el-button @click="searchDialogShow = true"><i class="el-icon-search"></i></el-button> -->
+        <MySearch />
       </el-col>
     </el-row>
   </header>
 </template>
+<script>
+  import MySearch from '~components/Search.vue'
+  export default {
+    components: {
+      MySearch
+    }
+  }
+</script>
 <style lang="scss" scoped>
   .header {
     position: fixed;

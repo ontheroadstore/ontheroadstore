@@ -20,8 +20,8 @@
     </el-col>
     <el-col class="recommend" :span="24">
       <el-row>
-        <el-col :xs="{ span: '0' }" :sm="{ span: '0' }" :md="4" :lg="4" class="title">推荐视频</el-col>
-        <el-col :xs="12" :sm="12" :md="5" :lg="5" v-for="item in banner" class="item">
+        <!-- <el-col :xs="{ span: '0' }" :sm="{ span: '0' }" :md="4" :lg="4" class="title">推荐视频</el-col> -->
+        <el-col :xs="12" :sm="12" :md="6" :lg="6" v-for="item in banner" class="item">
           <nuxt-link :to="{ name: 'video-detail-id', params: { id: '123' } }">
             <div class="item-image" v-lazy:background-image.container="item.src">
               <span class="item-tag">混蛋出差</span>
@@ -36,6 +36,9 @@
           </nuxt-link>
         </el-col>
       </el-row>
+    </el-col>
+    <el-col :xs="{ span: '20' ,push : '1' ,pull : '1' }" :sm="{ span: '20' ,push : '1' ,pull : '1' }" :md="{ span: '18' ,push : '3' ,pull : '3' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
+      图片
     </el-col>
   </el-row>
 </div>
