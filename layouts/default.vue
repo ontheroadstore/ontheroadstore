@@ -20,6 +20,11 @@
         }
       }
     },
+    computed: {
+      searchDialog () {
+        return false
+      }
+    },
     components: {
       MyFooter, MyHeader
     },
