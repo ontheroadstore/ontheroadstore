@@ -5,11 +5,13 @@
       <nuxt />
     </main>
     <MyFooter ref="footer" />
+    <MySearch />
   </div>
 </template>
 <script>
   import MyHeader from '~components/Header.vue'
   import MyFooter from '~components/Footer.vue'
+  import MySearch from '~components/Search.vue'
 
   export default {
     data () {
@@ -20,13 +22,8 @@
         }
       }
     },
-    computed: {
-      searchDialog () {
-        return false
-      }
-    },
     components: {
-      MyFooter, MyHeader
+      MyFooter, MyHeader, MySearch
     },
     mounted () {
       this.padding.top = this.$refs.header.$el.clientHeight + 'px'
