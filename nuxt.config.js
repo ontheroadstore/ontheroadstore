@@ -19,7 +19,8 @@ module.exports = {
   */
   css: [
     { src: '~assets/css/main.scss', lang: 'scss' },
-    'element-ui/lib/theme-default/index.css',
+    { src: '~assets/css/theme-default/lib/index.css', lang: 'scss' },
+    // 'element-ui/lib/theme-default/index.css',
     'vue2-animate/dist/vue2-animate.min.css'
   ],
   /*
