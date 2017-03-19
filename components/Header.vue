@@ -12,17 +12,17 @@
         </ul>
       </el-col>
       <el-col :span="6" class="search">
-        <!-- <el-button @click="searchDialogShow = true"><i class="el-icon-search"></i></el-button> -->
-        <MySearch />
+        <el-button size="mini" icon="search" @click="openSearchDialog"></el-button>
       </el-col>
     </el-row>
   </header>
 </template>
 <script>
-  import MySearch from '~components/Search.vue'
   export default {
-    components: {
-      MySearch
+    methods: {
+      openSearchDialog () {
+        this.$store.dispatch('SEARCH_DIALOG_SHOW')
+      }
     }
   }
 </script>
