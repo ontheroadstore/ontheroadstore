@@ -6,7 +6,7 @@ export const SEARCH_DIALOG_HIDE = 'SEARCH_DIALOG_HIDE'
 
 export default {
   state: {
-    searchDialogDisplay: true
+    searchDialogDisplay: false
   },
   mutations: {
     SET_SEARCH_DIALOG_STATE: (state, data) => {
