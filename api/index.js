@@ -9,12 +9,9 @@ function fetchApi (type, params) {
     }
     return res.data
   })
-  .catch(error => {
-    this.$message({
-      message: error,
-      type: 'warning'
-    })
-  })
+  // .catch(error => {
+    // 处理500错误
+  // })
 }
 
 export default {
@@ -26,5 +23,14 @@ export default {
   },
   getIndexVideo: () => {
     return fetchApi('index/video')
+  },
+  getIndexArticle: () => {
+    return fetchApi('index/article')
+  },
+  getIndexStore: (page) => {
+    return fetchApi('index/store', {
+      pagesize: 20,
+      page: page
+    })
   }
 }
