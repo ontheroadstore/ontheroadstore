@@ -1,14 +1,27 @@
 import axios from 'axios'
-axios.defaults.baseURL = 'http://api.douban.com'
+axios.defaults.baseURL = 'http://v2apitest.ontheroadstore.com'
 
-// console.log(axios)
-// Vue.axios.post('/aaa', {
-//   aaa: 'fff'
-// }).then(res => {
-//   console.log('aaaaa')
-// })
+function fetchApi (type, params) {
+  return axios.get(type, params)
+  .then(res => {
+    if (typeof res.data !== 'object') {
+      return JSON.parse(res.data)
+    }
+    return res.data
+  })
+  .catch(error => {
+    this.$message({
+      message: error,
+      type: 'warning'
+    })
+  })
+}
+
 export default {
-  getIndex: () => {
-    return axios.get('/v2/movie/top250')
+  getIndexBannerCarousel: () => {
+    return fetchApi('index/banner/carousel')
+  },
+  getIndexBannerRecommend: () => {
+    return fetchApi('index/banner/recommend')
   }
 }
