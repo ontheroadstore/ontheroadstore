@@ -1,9 +1,8 @@
 <template>
-  <!-- store start /components/index/store.vue -->
-  <section class="store-items">
+  <section class="store-items" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
     <nuxt-link to="/store" class="title"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in store">
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items">
         <nuxt-link to="/" class="el-row">
           <el-col :span="12" class="item-image" v-lazy:background-image.container="item.src"></el-col>
           <el-col :span="12" class="item-title">
@@ -19,22 +18,31 @@
       <el-col :span="24" class="loading"><el-button :loading="false">加载更多</el-button></el-col>
     </el-row>
   </section>
-  <!-- store end -->
 </template>
 <script>
   export default {
-    data () {
-      return {
-        store: [{'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'},
-        {'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'}]
+    props: {
+      items: {
+        type: Array,
+        default: function () {
+          return [{'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
+          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
+          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
+          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'},
+          {'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
+          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
+          {'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
+          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'}]
+        }
+      },
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      loadMore: {
+        type: Function
       }
     }
   }

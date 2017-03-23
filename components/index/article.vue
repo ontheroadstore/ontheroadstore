@@ -1,15 +1,15 @@
 <template>
   <section class="article-items">
-    <nuxt-link to="/" class="title"><h2>文章<i class="el-icon-more"></i></h2></nuxt-link>
+    <nuxt-link to="/article" class="title"><h2>文章<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
-      <el-col :xs="12" :sm="12" :md="6" :lg="6" class="item" v-for="item in article">
-        <nuxt-link :to="item.url">
-          <div class="item-image" v-lazy:background-image.container="item.src">
-            <span class="item-time">2017/11/02</span>
+      <el-col :xs="12" :sm="12" :md="6" :lg="6" class="item" v-for="item in items">
+        <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" :title="item.title">
+          <div class="item-image" v-lazy:background-image.container="item.thumb">
+            <span class="item-time">{{ item.date }}</span>
           </div>
           <div class="item-title">
-            <h4>aaaa</h4>
-            <p>asd</p>
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.abstract }}</p>
           </div>
         </nuxt-link>
       </el-col>
@@ -18,20 +18,10 @@
 </template>
 <script>
   export default {
-    data () {
-      return {
-        article: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+    name: 'index-article',
+    props: {
+      items: {
+        type: Array
       }
     }
   }
@@ -85,7 +75,7 @@
             }
             .item-title {
               opacity: 1;
-              text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1), 0 -2px 2px rgba(0, 0, 0, 0.1);
+              text-shadow: 0 2px 2px rgba(255, 255, 255, 0.1), 0 -2px 2px rgba(255, 255, 255, 0.1);
             }
           }
           .item-image {

@@ -7,9 +7,9 @@
         <!-- 视频 -->
         <MyVideo :items="video_items" />
         <!-- 文章 -->
-        <MyArticle />
+        <MyArticle :items="article_items" />
         <!-- 商品 -->
-        <MyStore />
+        <MyStore :loadMore="loadMore" :loading="false" />
       </el-col>
       <el-col :xs="0" :sm="0" :md="8" :lg="8">
         <!-- TOP10 -->
@@ -34,7 +34,8 @@
     computed: mapState({
       banner_carousel_items: store => store.Index.banner.carousel,
       banner_recommend_items: store => store.Index.banner.recommend,
-      video_items: store => store.Index.video
+      video_items: store => store.Index.video,
+      article_items: store => store.Index.aticle
     }),
     components: {
       'MyBanner': MyIndexBanner,
@@ -42,6 +43,11 @@
       'MyVideo': MyIndexVideo,
       'MyStore': MyIndexStore,
       'MyTop10': MyIndexTop10
+    },
+    methods: {
+      loadMore () {
+        console.log('aaa')
+      }
     }
   }
 </script>
