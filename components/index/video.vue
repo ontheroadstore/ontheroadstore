@@ -1,33 +1,27 @@
 <template>
-  <!-- video start /components/index/video.vue -->
   <section class="video-items">
     <nuxt-link to="/" class="title"><h2>视频<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
-      <el-col :span="8" class="item" v-for="item in video">
-        <nuxt-link :to="item.url">
-          <div class="item-image" v-lazy:background-image.container="item.src">
-            <span class="item-time">混蛋出差</span>
+    <el-col :xs="12" :sm="12" :md="8" :lg="8" class="item" v-for="item in items">
+        <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" :title="item.title">
+          <div class="item-image" v-lazy:background-image.container="item.thumb">
+            <span class="item-time">{{ item.tag }}</span>
           </div>
           <div class="item-title">
-            <h3>老公带着小姨子跑路了</h3>
-            <p>黑市一律全部1折统统甩货全部1折</p>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.abstract }}</p>
           </div>
         </nuxt-link>
       </el-col>
     </el-row>
   </section>
-  <!-- video end -->
 </template>
 <script>
   export default {
-    data () {
-      return {
-        video: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+    name: 'index-video',
+    props: {
+      items: {
+        type: Array
       }
     }
   }

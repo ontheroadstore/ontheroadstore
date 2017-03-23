@@ -30,6 +30,7 @@
   import Top10 from '~components/store_detail/Top10'
 
   export default {
+    name: 'store_detail',
     data () {
       return {
         banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
