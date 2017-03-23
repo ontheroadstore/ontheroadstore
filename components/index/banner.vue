@@ -4,20 +4,19 @@
     <el-row>
       <el-col :span="12">
         <el-carousel height="100%" arrow="always">
-          <el-carousel-item class="item" v-for="item in banner" v-lazy:background-image.container="item.src">
-            <nuxt-link :to="item.url" class="item-title">
-              <h3>标题标题标题标题标题标题标题标题标题a</h3>
-              <p>{{ item.src }}</p>
+          <el-carousel-item class="item" v-for="item in carousel" v-lazy:background-image.container="item.thumb">
+            <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" class="item-title">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.abstract }}</p>
             </nuxt-link>
           </el-carousel-item>
         </el-carousel>
       </el-col>
-      <el-col class="item" :span="6" v-for="item in banner" v-lazy:background-image.container="item.src">
-        <nuxt-link :to="item.url" class="item-title">
-          <h3>标题标题标题标题标题标题标题标题标题</h3>
-          <p>SummerellaSummerellaSummerellaSummerellaSummerella</p>
+      <el-col class="item" :span="6" v-for="item in recommend" v-lazy:background-image.container="item.thumb">
+        <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" class="item-title">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.abstract }}</p>
         </nuxt-link>
-        <div class="item-shelter"></div>
       </el-col>
     </el-row>
   </section>
@@ -25,13 +24,17 @@
 </template>
 <script>
   export default {
-    data () {
-      return {
-        banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+    computed: {
+      carousel () {
+        return this.$store.state.Index.banneraa.carousel
+      },
+      recommend () {
+        return this.$store.state.Index.banneraa.recommend
       }
+      // recommend: state => state.Index.banner.recommend
+    },
+    beforeMount () {
+      this.$store.dispatch('nuxtServerInit')
     }
   }
 </script>
