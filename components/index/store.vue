@@ -3,7 +3,7 @@
   <section class="store-items">
     <nuxt-link to="/store" class="title"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
-      <el-col :span="12" class="item" v-for="item in store">
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in store">
         <nuxt-link to="/" class="el-row">
           <el-col :span="12" class="item-image" v-lazy:background-image.container="item.src"></el-col>
           <el-col :span="12" class="item-title">

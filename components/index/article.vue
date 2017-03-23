@@ -1,9 +1,8 @@
 <template>
-  <!-- article start /components/index/article.vue -->
   <section class="article-items">
     <nuxt-link to="/" class="title"><h2>文章<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
-      <el-col :span="6" class="item" v-for="item in article">
+      <el-col :xs="12" :sm="12" :md="6" :lg="6" class="item" v-for="item in article">
         <nuxt-link :to="item.url">
           <div class="item-image" v-lazy:background-image.container="item.src">
             <span class="item-time">2017/11/02</span>
@@ -16,7 +15,6 @@
       </el-col>
     </el-row>
   </section>
-  <!-- article end -->
 </template>
 <script>
   export default {

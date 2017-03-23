@@ -23,5 +23,8 @@ export default {
   },
   getIndexBannerRecommend: () => {
     return fetchApi('index/banner/recommend')
+  },
+  getIndexVideo: () => {
+    return fetchApi('index/video')
   }
 }
