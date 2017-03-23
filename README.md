@@ -1,6 +1,6 @@
-# ontheroadstore
+# 公路商店（主站项目）
 
-> 公路商店主站
+> 使用nuxt.js、element-ui。前后端分离。
 
 ## Build Setup
 
@@ -19,4 +19,5 @@ $ npm start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+> 注意事项：
+> API文档规范：https://github.com/f2e-journey/treasure/blob/master/api.md
