@@ -13,15 +13,20 @@ module.exports = {
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  cache: true,
+  transition: {
+    name: 'main',
+    mode: 'out-in',
+    beforeEnter (el) {
+      console.log(el)
+    }
+  },
   dev: (process.env.NODE_ENV !== 'production'),
   /*
   ** Global CSS
   */
   css: [
-    { src: '~assets/css/main.scss', lang: 'scss' },
-    { src: '~assets/css/theme-default/lib/index.css', lang: 'scss' },
-    // 'element-ui/lib/theme-default/index.css',
-    'vue2-animate/dist/vue2-animate.min.css'
+  { src: '~assets/css/main.scss', lang: 'scss' }, { src: '~assets/css/theme-default/lib/index.css', lang: 'scss' }, 'vue2-animate/dist/vue2-animate.min.css'
   ],
   /*
   ** Customize the progress-bar color

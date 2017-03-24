@@ -81,7 +81,7 @@
       &.qrcode {
         background-color: #f2f2f2;
         border: 2px solid #68be8c;
-        padding: 1rem;
+        padding: .2rem;
       }
       &.price {
         padding-left: 1rem;

@@ -6,6 +6,8 @@ export const INDEX_SET_BANNER_ITEMS = 'INDEX_SET_BANNER_ITEMS'
 export const INDEX_SET_VIDEO_ITEMS = 'INDEX_SET_VIDEO_ITEMS'
 export const INDEX_SET_ARTICLE_ITEMS = 'INDEX_SET_ARTICLE_ITEMS'
 export const INDEX_SET_STORE_ITEMS = 'INDEX_SET_STORE_ITEMS'
+export const INDEX_GET_STORE_ITEMS = 'INDEX_GET_STORE_ITEMS'
+export const INDEX_CLEAR_STORE_ITEMS = 'INDEX_CLEAR_STORE_ITEMS'
 
 export default {
   state: {
@@ -17,7 +19,11 @@ export default {
     aticle: [],
     store: {
       items: [],
-      pagination: {}
+      pagination: {
+        current: null,
+        total: null,
+        pagetotal: null
+      }
     }
   },
   mutations: {
@@ -31,12 +37,15 @@ export default {
       Vue.set(state, 'aticle', data)
     },
     INDEX_SET_STORE_ITEMS: (state, data) => {
-      Vue.set(state.store, 'items', data.list)
+      state.store.items = state.store.items.concat(data.list)
       Vue.set(state.store, 'pagination', {
-        total: null,
-        current: null,
-        pagetotal: null
+        current: parseInt(data.current),
+        total: parseInt(data.total),
+        pagetotal: parseInt(data.pagetotal)
       })
+    },
+    INDEX_CLEAR_STORE_ITEMS: (state) => {
+      state.store.items = []
     }
   },
   actions: {
@@ -59,11 +68,12 @@ export default {
       await api.getIndexArticle().then(res => {
         commit(INDEX_SET_ARTICLE_ITEMS, res.data)
       })
-      api.getIndexStore(1).then(res => {
-        console.log(res)
+      await dispatch('INDEX_GET_STORE_ITEMS', 1)
+    },
+    async INDEX_GET_STORE_ITEMS ({commit}, page) {
+      await api.getIndexStore(page).then(res => {
         commit(INDEX_SET_STORE_ITEMS, res.data)
       })
     }
   }
-
 }

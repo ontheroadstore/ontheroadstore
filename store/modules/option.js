@@ -1,4 +1,5 @@
 // import Vue from 'vue'
+export const SET_MOBILE_LAYOUT = 'SET_MOBILE_LAYOUT'
 
 export default {
   state: {
@@ -8,6 +9,9 @@ export default {
   },
   mutations: {
     OPTION_SET_ITEMS: ({ state }, data) => {
+      console.log(data)
+    },
+    SET_MOBILE_LAYOUT: ({ state }, data) => {
       console.log(data)
     }
   }

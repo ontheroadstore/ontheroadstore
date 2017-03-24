@@ -1,26 +1,29 @@
 <template>
-  <section class="content">
+  <div class="content">
     <div class="page-bg" v-lazy:background-image="banner[1]"></div>
-
-    <div class="store-detail">
+    <el-row class="store-detail">
       <!-- 头部卖家信息 -->
-      <Sellers />
-      <el-row>
-        <el-col :span="16">
-          <!-- 图片列表 -->
-          <Images />
-          <!-- 商品内容 -->
-          <MyContent />
-        </el-col>
-        <el-col :span="8">
-          <!-- 商品信息 -->
-          <Infos />
-          <!-- 其他商品 -->
-          <Top10 />
-        </el-col>
-      </el-row>
-    </div>
-  </section>
+      <el-col :xs="{ span: '0' }" :sm="{ span: '20' ,push : '2' ,pull : '2' }" :md="{ span: '20' ,push : '2' ,pull : '2' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
+        <Sellers />
+      </el-col>
+      <el-col :xs="{ span: '20' ,push : '2' ,pull : '2' }" :sm="{ span: '20' ,push : '2' ,pull : '2' }" :md="{ span: '20' ,push : '2' ,pull : '2' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
+        <el-row>
+          <el-col :sm="{ span: '15' }" :md="{ span: '15' }" :lg="{ span: '15' }">
+            <!-- 图片列表 -->
+            <Images />
+            <!-- 商品内容 -->
+            <MyContent />
+          </el-col>
+          <el-col :xs="0" :sm="{ span: '8', offset: '1' }" :md="{ span: '8', offset: '1' }" :lg="{ span: '8', offset: '1' }">
+            <!-- 商品信息 -->
+            <Infos />
+            <!-- 其他商品 -->
+            <Top10 />
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+  </div  </div>
 </template>
 <script>
   import Sellers from '~components/store_detail/Sellers'
@@ -96,12 +99,6 @@
     .store-detail {
       position: relative;
       z-index: 10;
-      & > .el-row {
-        & > .el-col {
-          padding-left: 1.5rem;
-          padding-right: 1.5rem;
-        }
-      }
     }
   }
 </style>
