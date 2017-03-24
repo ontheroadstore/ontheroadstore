@@ -2,7 +2,9 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://v2apitest.ontheroadstore.com'
 
 function fetchApi (type, params) {
-  return axios.get(type, params)
+  return axios.get(type, {
+    params: params
+  })
   .then(res => {
     if (typeof res.data !== 'object') {
       return JSON.parse(res.data)

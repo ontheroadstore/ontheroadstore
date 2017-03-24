@@ -1,21 +1,26 @@
 <template>
-  <section class="store-items" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+  <section class="store-items" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading">
     <nuxt-link to="/store" class="title"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
       <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items">
         <nuxt-link to="/" class="el-row">
-          <el-col :span="12" class="item-image" v-lazy:background-image.container="item.src"></el-col>
+          <el-col :span="12" class="item-image" v-lazy:background-image.container="item.thumb"></el-col>
           <el-col :span="12" class="item-title">
-            <h4>拥有黄金牙膏，成为贫民窟的百万富翁</h4>
-            <p>拥有黄金牙膏，成为贫民窟的百万富翁拥有黄金牙膏，成为贫民窟的百万富翁拥有黄金牙膏，成为贫民窟的百万富翁</p>
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.abstract }}</p>
             <div class="item-info">
-              <span class="view"><i class="el-icon-edit"></i> 111111</span>
-              <span class="sales"><i class="el-icon-edit"></i> 123123</span>
+              <span class="view"><i class="el-icon-view"></i> {{ item.view }}</span>
+              <span class="sales"><i class="el-icon-star-on"></i> {{ item.praise }}</span>
             </div>
           </el-col>
         </nuxt-link>
       </el-col>
-      <el-col :span="24" class="loading"><el-button :loading="false">加载更多</el-button></el-col>
+      <el-col :span="24" class="loading" v-show="loading">
+        <nuxt-link :to="{ name: 'store-pages', params: { pages: 4 } }" v-if="loading">
+          <el-button>查看更多黑市内容</el-button>
+        </nuxt-link>
+        <el-button :loading="loading" v-else>加载更多</el-button>
+      </el-col>
     </el-row>
   </section>
 </template>
@@ -23,26 +28,20 @@
   export default {
     props: {
       items: {
-        type: Array,
-        default: function () {
-          return [{'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
-          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'},
-          {'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
-          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-          {'url': '/', 'src': 'http://img8.ontheroadstore.com/upload/170303/fac75bbcdce87ade74b4a9d6c7795028.jpg@640w_1l'},
-          {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'}]
-        }
+        type: Array
       },
       loading: {
         type: Boolean,
         default: false
       },
+      More: {
+        type: Boolean
+      },
       loadMore: {
         type: Function
+      },
+      pagination: {
+        type: Object
       }
     }
   }
@@ -92,7 +91,7 @@
             }
             .item-title {
               opacity: 1;
-              text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1), 0 -2px 2px rgba(0, 0, 0, 0.1);
+              text-shadow: 0 2px 2px rgba(255, 255, 255, 0.1), 0 -2px 2px rgba(255, 255, 255, 0.1);
             }
           }
         }

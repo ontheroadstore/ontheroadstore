@@ -9,7 +9,7 @@
         <!-- 文章 -->
         <MyArticle :items="article_items" />
         <!-- 商品 -->
-        <MyStore :loadMore="loadMore" :loading="false" />
+        <MyStore :loadMore="loadMore" :loading="loading" :items="store.items" :pagination="store.pagination" />
       </el-col>
       <el-col :xs="0" :sm="0" :md="8" :lg="8">
         <!-- TOP10 -->
@@ -28,6 +28,11 @@
   import MyIndexTop10 from '~/components/index/top10'
 
   export default {
+    data () {
+      return {
+        loading: false
+      }
+    },
     fetch ({ store }) {
       return Promise.all([store.dispatch('INDEX_INIT_ITEMS')])
     },
@@ -35,7 +40,9 @@
       banner_carousel_items: store => store.Index.banner.carousel,
       banner_recommend_items: store => store.Index.banner.recommend,
       video_items: store => store.Index.video,
-      article_items: store => store.Index.aticle
+      article_items: store => store.Index.aticle,
+      store: store => store.Index.store,
+      page: store => store.Index.store.pagination.current + 1
     }),
     components: {
       'MyBanner': MyIndexBanner,
@@ -46,8 +53,17 @@
     },
     methods: {
       loadMore () {
-        console.log('aaa')
+        this.loading = true
+        this.$store.dispatch('INDEX_GET_STORE_ITEMS', this.page)
+        if (this.page === 3) {
+          this.loading = true
+        } else {
+          this.loading = false
+        }
       }
+    },
+    destroyed () {
+      this.$store.commit('INDEX_CLEAR_STORE_ITEMS')
     }
   }
 </script>
