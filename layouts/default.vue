@@ -1,5 +1,5 @@
 <template>
-  <div class="pc">
+  <div v-bind:class="isMobile ? 'mobile' : 'pc'">
     <MyHeader ref="header" />
     <main :style="{ 'padding-top': padding.top, 'padding-bottom': padding.bottom }" class="main" ref="container">
       <nuxt />
@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   import MyHeader from '~components/Header.vue'
   import MyFooter from '~components/Footer.vue'
   import MySearch from '~components/Search.vue'
@@ -22,6 +23,9 @@
         }
       }
     },
+    computed: mapState({
+      isMobile: store => store.Option.isMobile
+    }),
     components: {
       MyFooter, MyHeader, MySearch
     },
