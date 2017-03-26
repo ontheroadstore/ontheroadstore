@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="$store.getters.GET_SEARCH_DIALOG_STATE" size="full" v-on:close="closeSearchDialog" :lock-scroll="false" class="search" custom-class="search_dialog">
+  <el-dialog v-model="searchDialogDisplay" size="full" v-on:close="closeSearchDialog" :lock-scroll="false" class="search" custom-class="search_dialog">
     <el-row class="search_content">
       <el-col :span="12" :push="6" :pull="6">
         <el-input placeholder="请输入内容">
@@ -10,15 +10,16 @@
   </el-dialog>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
     methods: {
       closeSearchDialog () {
         this.$store.dispatch('SEARCH_DIALOG_HIDE')
       }
     },
-    mounted () {
-
-    }
+    computed: mapState({
+      searchDialogDisplay: store => store.Option.globalOption.searchDialogDisplay
+    })
   }
 </script>
 <style lang="scss">
