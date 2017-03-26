@@ -21,7 +21,7 @@
     <el-col class="recommend" :span="24">
       <el-row>
         <el-col :xs="0" :sm="0" :md="4" :lg="4" class="title">推荐视频</el-col>
-        <el-col :xs="12" :sm="12" :md="5" :lg="5" v-for="item in banner" class="item">
+        <el-col :xs="12" :sm="12" :md="5" :lg="5" v-for="item in banner" :key="item.src" class="item">
           <nuxt-link :to="{ name: 'video-detail-id', params: { id: '123' } }">
             <div class="item-image" v-lazy:background-image.container="item.src">
               <span class="item-tag">混蛋出差</span>

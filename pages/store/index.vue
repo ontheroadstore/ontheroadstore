@@ -16,7 +16,7 @@
             </el-dropdown>
           </div>
           <el-row>
-            <el-col :span="12" class="item" v-for="item in store">
+            <el-col :span="12" class="item" v-for="item in store" :key="item.id">
               <nuxt-link :to="{ name: 'store-detail-id', params: { id: '123' } }">
                 <div class="item-image" v-lazy:background-image.container="item.src"></div>
                 <div class="item-tag">摆摊</div>

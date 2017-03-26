@@ -2,7 +2,7 @@
   <section class="store-items" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading">
     <nuxt-link to="/store" class="title"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items">
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items" :key="item.src">
         <nuxt-link to="/" class="el-row">
           <el-col :span="12" class="item-image" v-lazy:background-image.container="item.thumb"></el-col>
           <el-col :span="12" class="item-title">

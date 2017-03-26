@@ -2,7 +2,7 @@
   <section class="video-items">
     <nuxt-link to="/" class="title"><h2>视频<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
-    <el-col :xs="12" :sm="12" :md="8" :lg="8" class="item" v-for="item in items">
+    <el-col :xs="12" :sm="12" :md="8" :lg="8" class="item" v-for="item in items" :key="item.src">
         <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" :title="item.title">
           <div class="item-image" v-lazy:background-image.container="item.thumb">
             <span class="item-time">{{ item.tag }}</span>

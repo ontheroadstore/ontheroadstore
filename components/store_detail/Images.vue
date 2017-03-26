@@ -2,7 +2,7 @@
   <el-row class="detail-images">
     <el-col :span="24">
       <el-carousel :interval="4000" type="card" height="100%">
-        <el-carousel-item class="item" v-for="item in banner" v-lazy:background-image="item"></el-carousel-item>
+        <el-carousel-item class="item" v-for="item in banner" v-lazy:background-image="item" :key="item.src"></el-carousel-item>
       </el-carousel>
     </el-col>
   </el-row>

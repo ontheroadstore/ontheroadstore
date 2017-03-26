@@ -63,7 +63,7 @@
         <el-tab-pane name="praise" class="praise">
           <div class="badge" slot="label">牛逼<sup>12</sup></div>
           <el-row class="content">
-            <el-col :span="3" class="item" v-for="item in praise_item">
+            <el-col :span="3" class="item" v-for="item in praise_item" :key="item.src">
               <nuxt-link to="/">
                 <div class="item-image" v-lazy:background-image.container="item.src"></div>
                 <div class="item-nickname">昵称昵称</div>
