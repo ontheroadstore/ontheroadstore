@@ -3,7 +3,7 @@
     <!-- banner -->
     <MyBanner :carousel_items="banner_carousel_items" :recommend_items="banner_recommend_items" />
     <el-row class="content">
-      <el-col :xs="24" :sm="24" :md="16" :lg="16">
+      <el-col :xs="24" :sm="24" :md="16" :lg="{ span: '15', push: '1' }">
         <!-- 视频 -->
         <MyVideo :items="video_items" />
         <!-- 文章 -->
@@ -11,7 +11,7 @@
         <!-- 商品 -->
         <MyStore :loadMore="loadMore" :loading="loading" :items="store.items" :pagination="store.pagination" />
       </el-col>
-      <el-col :xs="0" :sm="0" :md="8" :lg="8">
+      <el-col :xs="0" :sm="0" :md="8" :lg="{ span: '7', push: '1' }">
         <!-- TOP10 -->
         <MyTop10 />
       </el-col>

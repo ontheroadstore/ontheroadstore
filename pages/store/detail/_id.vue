@@ -23,7 +23,7 @@
         </el-row>
       </el-col>
     </el-row>
-  </div  </div>
+  </div>
 </template>
 <script>
   import Sellers from '~components/store_detail/Sellers'

@@ -7,7 +7,7 @@
         </el-col>
         <el-col :span="24" class="video-list">
           <el-row>
-            <el-col :xs="{ span: '12' }" :sm="{ span: '12' }" :md="{ span: '8' }" :lg="{ span: '6' }" class="item" v-for="item in video">
+            <el-col :xs="{ span: '12' }" :sm="{ span: '12' }" :md="{ span: '8' }" :lg="{ span: '6' }" class="item" v-for="item in video" :key="item.src">
               <nuxt-link :to="{ name: 'video-detail-id', params: { id: '123' } }">
                 <div class="item-image" v-lazy:background-image.container="item.src">
                   <span class="item-tag">混蛋出差</span>

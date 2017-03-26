@@ -12,7 +12,7 @@
     </el-col>
     <el-col :span="16">
       <el-row class="detail-user-items">
-        <el-col :span="6" class="item" v-for="item in banner">
+        <el-col :span="6" class="item" v-for="item in banner" :key="item.src">
           <nuxt-link to="/">
             <div class="item-image" v-lazy:background-image="item.src"></div>
             <div class="item-title">最猛是我飞机</div>

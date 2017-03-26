@@ -2,7 +2,7 @@
   <el-row class="banner-items">
     <el-col :xs="24" :sm="12" :md="12" class="carousel">
       <el-carousel height="100%" arrow="always">
-        <el-carousel-item class="item" v-for="item in carousel_items" v-lazy:background-image.container="item.thumb">
+        <el-carousel-item class="item" v-for="item in carousel_items" v-lazy:background-image.container="item.thumb" :key="item.id">
           <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" :title="item.title" class="item-title">
             <h3>{{ item.title }}</h3>
             <p>{{ item.abstract }}</p>
@@ -10,7 +10,7 @@
         </el-carousel-item>
       </el-carousel>
     </el-col>
-    <el-col class="item" :xs="12" :sm="6" :md="6" v-for="item in recommend_items" v-lazy:background-image.container="item.thumb">
+    <el-col class="item" :xs="12" :sm="6" :md="6" v-for="item in recommend_items" v-lazy:background-image.container="item.thumb" :key="item.id">
       <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" :title="item.title" class="item-title">
         <h3>{{ item.title }}</h3>
         <p>{{ item.abstract }}</p>
