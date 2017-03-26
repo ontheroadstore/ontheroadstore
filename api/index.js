@@ -1,5 +1,4 @@
-import axios from 'axios'
-axios.defaults.baseURL = 'http://v2apitest.ontheroadstore.com'
+import axios from '~plugins/axios'
 
 function fetchApi (type, params) {
   return axios.get(type, {
