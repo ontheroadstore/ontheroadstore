@@ -4,16 +4,30 @@ module.exports = {
   */
   head: {
     title: '公路商店',
+    titleTemplate: '%s | 公路商店',
+    // __dangerouslyDisableSanitizers: ['script'],
+    htmlAttrs: {
+      xmlns: 'http://www.w3.org/1999/xhtml',
+      lang: 'zh'
+    },
     meta: [
     { charset: 'utf-8' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { 'http-equiv': 'cleartype', content: 'on' },
+    { name: 'author', content: 'fucked@psychokiller.me' },
+    { name: 'MobileOptimized', content: '320' },
+    { name: 'HandheldFriendly', content: 'True' },
+    { name: 'apple-mobile-web-app-capable', content: 'yes' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no' },
     { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  cache: true,
+  cache: {
+    max: 20,
+    maxAge: 600000
+  },
   transition: {
     name: 'main',
     mode: 'out-in',
@@ -35,7 +49,14 @@ module.exports = {
   /*
   ** 插件
   */
-  plugins: ['~plugins/element-ui.js', '~plugins/lazyload.js', '~plugins/vuex-router-sync.js', '~plugins/infiniteScroll.js'],
+  plugins: [
+    '~plugins/element-ui.js',
+    '~plugins/lazyload.js',
+    '~plugins/vuex-router-sync.js',
+    '~plugins/infiniteScroll.js',
+    '~plugins/ga.js',
+    '~plugins/baidu-seo-push.js'
+  ],
   /*
   ** Build configuration
   */
@@ -43,7 +64,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ['axios'],
+    vendor: ['axios', 'element-ui', 'vue-lazyload', 'vue-infinite-scroll'],
     extend (config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
