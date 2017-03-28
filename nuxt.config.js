@@ -32,7 +32,7 @@ module.exports = {
     name: 'main',
     mode: 'out-in',
     beforeEnter (el) {
-      console.log(el)
+      // console.log(el)
     }
   },
   dev: (process.env.NODE_ENV !== 'production'),
@@ -40,7 +40,10 @@ module.exports = {
   ** Global CSS
   */
   css: [
-  { src: '~assets/css/main.scss', lang: 'scss' }, { src: '~assets/css/theme-default/lib/index.css', lang: 'scss' }, 'vue2-animate/dist/vue2-animate.min.css'
+    { src: '~assets/css/main.scss', lang: 'scss' },
+    { src: '~assets/css/theme-default/lib/index.css', lang: 'scss' },
+    'vue2-animate/dist/vue2-animate.min.css',
+    'smooth-scrollbar/dist/smooth-scrollbar.css'
   ],
   /*
   ** Customize the progress-bar color
@@ -52,6 +55,7 @@ module.exports = {
   plugins: [
     '~plugins/element-ui.js',
     '~plugins/lazyload.js',
+    '~plugins/smooth-scroll.js',
     '~plugins/vuex-router-sync.js',
     '~plugins/infiniteScroll.js',
     '~plugins/ga.js',
@@ -64,7 +68,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ['axios', 'element-ui', 'vue-lazyload', 'vue-infinite-scroll'],
+    vendor: ['axios', 'element-ui', 'vue-lazyload', 'smooth-scrollbar', 'vue-infinite-scroll'],
     extend (config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({

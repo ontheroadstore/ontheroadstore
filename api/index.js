@@ -33,5 +33,11 @@ export default {
       pagesize: 20,
       page: page
     })
+  },
+  getStoreList: (page) => {
+    return fetchApi('store/list', {
+      pagesize: 20,
+      page: page
+    })
   }
 }

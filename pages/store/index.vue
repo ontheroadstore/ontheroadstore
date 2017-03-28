@@ -2,7 +2,7 @@
   <section class="content">
     <el-row>
       <el-col :span="16">
-        <section class="store-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+        <section class="store-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading">
           <div class="title">
             <el-dropdown class="dropdown">
               <span class="el-dropdown-link">
@@ -16,24 +16,23 @@
             </el-dropdown>
           </div>
           <el-row>
-            <el-col :span="12" class="item" v-for="item in store" :key="item.id">
-              <nuxt-link :to="{ name: 'store-detail-id', params: { id: '123' } }">
-                <div class="item-image" v-lazy:background-image.container="item.src"></div>
-                <div class="item-tag">摆摊</div>
+            <el-col :span="12" class="item" v-for="item in items" :key="item.id">
+              <nuxt-link :to="{ name: 'store-detail-id', params: { id: item.id } }">
+                <div class="item-image" v-lazy:background-image.container="item.thumb"></div>
+                <div class="item-tag">{{ item.tag }}</div>
                 <div class="item-title">
-                  <h3>标题标题标题标题标题标题标题标题标题a</h3>
+                  <h3>{{ item.title }}</h3>
                 </div>
                 <div class="item-info">
-                  <span class="item-view"><i class="el-icon-star-off"></i>123</span>
-                  <span class="item-comment"><i class="el-icon-star-off"></i>654</span>
-                  <span class="item-like"><i class="el-icon-star-off"></i>77</span>
+                  <span class="item-view"><i class="el-icon-star-off"></i>{{ item.view }}</span>
+                  <span class="item-comment"><i class="el-icon-star-off"></i>{{ item.comments }}</span>
+                  <span class="item-like"><i class="el-icon-star-off"></i>{{ item.praise }}</span>
                 </div>
-                <div class="item-time">2017/3/7</div>
+                <div class="item-time">{{ item.date }}</div>
               </nuxt-link>
             </el-col>
             <el-col :span="24">
-              <!-- 下拉加载3篇跳转翻页 -->
-              下拉加载更多
+              <MyPagination :loading="loading" />
             </el-col>
           </el-row>
         </section>
@@ -51,42 +50,38 @@
   </section>
 </template>
 <script>
+  import { mapState } from 'vuex'
   import MyIndexTop10 from '~/components/index/top10'
+  import MyPagination from '~/components/Pagination_infinite'
 
   export default {
     data () {
       return {
-        pagination: {
-          current: 21,
-          total: 22,
-          size: 20
-        },
-        loading: false,
-        store: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'}]
+        loading: false
       }
     },
+    fetch ({ store }) {
+      return Promise.all([store.dispatch('STORE_LIST_INIT')])
+    },
+    computed: mapState({
+      items: store => store.Store.index.items,
+      pagination: store => store.Store.index.pagination,
+      page: store => store.Store.index.pagination.current + 1
+    }),
     components: {
-      'MyTop10': MyIndexTop10
+      'MyTop10': MyIndexTop10,
+      'MyPagination': MyPagination
     },
     methods: {
       loadMore () {
-        console.log('下拉加载')
+        this.loading = true
+        this.$store.dispatch('STORE_LIST_GET_IMTES', this.page)
+        if (this.page === 3) {
+          this.loading = true
+        } else {
+          this.loading = false
+        }
       }
-    },
-    mounted () {
-      // if (this.$route.name === 'store') {
-      //   this.$router.replace({ name: 'store-pages', params: { pages: '1' } })
-      // }
-      // console.log(this.$route.name)
     }
   }
 </script>
@@ -195,4 +190,3 @@
     }
   }
 </style>
-
