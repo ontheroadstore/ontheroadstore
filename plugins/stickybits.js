@@ -1,3 +1,5 @@
 import Vue from 'vue'
 import Stickybits from 'stickybits'
-Vue.use(Stickybits)
+if (process.BROWSER_BUILD) {
+  Vue.use(Stickybits)
+}

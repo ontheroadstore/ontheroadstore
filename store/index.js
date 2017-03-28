@@ -5,6 +5,7 @@ Vue.use(Vuex)
 import Index from './modules/index.js'
 // import Search from './modules/search.js'
 import Option from './modules/option.js'
+import Store from './modules/store.js'
 
 export default new Vuex.Store({
   actions: {
@@ -17,7 +18,8 @@ export default new Vuex.Store({
   },
   modules: {
     Index,
-    Option
+    Option,
+    Store
   },
   strict: process.env.NODE_ENV !== 'production'
 })

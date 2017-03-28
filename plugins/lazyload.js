@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueLazyload from 'vue-lazyload'
-Vue.use(VueLazyload, {
-  attempt: 0
-})
+if (process.BROWSER_BUILD) {
+  Vue.use(VueLazyload, {
+    attempt: 0
+  })
+}
