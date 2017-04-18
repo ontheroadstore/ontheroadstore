@@ -4,7 +4,7 @@ module.exports = {
   */
   head: {
     title: '公路商店',
-    titleTemplate: '%s | 公路商店',
+    titleTemplate: '%s - 公路商店',
     // __dangerouslyDisableSanitizers: ['script'],
     htmlAttrs: {
       xmlns: 'http://www.w3.org/1999/xhtml',
@@ -28,38 +28,34 @@ module.exports = {
     max: 20,
     maxAge: 600000
   },
-  transition: {
-    name: 'main',
-    mode: 'out-in',
-    beforeEnter (el) {
-      // console.log(el)
-    }
+  performance: {
+    gzip: true
   },
   dev: (process.env.NODE_ENV !== 'production'),
   /*
   ** Global CSS
   */
   css: [
-    { src: '~assets/css/main.scss', lang: 'scss' },
-    { src: '~assets/css/theme-default/lib/index.css', lang: 'scss' },
-    'vue2-animate/dist/vue2-animate.min.css',
-    'smooth-scrollbar/dist/smooth-scrollbar.css'
+  { src: '~assets/css/main.scss', lang: 'scss' },
+  { src: '~assets/css/theme-default/lib/index.css' },
+  { src: 'animate.css/animate.min.css' },
+  { src: 'smooth-scrollbar/dist/smooth-scrollbar.css' }
   ],
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#13ce66' },
   /*
   ** 插件
   */
   plugins: [
-    '~plugins/element-ui.js',
-    '~plugins/lazyload.js',
-    '~plugins/smooth-scroll.js',
-    '~plugins/vuex-router-sync.js',
-    '~plugins/infiniteScroll.js',
-    '~plugins/ga.js',
-    '~plugins/baidu-seo-push.js'
+  { src: '~plugins/element-ui.js', ssr: true },
+  { src: '~plugins/lazyload.js', ssr: false },
+  { src: '~plugins/smooth-scroll.js', ssr: false },
+  { src: '~plugins/sticky.js', ssr: false },
+  { src: '~plugins/vuex-router-sync.js', ssr: true },
+  { src: '~plugins/ga.js', ssr: true },
+  { src: '~plugins/baidu-seo-push.js', ssr: true }
   ],
   /*
   ** Build configuration
@@ -68,7 +64,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ['axios', 'element-ui', 'vue-lazyload', 'smooth-scrollbar', 'vue-infinite-scroll'],
+    vendor: ['axios', 'underscore', 'element-ui', 'vue-lazyload', 'smooth-scrollbar'],
     extend (config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
