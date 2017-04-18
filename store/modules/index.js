@@ -8,6 +8,7 @@ export const INDEX_SET_ARTICLE_ITEMS = 'INDEX_SET_ARTICLE_ITEMS'
 export const INDEX_SET_STORE_ITEMS = 'INDEX_SET_STORE_ITEMS'
 export const INDEX_GET_STORE_ITEMS = 'INDEX_GET_STORE_ITEMS'
 export const INDEX_CLEAR_STORE_ITEMS = 'INDEX_CLEAR_STORE_ITEMS'
+export const INDEX_INIT_STORE_ITEMS = 'INDEX_INIT_STORE_ITEMS'
 
 export default {
   state: {
@@ -44,6 +45,14 @@ export default {
         pagetotal: parseInt(data.pagetotal)
       })
     },
+    INDEX_INIT_STORE_ITEMS: (state, data) => {
+      Vue.set(state.store, 'items', data.list)
+      Vue.set(state.store, 'pagination', {
+        current: parseInt(data.current),
+        total: parseInt(data.total),
+        pagetotal: parseInt(data.pagetotal)
+      })
+    },
     INDEX_CLEAR_STORE_ITEMS: (state) => {
       state.store.items = []
     }
@@ -68,9 +77,11 @@ export default {
       await api.getIndexArticle().then(res => {
         commit(INDEX_SET_ARTICLE_ITEMS, res.data)
       })
-      await dispatch('INDEX_GET_STORE_ITEMS', 1)
+      await api.getIndexStore(1).then(res => {
+        commit(INDEX_INIT_STORE_ITEMS, res.data)
+      })
     },
-    async INDEX_GET_STORE_ITEMS ({commit}, page) {
+    async INDEX_GET_STORE_ITEMS ({commit, dispatch}, page) {
       await api.getIndexStore(page).then(res => {
         commit(INDEX_SET_STORE_ITEMS, res.data)
       })
