@@ -20,13 +20,8 @@
           </el-col>
         </el-row>
       </el-col>
-    </el-row>
-    <MyPagination :infinite="infinite" v-if="!isMore" />
-    <el-row v-else>
-      <el-col :span="24" class="ismore">
-        <nuxt-link :to="{ name: 'article-pages', params: { pages: '4' } }">
-          <el-button>查看更多内容</el-button>
-        </nuxt-link>
+      <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '22', push: '1', pull: '1' }" :lg="{ span: '22', push: '1', pull: '1' }">
+        <MyPagination :pagination="pagination" />
       </el-col>
     </el-row>
   </div>
@@ -34,40 +29,27 @@
 </template>
 <script>
   import { mapState } from 'vuex'
-  import MyPagination from '~/components/Pagination_infinite'
+  import MyPagination from '~/components/Pagination'
 
   export default {
-    fetch ({ store }) {
-      return Promise.all([store.dispatch('ARTICLE_INDEX_INIT')])
+    validate ({ params }) {
+      return (!!params.pages && !Object.is(Number(params.pages), NaN))
+    },
+    fetch ({ store, params }) {
+      return Promise.all([store.dispatch('ARTICLE_PAGES_GET_ITEMS', params.pages)])
     },
     computed: mapState({
-      items: store => store.Article.index.items,
-      next_page: store => store.Article.index.pagination.current + 1,
-      isMore: store => {
-        if (store.Article.index.pagination.current === 3) {
-          return true
-        }
-        return false
-      }
+      items: store => store.Article.pages.items,
+      pagination: store => store.Article.pages.pagination
     }),
     components: {
       'MyPagination': MyPagination
-    },
-    methods: {
-      infinite () {
-        this.$store.dispatch('ARTICLE_INDEX_GET_ITEMS', this.next_page)
-      }
     }
   }
 </script>
 <style lang="scss" scoped>
   .container {
     & > .el-row {
-
-      .ismore {
-        padding: 1rem;
-        text-align: center;
-      }
       .article-list {
         .el-row {
           margin: 0 -.5rem;

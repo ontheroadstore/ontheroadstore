@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <!-- banner -->
-    <MyBanner :carousel_items="banner_carousel_items" :recommend_items="banner_recommend_items" />
-    <el-row class="content">
-      <el-col :xs="24" :sm="24" :md="16" :lg="{ span: '15', push: '1' }">
+    <MyBanner :carousel_items="banner_carousel_items" :recommend_items="banner_recommend_items" ref="banner" />
+    <el-row>
+      <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '15' }" :lg="{ span: '15' }">
         <!-- 视频 -->
         <MyVideo :items="video_items" />
         <!-- 文章 -->
         <MyArticle :items="article_items" />
         <!-- 商品 -->
-        <MyStore :loadMore="loadMore" :loading="loading" :items="store.items" :pagination="store.pagination" />
+        <MyStore :items="store.items" :isMore="isMore" :infinite="infinite" :testa="next_page" />
       </el-col>
-      <el-col :xs="0" :sm="0" :md="8" :lg="{ span: '7', push: '1' }">
+      <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- TOP10 -->
         <MyTop10 />
       </el-col>
@@ -21,18 +21,13 @@
 <script>
   import { mapState } from 'vuex'
 
-  import MyIndexBanner from '~/components/index/banner'
-  import MyIndexArticle from '~/components/index/article'
-  import MyIndexVideo from '~/components/index/video'
-  import MyIndexStore from '~/components/index/store'
-  import MyIndexTop10 from '~/components/index/top10'
+  import MyIndexBanner from '~/components/index/Banner'
+  import MyIndexArticle from '~/components/index/Article'
+  import MyIndexVideo from '~/components/index/Video'
+  import MyIndexStore from '~/components/index/Store'
+  import MyIndexTop10 from '~/components/index/Top10'
 
   export default {
-    data () {
-      return {
-        loading: false
-      }
-    },
     fetch ({ store }) {
       return Promise.all([store.dispatch('INDEX_INIT_ITEMS')])
     },
@@ -42,7 +37,13 @@
       video_items: store => store.Index.video,
       article_items: store => store.Index.aticle,
       store: store => store.Index.store,
-      page: store => store.Index.store.pagination.current + 1
+      next_page: store => store.Index.store.pagination.current + 1,
+      isMore: store => {
+        if (store.Index.store.pagination.current === 3) {
+          return true
+        }
+        return false
+      }
     }),
     components: {
       'MyBanner': MyIndexBanner,
@@ -52,29 +53,9 @@
       'MyTop10': MyIndexTop10
     },
     methods: {
-      loadMore () {
-        this.loading = true
-        this.$store.dispatch('INDEX_GET_STORE_ITEMS', this.page)
-        if (this.page === 3) {
-          this.loading = true
-        } else {
-          this.loading = false
-        }
+      infinite () {
+        this.$store.dispatch('INDEX_GET_STORE_ITEMS', this.next_page)
       }
-    },
-    destroyed () {
-      this.$store.commit('INDEX_CLEAR_STORE_ITEMS')
     }
   }
 </script>
-<style lang="scss" scoped>
-  .content {
-    & > .el-col {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-      &.el-col-md-16, .el-col-lg-16 {
-        border-right: 1px solid rgba(120,130,140,.13);
-      }
-    }
-  }
-</style>
