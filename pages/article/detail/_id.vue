@@ -1,63 +1,74 @@
 <template>
   <div class="container">
-    <div class="page-bg" v-lazy:background-image="banner[1]"></div>
+    <div class="page-bg" v-lazy:background-image="item.cover"></div>
     <el-row class="article-detail">
-      <el-col class="title" :xs="{ span: '20' ,push : '1' ,pull : '1' }" :sm="{ span: '20' ,push : '1' ,pull : '1' }" :md="{ span: '18' ,push : '3' ,pull : '3' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
-        <h1>标题标题标题标题标题</h1>
-        <div class="time">
-          <span><i class="el-icon-time"></i>2017/02/02</span>
-          <span><i class="el-icon-view"></i>10k</span>
+      <el-col :xs="0" :sm="0" :md="{ span: '24', push: '21' }" :lg="{ span: '24', push: '21' }" v-sticky style="    position: absolute">
+        <div class="qrcode">
+          <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
+          <div class="qrcode-info">
+            分享、转发<br>请微信扫一扫
+          </div>
         </div>
       </el-col>
-      <el-col class="content" :xs="{ span: '20' ,push : '1' ,pull : '1' }" :sm="{ span: '20' ,push : '1' ,pull : '1' }" :md="{ span: '18' ,push : '3' ,pull : '3' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
-        <article>
-          简单的介绍一下吧
-        </article>
+      <el-col :xs="{ span: '22' ,push : '1' ,pull : '1' }" :sm="{ span: '22' ,push : '1' ,pull : '1' }" :md="{ span: '16' ,push : '4' ,pull : '4' }" :lg="{ span: '16' ,push : '4' ,pull : '4' }">
+        <MyContent :item="item" />
       </el-col>
-      <el-col class="recommend" :span="24">
-        <el-row>
-          <el-col :xs="0" :sm="0" :md="4" :lg="4" class="title">推荐视频</el-col>
-          <el-col :xs="12" :sm="12" :md="5" :lg="5" v-for="item in banner" :key="item.src" class="item">
-            <nuxt-link :to="{ name: 'video-detail-id', params: { id: '123' } }">
-              <div class="item-image" v-lazy:background-image.container="item.src">
-                <span class="item-tag">混蛋出差</span>
-              </div>
-              <div class="item-title">
-                <h3>这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题</h3>
-                <p>
-                  <span><i class="el-icon-time"></i>2017/02/02</span>
-                  <span><i class="el-icon-view"></i>3k</span>
-                </p>
-              </div>
-            </nuxt-link>
-          </el-col>
-        </el-row>
+      <el-col :span="24">
+        <MyRecommend :items="recommendItem" />
       </el-col>
-      <el-col :xs="{ span: '20' ,push : '1' ,pull : '1' }" :sm="{ span: '20' ,push : '1' ,pull : '1' }" :md="{ span: '18' ,push : '3' ,pull : '3' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
-        图片
+      <el-col :xs="{ span: '22' ,push : '1' ,pull : '1' }" :sm="{ span: '22' ,push : '1' ,pull : '1' }" :md="{ span: '16' ,push : '4' ,pull : '4' }" :lg="{ span: '16' ,push : '4' ,pull : '4' }">
+        <MyLoadMore :items="moreItem" :infinite="infinite" />
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   import qrCode from '~components/Qrcode'
+  import MyContent from '~components/article_detail/Content'
+  import MyRecommend from '~components/article_detail/Recommend'
+  import MyLoadMore from '~components/loadMore'
+
   export default {
-    data () {
+    validate ({ params }) {
+      return (!!params.id && !Object.is(Number(params.id), NaN))
+    },
+    fetch ({ store, params }) {
+      return Promise.all([store.dispatch('ARTICLE_DETAIL_INIT', params.id)])
+    },
+    head () {
       return {
-        qrcode: {
-          value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/9964.html',
+        title: this.item.title,
+        meta: [
+        { hid: 'description', name: 'description', content: this.item.abstract }
+        ]
+      }
+    },
+    computed: mapState({
+      item: store => store.Article.detail.item,
+      moreItem: store => store.Article.detail.more.items,
+      morePagination: store => store.Article.detail.more.pagination,
+      moreNextPage: store => store.Article.detail.more.pagination.current + 1,
+      qrcode: store => {
+        return {
+          value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/3.html',
           ec_level: 'M',
           type: 'png',
           size: 5
-        },
-        banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
-      }
-    },
+        }
+      },
+      recommendItem: store => store.Article.detail.recommend
+    }),
     components: {
-      'qrCode': qrCode
+      'qrCode': qrCode,
+      'MyContent': MyContent,
+      'MyRecommend': MyRecommend,
+      'MyLoadMore': MyLoadMore
+    },
+    methods: {
+      infinite () {
+        this.$store.dispatch('ARTICLE_DETAIL_GET_ITEMS', this.moreNextPage)
+      }
     }
   }
 </script>
@@ -99,115 +110,28 @@
     .article-detail {
       position: relative;
       z-index: 10;
-      & > .el-col {
-        margin-top: 1.5rem;
-        // padding-top: 1.5rem;
-      }
-      .video {
-        video {
-          width: 100%
+      .qrcode {
+        margin-top: 1rem;
+        right: 1rem;
+        text-align: center;
+        width: 102px;
+        padding: 1rem;
+        background-color: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.02);
+        z-index: 1020;
+        opacity: .8;
+        .qrcode-item {
+          width: 102px;
+          height: 102px;
         }
-      }
-      .title {
-
-        h1 {
-          margin: 0;
-        }
-        .time {
+        .qrcode-info {
           margin-top: 1rem;
-          span {
-            margin-right: 1rem;
-            opacity: .6;
-            i {
-              margin-right: .5rem;
-            }
-          }
+          color: #717375;
         }
       }
-      .recommend {
-        background-color: #1c202b;
-        padding: 1.5rem 2rem;
-        .el-row {
-          margin: 0 -12px;
-          .el-col {
-            color: #fff;
-            &.item {
-              padding-left: 12px;
-              padding-right: 12px;
-              // padding-bottom: 6px;
-              a {
-                display: block;
-                &:hover {
-                  .item-image {
-                    .item-tag {
-                      background-color: #6cc788;
-                      transition-property: background-color;
-                      transition-duration: 0.3s;
-                      transition-timing-function: ease;
-                    }
-                    &:after {
-                      transition-property: background-color;
-                      transition-duration: 0.3s;
-                      transition-timing-function: ease;
-                      background-color: rgba(0, 0, 0, 0.2);
-                    }
-                  }
-                  .item-title {
-                    opacity: 1;
-                  }
-                }
-                .item-image {
-                  border-radius: inherit;
-                  background-size: cover;
-                  background-repeat: no-repeat;
-                  background-position: 50% 50%;
-                  background-color: rgba(120,120,120,.2);
-                  border-radius: 0.2rem;
-                  position: relative;
-                  .item-tag {
-                    position: absolute;
-                    bottom: .5rem;
-                    right: .5rem;
-                    padding: .4rem;
-                    line-height: 1em;
-                    height: 1em;
-                    background-color: #767a7e;
-                    border-radius: 0.2rem;
-                    color: #fff;
-                    font-size:12px;
-                  }
-                  &:after {
-                    content: '';
-                    display: block;
-                    padding-bottom: 56.25%;
-                  }
-                }
-                .item-title {
-                  display: block;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  opacity: .9;
-                  h3 {
-                    margin: .5em 0;
-                  }
-                  p {
-                    margin: 0;
-                    // margin-bottom: 1em;
-                    opacity: .6;
-                    span {
-                      margin-right: 1rem;
-                      i {
-                        margin-right: .5rem;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+    }
+    .recommend {
+      background-color: #1c202b;
     }
   }
 </style>

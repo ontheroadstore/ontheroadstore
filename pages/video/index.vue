@@ -1,36 +1,42 @@
 <template>
   <div class="container">
-    <section class="content">
-      <el-row>
-        <el-col :span="24" class="title">
-          <h1>视频</h1>
-        </el-col>
-        <el-col :span="24" class="video-list">
-          <el-row>
-            <el-col :xs="{ span: '12' }" :sm="{ span: '12' }" :md="{ span: '8' }" :lg="{ span: '6' }" class="item" v-for="item in video" :key="item.src">
-              <nuxt-link :to="{ name: 'video-detail-id', params: { id: '123' } }">
-                <div class="item-image" v-lazy:background-image.container="item.src">
-                  <span class="item-tag">混蛋出差</span>
-                </div>
-                <div class="item-title">
-                  <h3>这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题</h3>
-                  <p>
-                    <span><i class="el-icon-time"></i>2017/02/02</span>
-                    <span><i class="el-icon-view"></i>3k</span>
-                  </p>
-                </div>
-              </nuxt-link>
-            </el-col>
-          </el-row>
-        </el-col>
-        <el-col :span="24">下拉加载更多</el-col>
-      </el-row>
-    </section>
-    <nuxt-child />
+    <el-row>
+      <el-col :span="24" class="title">
+        <h1>视频</h1>
+      </el-col>
+      <el-col :span="24" class="video-list">
+        <el-row>
+          <el-col :xs="{ span: '12' }" :sm="{ span: '12' }" :md="{ span: '8' }" :lg="{ span: '6' }" class="item" v-for="item in video" :key="item.src">
+            <nuxt-link :to="{ name: 'video-detail-id', params: { id: '123' } }">
+              <div class="item-image" v-lazy:background-image.container="item.src">
+                <span class="item-tag">混蛋出差</span>
+              </div>
+              <div class="item-title">
+                <h3>这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题这是一个标题</h3>
+                <p>
+                  <span><i class="el-icon-time"></i>2017/02/02</span>
+                  <span><i class="el-icon-view"></i>3k</span>
+                </p>
+              </div>
+            </nuxt-link>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+    <!-- <MyPagination :infinite="infinite" v-if="!isMore" /> -->
+<!--     <el-row v-else>
+      <el-col :span="24" class="ismore">
+        <nuxt-link :to="{ name: 'article-pages', params: { pages: '4' } }">
+          <el-button>查看更多内容</el-button>
+        </nuxt-link>
+      </el-col>
+    </el-row> -->
   </div>
-</div>
 </template>
 <script>
+  // import { mapState } from 'vuex'
+  import MyPagination from '~/components/Pagination_infinite'
+
   export default {
     data () {
       return {
@@ -54,13 +60,16 @@
         {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
       }
     },
+    components: {
+      'MyPagination': MyPagination
+    },
     mounted () {
 
     }
   }
 </script>
 <style lang="scss" scoped>
-  .content {
+  .container {
     & > .el-row {
       & > .el-col {
         padding-left: 1.5rem;

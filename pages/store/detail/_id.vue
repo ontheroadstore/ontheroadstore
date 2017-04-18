@@ -1,22 +1,22 @@
 <template>
-  <div class="content">
-    <div class="page-bg" v-lazy:background-image="banner[1]"></div>
+  <div class="container">
+    <div class="page-bg" v-lazy:background-image="detail.cover"></div>
     <el-row class="store-detail">
       <!-- 头部卖家信息 -->
-      <el-col :xs="{ span: '0' }" :sm="{ span: '20' ,push : '2' ,pull : '2' }" :md="{ span: '20' ,push : '2' ,pull : '2' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
-        <Sellers />
+      <el-col :xs="{ span: '0' }" :sm="{ span: '20' ,push : '2' ,pull : '2' }" :md="{ span: '18' ,push : '3' ,pull : '3' }" :lg="{ span: '18' ,push : '3' ,pull : '3' }">
+        <Sellers :author="sellersAuthor" :items="sellersItems" />
       </el-col>
-      <el-col :xs="{ span: '20' ,push : '2' ,pull : '2' }" :sm="{ span: '20' ,push : '2' ,pull : '2' }" :md="{ span: '20' ,push : '2' ,pull : '2' }" :lg="{ span: '20' ,push : '2' ,pull : '2' }">
+      <el-col :xs="{ span: '22' ,push : '1' ,pull : '1' }" :sm="{ span: '20' ,push : '2' ,pull : '2' }" :md="{ span: '18' ,push : '3' ,pull : '3' }" :lg="{ span: '18' ,push : '3' ,pull : '3' }">
         <el-row>
           <el-col :sm="{ span: '15' }" :md="{ span: '15' }" :lg="{ span: '15' }">
             <!-- 图片列表 -->
-            <Images />
+            <Images :items="imagesItems" />
             <!-- 商品内容 -->
-            <MyContent />
+            <MyContent :item="detail" />
           </el-col>
           <el-col :xs="0" :sm="{ span: '8', offset: '1' }" :md="{ span: '8', offset: '1' }" :lg="{ span: '8', offset: '1' }">
             <!-- 商品信息 -->
-            <Infos />
+            <Infos :item="infos" :qrcode="qrcode" />
             <!-- 其他商品 -->
             <Top10 />
           </el-col>
@@ -26,14 +26,20 @@
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   import Sellers from '~components/store_detail/Sellers'
   import Images from '~components/store_detail/Images'
   import Content from '~components/store_detail/Content'
   import Infos from '~components/store_detail/Infos'
-  import Top10 from '~components/store_detail/Top10'
+  import MyTop10 from '~components/store_detail/Top10'
 
   export default {
-    name: 'store_detail',
+    validate ({ params }) {
+      return (!!params.id && !Object.is(Number(params.id), NaN))
+    },
+    fetch ({ store, params }) {
+      return Promise.all([store.dispatch('STORE_DETAIL_INIT', params.id)])
+    },
     data () {
       return {
         banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
@@ -42,25 +48,32 @@
         {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
       }
     },
+    computed: mapState({
+      detail: store => store.Store.detail,
+      sellersAuthor: store => store.Store.detail.sellers.author,
+      sellersItems: store => store.Store.detail.sellers.items,
+      infos: store => store.Store.detail.infos,
+      imagesItems: store => store.Store.detail.images,
+      qrcode: store => {
+        return {
+          value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/9964.html',
+          ec_level: 'M',
+          type: 'png',
+          size: 5
+        }
+      }
+    }),
     components: {
       'Sellers': Sellers,
       'Images': Images,
       'MyContent': Content,
       'Infos': Infos,
-      'Top10': Top10
-    },
-    validate ({ params }) {
-      return /^\d+$/.test(params.id)
-    },
-    mounted () {
-    },
-    head: {
-      titleTemplate: '测试标题'
+      'Top10': MyTop10
     }
   }
 </script>
 <style lang="scss" scoped>
-  .content {
+  .container {
     position: relative;
     z-index: 10;
     .page-bg {

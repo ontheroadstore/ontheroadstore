@@ -1,8 +1,8 @@
 <template>
-  <section class="content">
+  <div class="container">
     <el-row>
       <el-col :span="16">
-        <section class="store-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading">
+        <div class="store-list">
           <div class="title">
             <el-dropdown class="dropdown">
               <span class="el-dropdown-link">
@@ -31,63 +31,66 @@
                 <div class="item-time">{{ item.date }}</div>
               </nuxt-link>
             </el-col>
-            <el-col :span="24">
-              <MyPagination :loading="loading" />
+          </el-row>
+          <MyPagination :infinite="infinite" v-if="!isMore" />
+          <el-row v-else>
+            <el-col :span="24" class="ismore">
+              <nuxt-link :to="{ name: 'store-pages', params: { pages: '4' } }">
+                <el-button>查看更多内容</el-button>
+              </nuxt-link>
             </el-col>
           </el-row>
-        </section>
+        </div>
       </el-col>
       <el-col :span="8">
         <!-- AD -->
-        <section>
+        <div>
           <h3>分享到微信可购买，或者搜索微信公众号：nbheishi</h3>
           <p>二维码</p>
-        </section>
+        </div>
         <!-- TOP10 -->
         <MyTop10 />
       </el-col>
     </el-row>
-  </section>
+  </div>
 </template>
 <script>
   import { mapState } from 'vuex'
-  import MyIndexTop10 from '~/components/index/top10'
+  import MyIndexTop10 from '~/components/index/Top10'
   import MyPagination from '~/components/Pagination_infinite'
 
   export default {
-    data () {
-      return {
-        loading: false
-      }
-    },
     fetch ({ store }) {
-      return Promise.all([store.dispatch('STORE_LIST_INIT')])
+      return Promise.all([store.dispatch('STORE_INDEX_INIT')])
     },
     computed: mapState({
       items: store => store.Store.index.items,
-      pagination: store => store.Store.index.pagination,
-      page: store => store.Store.index.pagination.current + 1
+      next_page: store => store.Store.index.pagination.current + 1,
+      isMore: store => {
+        if (store.Store.index.pagination.current === 3) {
+          return true
+        }
+        return false
+      }
     }),
     components: {
       'MyTop10': MyIndexTop10,
       'MyPagination': MyPagination
     },
     methods: {
-      loadMore () {
-        this.loading = true
-        this.$store.dispatch('STORE_LIST_GET_IMTES', this.page)
-        if (this.page === 3) {
-          this.loading = true
-        } else {
-          this.loading = false
-        }
+      infinite () {
+        this.$store.dispatch('STORE_INDEX_GET_ITEMS', this.next_page)
       }
     }
   }
 </script>
 <style lang="scss" scoped>
-  .content {
+  .container {
     & > .el-row {
+      .ismore {
+        padding: 1rem;
+        text-align: center;
+      }
       & > .el-col {
         padding-left: 1.5rem;
         padding-right: 1.5rem;

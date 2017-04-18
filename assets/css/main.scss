@@ -1,4 +1,6 @@
 @import '~normalize.css';
+// @import '~theme/index.css';
+
 html {
   height:100%;
   overflow:auto;
@@ -6,10 +8,10 @@ html {
   body {
     color: rgba(0, 0, 0, 0.87);
     font-size: 0.875rem;
-    background-color: #f2f2f2;
+    background-color: #f3f3f3;
     -webkit-font-smoothing: antialiased;
     height:100%;
-    overflow:auto;
+    overflow:hidden;
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   }
   *:focus {
