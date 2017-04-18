@@ -5,10 +5,7 @@
   .qrcode-item {
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    // background-color: #f2f2f2;
-    // border: 2px solid #68be8c;
     background-size: cover;
-    // padding: 2rem;
     &:after {
       content: '';
       display: block;

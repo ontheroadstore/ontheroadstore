@@ -1,5 +1,5 @@
 <template>
-  <section class="article-items">
+  <div class="article-items">
     <nuxt-link to="/article" class="title"><h2>文章<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
       <el-col :xs="12" :sm="12" :md="6" :lg="6" class="item" v-for="item in items" :key="item.id">
@@ -14,7 +14,7 @@
         </nuxt-link>
       </el-col>
     </el-row>
-  </section>
+  </div>
 </template>
 <script>
   export default {
@@ -51,11 +51,9 @@
       }
     }
     .el-row {
-      margin-left: -12px;
-      margin-right: -12px;
+      margin: 0 -.5rem;
       .item {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding: 0 .5rem;
         a {
           display: block;
           &:hover {
@@ -107,18 +105,20 @@
           }
           .item-title {
             display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             opacity: .9;
             h4 {
               margin: .5em 0;
-              // margin-top: 1em;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              white-space:nowrap;
             }
             p {
               opacity: .6;
               margin: 0;
               margin-bottom: 1em;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              white-space:nowrap;
             }
           }
         }

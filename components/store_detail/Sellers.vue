@@ -3,19 +3,21 @@
     <el-col :span="8">
       <el-row class="detail-user-info">
         <nuxt-link to="/">
-          <el-col :span="8" class="avatar" v-lazy:background-image="banner[0]"></el-col>
+          <el-col :span="8" class="avatar" v-lazy:background-image="author.avatar">
+            <span>卖家</span>
+          </el-col>
           <el-col :span="16" class="nickname">
-            <span><label>卖家：</label>最猛是我飞机</span>
+            <span>{{ author.nickname }}</span>
           </el-col>
         </nuxt-link>
       </el-row>
     </el-col>
     <el-col :span="16">
       <el-row class="detail-user-items">
-        <el-col :span="6" class="item" v-for="item in banner" :key="item.src">
+        <el-col :span="6" class="item" v-for="item in items" :key="item.id">
           <nuxt-link to="/">
-            <div class="item-image" v-lazy:background-image="item.src"></div>
-            <div class="item-title">最猛是我飞机</div>
+            <div class="item-image" v-lazy:background-image="item.cover"></div>
+            <div class="item-title">{{ item.title }}</div>
           </nuxt-link>
         </el-col>
       </el-row>
@@ -24,19 +26,26 @@
 </template>
 <script>
   export default {
-    data () {
-      return {
-        banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+    props: {
+      author: {
+        type: Object,
+        default: () => {
+          return {
+            id: null,
+            nickname: null,
+            avatar: null
+          }
+        }
+      },
+      items: {
+        type: Array
       }
     }
   }
 </script>
 <style lang="scss" scoped>
   .sellers {
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid rgba(120,130,140,.13);
     position: relative;
     & > .el-col {
@@ -50,6 +59,16 @@
           background-size: cover;
           background-repeat: no-repeat;
           background-position: 50% 50%;
+          position: relative;
+          span {
+            width: 100%;
+            bottom: 0;
+            position: absolute;
+            text-align: center;
+            background-color: rgba(104,190,140,0.6);
+            line-height: 1.4em;
+            color: #fff;
+          }
           &:after {
             content: '';
             display: block;
@@ -65,11 +84,9 @@
       }
     }
     .detail-user-items {
-      margin-left: -12px;
-      margin-right: -12px;
+      margin: 0 -.5rem;
       .item {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding: 0 .5rem;
         position: relative;
         a {
           display: block;
@@ -86,10 +103,11 @@
             }
           }
           .item-title {
-            position: absolute;
-            bottom: -2em;
-            line-height: 1em;
+            line-height: 2em;
             font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
       }

@@ -1,24 +1,23 @@
 <template>
   <el-row class="detail-info">
-    <el-col class="title"><h1>让“瑞士军刀唇膏”润滑你的一切。让“瑞士军刀唇膏”润滑你的一切。</h1></el-col>
+    <el-col class="title"><h1>{{ item.title }}</h1></el-col>
     <el-col class="time">
-      <span><i class="el-icon-time"></i> 2017/02/02</span>
-      <span><i class="el-icon-view"></i> 13234</span>
+      <span><i class="el-icon-time"></i>{{ item.date }}</span>
+      <span><i class="el-icon-view"></i>{{ item.views }}</span>
     </el-col>
     <el-col :span="24">
       <el-row>
         <el-col class="tags">
-          <nuxt-link to="/" class="item">#美好而操蛋的东西</nuxt-link>
-          <nuxt-link to="/" class="item">#淘宝没有的</nuxt-link>
+          <nuxt-link to="/" class="item" v-for="item in item.tags" :key="item"># {{ item }}</nuxt-link>
         </el-col>
         <el-col :span="10" class="qrcode">
           <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
         </el-col>
         <el-col :span="14" class="price">
-          <h2><i>￥</i><span>199.00</span></h2>
-          <h3>运费：<i>￥</i><span>11</span></h3>
-          <h4>库存：<span>2</span></h4>
-          <h4>销量：22</h4>
+          <h2><i>￥</i><span>{{ item.price }}</span></h2>
+          <h3>运费：<i>￥</i><span>{{ item.express }}</span></h3>
+          <h4>库存：<span>{{ item.inventory }}</span></h4>
+          <h4>销量：{{ item.sales }}</h4>
         </el-col>
       </el-row>
     </el-col>
@@ -31,13 +30,31 @@
   import qrCode from '~components/Qrcode'
 
   export default {
-    data () {
-      return {
-        qrcode: {
-          value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/9964.html',
-          ec_level: 'M',
-          type: 'png',
-          size: 5
+    props: {
+      qrcode: {
+        type: Object,
+        default: () => {
+          return {
+            value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/9964.html',
+            ec_level: 'M',
+            type: 'png',
+            size: 5
+          }
+        }
+      },
+      item: {
+        type: Object,
+        default: () => {
+          return {
+            title: null,
+            date: null,
+            views: null,
+            tags: [],
+            price: null,
+            express: null,
+            inventory: null,
+            sales: null
+          }
         }
       }
     },
@@ -62,10 +79,12 @@
       &.time {
         span {
           margin-right: 1rem;
+          i {
+            margin-right: .5rem;
+          }
         }
       }
       &.tags {
-        // margin-bottom: 12px;
         .item {
           background-color: #68be8c;
           color: #fff;

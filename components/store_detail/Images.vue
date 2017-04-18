@@ -2,19 +2,16 @@
   <el-row class="detail-images">
     <el-col :span="24">
       <el-carousel :interval="4000" type="card" height="100%">
-        <el-carousel-item class="item" v-for="item in banner" v-lazy:background-image="item" :key="item.src"></el-carousel-item>
+        <el-carousel-item class="item" v-for="item in items" v-lazy:background-image="item" :key="item"></el-carousel-item>
       </el-carousel>
     </el-col>
   </el-row>
 </template>
 <script>
   export default {
-    data () {
-      return {
-        banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+    props: {
+      items: {
+        type: Array
       }
     }
   }
