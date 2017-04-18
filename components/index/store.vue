@@ -1,5 +1,5 @@
 <template>
-  <section class="store-items" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading">
+  <div class="store-items">
     <nuxt-link to="/store" class="title"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
       <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items" :key="item.src">
@@ -15,43 +15,47 @@
           </el-col>
         </nuxt-link>
       </el-col>
-      <el-col :span="24" class="loading" v-show="loading">
-        <nuxt-link :to="{ name: 'store-pages', params: { pages: 4 } }" v-if="loading">
-          <el-button>查看更多黑市内容</el-button>
+    </el-row>
+    <MyPagination :infinite="infinite" v-if="!isMore" />
+    <el-row v-else>
+      <el-col :span="24" class="ismore">
+        <nuxt-link :to="{ name: 'store-pages', params: { pages: '4' } }">
+          <el-button>查看更多内容</el-button>
         </nuxt-link>
-        <el-button :loading="loading" v-else>加载更多</el-button>
       </el-col>
     </el-row>
-  </section>
+  </div>
 </template>
 <script>
+  import MyPagination from '~/components/Pagination_infinite'
+
   export default {
+    name: 'index-store',
+    components: {
+      'MyPagination': MyPagination
+    },
     props: {
       items: {
         type: Array
       },
-      loading: {
+      infinite: {
+        type: Function,
+        default: () => {
+          return null
+        }
+      },
+      isMore: {
         type: Boolean,
         default: false
-      },
-      More: {
-        type: Boolean
-      },
-      loadMore: {
-        type: Function
-      },
-      pagination: {
-        type: Object
       }
     }
   }
 </script>
 <style lang="scss" scoped>
   .store-items {
-    padding-bottom: 5px;
     .title {
       display: block;
-      padding: 1rem 0;
+      padding: 1rem 0 .5rem 0;
       &:hover {
         h2 {
           i {
@@ -71,13 +75,15 @@
         }
       }
     }
+    .ismore {
+      padding: 1rem;
+      text-align: center;
+    }
     & > .el-row {
-      margin-left: -12px;
-      margin-right: -12px;
+      margin: 0 -.5rem;
       .item {
-        padding-left: 12px;
-        padding-right: 12px;
-        border-radius: 5px;
+        padding: 0 .5rem;
+        border-radius: .4rem;
         transition-property: background-color;
         transition-duration: 0.3s;
         transition-timing-function: ease;
@@ -98,8 +104,7 @@
         a {
           display: block;
           border-bottom: 1px solid rgba(120, 130, 140, 0.13);
-          padding-top: 1rem;
-          padding-bottom: 1rem;
+          padding: .5rem 0;
           position: relative;
           .item-image {
             background-size: cover;
@@ -119,14 +124,21 @@
             opacity: .9;
             h4 {
               margin: 0;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              white-space:nowrap;
             }
             p {
               margin: 0;
               margin-top: .5rem;
               line-height: 1.4em;
               height: 2.8em;
-              overflow: hidden;
               opacity: .6;
+              overflow: hidden;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              word-break: break-all;
             }
             .item-info {
               position: absolute;
@@ -141,10 +153,6 @@
           }
         }
       }
-    }
-    .loading {
-      padding: 1rem;
-      text-align: center;
     }
   }
 </style>

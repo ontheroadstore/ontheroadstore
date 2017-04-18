@@ -2,7 +2,7 @@
   <el-row class="top10-items">
     <el-col :span="24" class="title"><h3>大家还买了什么</h3></el-col>
     <el-row>
-    <el-col :span="24" class="item" v-for="item in top10" :key="item.src">
+      <el-col :span="24" class="item" v-for="item in top10" :key="item.src">
         <nuxt-link to="/" class="el-row">
           <el-col :span="4" class="item-image" v-lazy:background-image.container="item.src"></el-col>
           <el-col :span="20" class="item-title">
@@ -19,6 +19,7 @@
 </template>
 <script>
   export default {
+    name: 'store-top10',
     data () {
       return {
         top10: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},

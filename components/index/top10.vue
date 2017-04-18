@@ -1,6 +1,5 @@
 <template>
-  <!-- top10 start /components/index/top10.vue -->
-  <section class="top10-items">
+  <div class="top10-items">
     <nuxt-link to="/" class="title"><h3>大家最近都看在</h3></nuxt-link>
     <el-row>
       <el-col :span="24" class="item" v-for="item in top10" :key="item.src">
@@ -16,11 +15,11 @@
         </nuxt-link>
       </el-col>
     </el-row>
-  </section>
-  <!-- top10 end -->
+  </div>
 </template>
 <script>
   export default {
+    name: 'index-top10',
     data () {
       return {
         top10: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
@@ -45,11 +44,9 @@
       }
     }
     & > .el-row {
-      margin-left: -12px;
-      margin-right: -12px;
+      margin: 0 -.5rem;
       .item {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding: 0 .5rem;
         transition-property: background-color;
         transition-duration: 0.3s;
         transition-timing-function: ease;
@@ -70,8 +67,7 @@
         }
         a {
           display: block;
-          padding-top: .5rem;
-          padding-bottom: .5rem;
+          padding: .5rem 0;
           border-bottom: 1px solid rgba(120, 130, 140, 0.13);
           position: relative;
           .item-image {
@@ -84,13 +80,12 @@
             &:after {
               content: '';
               display: block;
-              // 16:9比例
               padding-bottom: 100%;
             }
           }
           .item-title {
             box-sizing: border-box;
-            padding-left: 12px;
+            padding-left: .5rem;
             opacity: .9;
             h4 {
               font-weight: normal;
@@ -99,9 +94,7 @@
               height: 2.8em;
               overflow: hidden;
               text-overflow: ellipsis;
-              display: -webkit-box;
-              -webkit-line-clamp: 2;
-              -webkit-box-orient: vertical;
+              white-space: nowrap;
             }
             .item-info {
               position: absolute;

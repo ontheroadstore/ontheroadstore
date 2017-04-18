@@ -1,24 +1,26 @@
 <template>
-  <div class="video-items">
-    <nuxt-link to="/" class="title"><h2>视频<i class="el-icon-more"></i></h2></nuxt-link>
-    <el-row>
-      <el-col :xs="12" :sm="12" :md="8" :lg="8" class="item" v-for="item in items" :key="item.src">
-        <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" :title="item.title">
-          <div class="item-image" v-lazy:background-image.container="item.thumb">
-            <span class="item-time">{{ item.tag }}</span>
-          </div>
-          <div class="item-title">
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.abstract }}</p>
-          </div>
-        </nuxt-link>
-      </el-col>
-    </el-row>
-  </div>
+  <el-row class="recommend">
+    <el-col :xs="0" :sm="0" :md="4" :lg="4" class="title">
+      <h3>推荐阅读</h3>
+    </el-col>
+    <el-col :xs="12" :sm="12" :md="5" :lg="5" v-for="item in items" :key="item.id" class="item">
+      <nuxt-link :to="{ name: 'video-detail-id', params: { id: item.id } }">
+        <div class="item-image" v-lazy:background-image.container="item.thumb">
+          <span class="item-tag">混蛋出差</span>
+        </div>
+        <div class="item-title">
+          <h3>{{ item.title }}</h3>
+          <p>
+            <span><i class="el-icon-time"></i>{{ item.date }}</span>
+            <span><i class="el-icon-view"></i>3k</span>
+          </p>
+        </div>
+      </nuxt-link>
+    </el-col>
+  </el-row>
 </template>
 <script>
   export default {
-    name: 'index-video',
     props: {
       items: {
         type: Array
@@ -27,38 +29,23 @@
   }
 </script>
 <style lang="scss" scoped>
-  .video-items {
-    .title {
-      display: block;
-      padding: 1rem 0;
-      &:hover {
-        h2 {
-          i {
-            color: #6cc788;
-            transition-property: color;
-            transition-duration: 0.3s;
-            transition-timing-function: ease;
-          }
+  .recommend {
+    padding: 1rem .5rem .5rem .5rem;
+    .el-col {
+      color: #fff;
+      &.title {
+        text-align: center;
+        h3 {
+          margin: 0;
         }
       }
-      h2 {
-        margin: 0;
-        position: relative;
-        i {
-          position: absolute;
-          right: 0;
-        }
-      }
-    }
-    .el-row {
-      margin: 0 -.5rem;
-      .item {
-        padding: 0 .5rem;
+      &.item {
         a {
+          padding: 0 .5rem;
           display: block;
           &:hover {
             .item-image {
-              .item-time {
+              .item-tag {
                 background-color: #6cc788;
                 transition-property: background-color;
                 transition-duration: 0.3s;
@@ -73,7 +60,6 @@
             }
             .item-title {
               opacity: 1;
-              text-shadow: 0 2px 2px rgba(255, 255, 255, 0.1), 0 -2px 2px rgba(255, 255, 255, 0.1);
             }
           }
           .item-image {
@@ -84,7 +70,7 @@
             background-color: rgba(120,120,120,.2);
             border-radius: 0.2rem;
             position: relative;
-            .item-time {
+            .item-tag {
               position: absolute;
               bottom: .5rem;
               right: .5rem;
@@ -95,17 +81,18 @@
               border-radius: 0.2rem;
               color: #fff;
               font-size:12px;
-              // opacity: .8;
             }
             &:after {
               content: '';
               display: block;
-              // 16:9比例
               padding-bottom: 56.25%;
             }
           }
           .item-title {
             display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             opacity: .9;
             h3 {
               margin: .5em 0;
@@ -115,11 +102,14 @@
             }
             p {
               margin: 0;
-              margin-bottom: 1em;
               opacity: .6;
-              overflow:hidden;
-              text-overflow:ellipsis;
-              white-space:nowrap;
+              padding-bottom: .5rem;
+              span {
+                margin-right: 1rem;
+                i {
+                  margin-right: .5rem;
+                }
+              }
             }
           }
         }
