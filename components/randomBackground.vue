@@ -52,7 +52,9 @@
           setTimeout(() => {
             Vue.nextTick(() => {
               setTimeout(() => {
-                this.setARandomBackground(Scrollbar.getAll()[0].size.content)
+                if (Scrollbar.getAll()[0].limit.y !== 0) {
+                  this.setARandomBackground(Scrollbar.getAll()[0].size.content)
+                }
               }, 200)
             })
           }, 500)

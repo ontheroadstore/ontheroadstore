@@ -9,6 +9,7 @@ export const INDEX_SET_STORE_ITEMS = 'INDEX_SET_STORE_ITEMS'
 export const INDEX_GET_STORE_ITEMS = 'INDEX_GET_STORE_ITEMS'
 export const INDEX_CLEAR_STORE_ITEMS = 'INDEX_CLEAR_STORE_ITEMS'
 export const INDEX_INIT_STORE_ITEMS = 'INDEX_INIT_STORE_ITEMS'
+export const INDEX_SET_TOP10_ITEMS = 'INDEX_SET_TOP10_ITEMS'
 
 export default {
   state: {
@@ -25,7 +26,8 @@ export default {
         total: null,
         pagetotal: null
       }
-    }
+    },
+    top10: []
   },
   mutations: {
     INDEX_SET_BANNER_ITEMS: (state, data) => {
@@ -44,6 +46,9 @@ export default {
         total: parseInt(data.total),
         pagetotal: parseInt(data.pagetotal)
       })
+    },
+    INDEX_SET_TOP10_ITEMS: (state, data) => {
+      Vue.set(state, 'top10', data)
     },
     INDEX_INIT_STORE_ITEMS: (state, data) => {
       Vue.set(state.store, 'items', data.list)
@@ -79,6 +84,9 @@ export default {
       })
       await api.getIndexStore(1).then(res => {
         commit(INDEX_INIT_STORE_ITEMS, res.data)
+      })
+      await api.getIndexTop10().then(res => {
+        commit(INDEX_SET_TOP10_ITEMS, res.data)
       })
     },
     async INDEX_GET_STORE_ITEMS ({commit, dispatch}, page) {

@@ -73,7 +73,7 @@
       left: 0;
       right: 0;
       border: none;
-      height: 80vh;
+      height: 100%;
       background-position: 50% 50%;
       background-size: 0;
       bottom: 0;

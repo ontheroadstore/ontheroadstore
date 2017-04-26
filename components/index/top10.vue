@@ -1,15 +1,15 @@
 <template>
   <div class="top10-items">
-    <nuxt-link to="/" class="title"><h3>大家最近都看在</h3></nuxt-link>
+    <h3 class="title hvr-wobble-top">大家最近都看在</h3>
     <el-row>
-      <el-col :span="24" class="item" v-for="item in top10" :key="item.src">
-        <nuxt-link to="/" class="el-row">
-          <el-col :span="4" class="item-image" v-lazy:background-image.container="item.src"></el-col>
+      <el-col :span="24" class="item" v-for="item in items" :key="item.id">
+        <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" class="el-row" :title="item.title">
+          <el-col :span="4" class="item-image" v-lazy:background-image.container="item.thumb"></el-col>
           <el-col :span="20" class="item-title">
-            <h4>大家都在看啥呢？？呵呵呵这是个标题大家大家都在看啥呢？？呵呵呵这是个标题大家大家都在看啥呢？？呵呵呵这是个标题大家</h4>
+            <h4>{{ item.title }}</h4>
             <div class="item-info">
-              <span class="view"><i class="el-icon-view"></i> 12122</span>
-              <span class="time"><i class="el-icon-time"></i> 2017/11/02</span>
+              <span class="view"><i class="el-icon-view"></i>{{ item.views }}</span>
+              <span class="time"><i class="el-icon-time"></i>{{ item.date }}</span>
             </div>
           </el-col>
         </nuxt-link>
@@ -20,14 +20,9 @@
 <script>
   export default {
     name: 'index-top10',
-    data () {
-      return {
-        top10: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+    props: {
+      items: {
+        type: Array
       }
     }
   }
@@ -37,20 +32,26 @@
     .title {
       display: block;
       padding: 1rem 0;
-      h3 {
-        margin: 0;
-        color: inherit;
-        opacity: .6;
+      opacity: .6;
+      margin: 0;
+      cursor: default;
+      &:hover {
+        color: #13ce66;
+        transition: color 0.3s;
       }
     }
     & > .el-row {
       margin: 0 -.5rem;
       .item {
-        padding: 0 .5rem;
+        padding: .5rem;
         transition-property: background-color;
         transition-duration: 0.3s;
         transition-timing-function: ease;
-        border-radius: 5px;
+        border-radius: .2rem;
+        border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+        &:last-child {
+          border-bottom: none;
+        }
         &:hover {
           background-color: rgba(120, 130, 140, 0.13);
           a {
@@ -67,8 +68,6 @@
         }
         a {
           display: block;
-          padding: .5rem 0;
-          border-bottom: 1px solid rgba(120, 130, 140, 0.13);
           position: relative;
           .item-image {
             border-radius: inherit;
@@ -100,11 +99,14 @@
               position: absolute;
               right: 0;
               opacity: .5;
-              bottom: .5rem;
+              bottom: 0;
               line-height: 0;
               font-size: 12px;
-              .view {
-                margin-right: 1rem;
+              span {
+                margin-left: 1rem;
+                i {
+                  margin-right: .5rem;
+                }
               }
             }
           }

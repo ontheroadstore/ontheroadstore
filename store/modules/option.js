@@ -4,7 +4,7 @@ import * as types from '../mutation-types.js'
 export default {
   state: {
     globalOption: {
-      baseCdn: process.env.NODE_ENV !== 'production' ? '/' : '阿里云cdn地址',
+      baseCdn: process.env.NODE_ENV !== 'production' ? '/' : '/',
       searchDialogDisplay: false,
       isMobile: null
     },

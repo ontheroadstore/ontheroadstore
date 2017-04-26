@@ -1,6 +1,6 @@
 <template>
   <div class="article-items">
-    <nuxt-link to="/article" class="title"><h2>文章<i class="el-icon-more"></i></h2></nuxt-link>
+    <nuxt-link to="/article" class="title hvr-wobble-top" title="文章"><h2>文章<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
       <el-col :xs="12" :sm="12" :md="6" :lg="6" class="item" v-for="item in items" :key="item.id">
         <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" :title="item.title">
@@ -32,14 +32,8 @@
       display: block;
       padding: 1rem 0;
       &:hover {
-        h2 {
-          i {
-            color: #6cc788;
-            transition-property: color;
-            transition-duration: 0.3s;
-            transition-timing-function: ease;
-          }
-        }
+        color: #13ce66;
+        transition: color 0.3s;
       }
       h2 {
         margin: 0;
@@ -95,7 +89,6 @@
               border-radius: 0.2rem;
               color: #fff;
               font-size:12px;
-              // opacity: .8;
             }
             &:after {
               content: '';

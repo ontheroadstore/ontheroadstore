@@ -13,7 +13,7 @@
       </el-col>
       <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- TOP10 -->
-        <MyTop10 />
+        <MyTop10 :items="top10_items" />
       </el-col>
     </el-row>
   </div>
@@ -31,6 +31,11 @@
     fetch ({ store }) {
       return Promise.all([store.dispatch('INDEX_INIT_ITEMS')])
     },
+    head () {
+      return {
+        title: '为了你不找边际的企图心'
+      }
+    },
     computed: mapState({
       banner_carousel_items: store => store.Index.banner.carousel,
       banner_recommend_items: store => store.Index.banner.recommend,
@@ -38,6 +43,7 @@
       article_items: store => store.Index.aticle,
       store: store => store.Index.store,
       next_page: store => store.Index.store.pagination.current + 1,
+      top10_items: store => store.Index.top10,
       isMore: store => {
         if (store.Index.store.pagination.current === 3) {
           return true

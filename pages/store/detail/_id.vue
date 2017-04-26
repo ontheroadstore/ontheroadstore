@@ -40,14 +40,6 @@
     fetch ({ store, params }) {
       return Promise.all([store.dispatch('STORE_DETAIL_INIT', params.id)])
     },
-    data () {
-      return {
-        banner: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
-      }
-    },
     computed: mapState({
       detail: store => store.Store.detail,
       sellersAuthor: store => store.Store.detail.sellers.author,
@@ -82,7 +74,7 @@
       left: 0;
       right: 0;
       border: none;
-      height: 80vh;
+      height: 100%;
       background-position: 50% 50%;
       background-size: 0;
       bottom: 0;
