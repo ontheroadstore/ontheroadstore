@@ -1,9 +1,9 @@
 <template>
   <div class="store-items">
-    <nuxt-link to="/store" class="title"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
+    <nuxt-link to="/store" class="title hvr-wobble-top" title="黑市"><h2>黑市<i class="el-icon-more"></i></h2></nuxt-link>
     <el-row>
       <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items" :key="item.src">
-        <nuxt-link to="/" class="el-row">
+        <nuxt-link to="/" class="el-row" :title="item.title">
           <el-col :span="12" class="item-image" v-lazy:background-image.container="item.thumb"></el-col>
           <el-col :span="12" class="item-title">
             <h4>{{ item.title }}</h4>
@@ -57,14 +57,8 @@
       display: block;
       padding: 1rem 0 .5rem 0;
       &:hover {
-        h2 {
-          i {
-            color: #6cc788;
-            transition-property: color;
-            transition-duration: 0.3s;
-            transition-timing-function: ease;
-          }
-        }
+        color: #13ce66;
+        transition: color 0.3s;
       }
       h2 {
         margin: 0;

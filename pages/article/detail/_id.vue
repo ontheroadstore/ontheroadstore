@@ -2,7 +2,7 @@
   <div class="container">
     <div class="page-bg" v-lazy:background-image="item.cover"></div>
     <el-row class="article-detail">
-      <el-col :xs="0" :sm="0" :md="{ span: '24', push: '21' }" :lg="{ span: '24', push: '21' }" v-sticky style="    position: absolute">
+      <el-col :xs="0" :sm="0" :md="{ span: '2', push: '21' }" :lg="{ span: '2', push: '21' }" v-sticky style="    position: absolute">
         <div class="qrcode">
           <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
           <div class="qrcode-info">
@@ -40,7 +40,8 @@
       return {
         title: this.item.title,
         meta: [
-        { hid: 'description', name: 'description', content: this.item.abstract }
+        { hid: 'description', name: 'description', content: this.item.abstract },
+        { name: 'keywords', content: 'asd' }
         ]
       }
     },
@@ -80,7 +81,7 @@
       left: 0;
       right: 0;
       border: none;
-      height: 80vh;
+      height: 100%;
       background-position: 50% 50%;
       background-size: 0;
       bottom: 0;
@@ -114,15 +115,15 @@
         margin-top: 1rem;
         right: 1rem;
         text-align: center;
-        width: 102px;
+        width: 100%;
         padding: 1rem;
         background-color: #fff;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.02);
         z-index: 1020;
         opacity: .8;
         .qrcode-item {
-          width: 102px;
-          height: 102px;
+          width: 100%;
+          height: 100%;
         }
         .qrcode-info {
           margin-top: 1rem;
