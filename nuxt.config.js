@@ -39,6 +39,7 @@ module.exports = {
   { src: '~assets/css/main.scss', lang: 'scss' },
   { src: '~assets/css/theme-default/lib/index.css' },
   { src: 'animate.css/animate.min.css' },
+  { src: 'hover.css/scss/hover.scss', lang: 'scss' },
   { src: 'smooth-scrollbar/dist/smooth-scrollbar.css' }
   ],
   /*
@@ -55,7 +56,8 @@ module.exports = {
   { src: '~plugins/sticky.js', ssr: false },
   { src: '~plugins/vuex-router-sync.js', ssr: true },
   { src: '~plugins/ga.js', ssr: true },
-  { src: '~plugins/baidu-seo-push.js', ssr: true }
+  { src: '~plugins/baidu-seo-push.js', ssr: true },
+  { src: '~plugins/highlighter.js', ssr: false }
   ],
   /*
   ** Build configuration

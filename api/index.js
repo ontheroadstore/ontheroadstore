@@ -34,6 +34,9 @@ export default {
       page: page
     })
   },
+  getIndexTop10: () => {
+    return fetchApi('index/top10')
+  },
   getStoreList: (page) => {
     return fetchApi('store/list', {
       pagesize: 20,
@@ -74,5 +77,12 @@ export default {
   },
   getArticleRecommend: () => {
     return fetchApi('article/recommend')
+  },
+  getSearchList: (params) => {
+    return fetchApi('search/list', {
+      pagesize: 20,
+      page: params.page,
+      keyword: params.keyword
+    })
   }
 }
