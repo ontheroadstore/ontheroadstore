@@ -1,13 +1,15 @@
 <template>
   <header class="header">
-    <el-row class="navber">
+    <el-row>
 
-      <el-col :span="8" class="logo">
-        <nuxt-link to="/" rel="首页" exact>公路商店 为了你不找边际的企图心</nuxt-link>
+      <el-col :span="8">
+        <div class="logo">
+          <nuxt-link to="/" rel="首页" exact>公路商店 为了你不找边际的企图心</nuxt-link>
+        </div>
       </el-col>
 
-      <el-col :xs="12" :sm="12" :md="8" :lg="8" class="nav">
-        <el-row type="flex" justify="space-around">
+      <el-col :xs="12" :sm="12" :md="8" :lg="8">
+        <el-row type="flex" justify="space-around" class="nav">
           <el-col :span="6"><nuxt-link to="/" exact>首页</nuxt-link></el-col>
           <el-col :span="6"><nuxt-link to="/article">文章</nuxt-link></el-col>
           <el-col :span="6"><nuxt-link to="/store">商品</nuxt-link></el-col>
@@ -15,8 +17,10 @@
         </el-row>
       </el-col>
 
-      <el-col :xs="4" :sm="4" :md="8" :lg="8" class="search">
-        <el-button size="mini" icon="search" @click="openSearchDialog"></el-button>
+      <el-col :xs="4" :sm="4" :md="8" :lg="8">
+        <div class="search">
+          <el-button size="mini" icon="search"></el-button>
+        </div>
       </el-col>
 
     </el-row>
@@ -46,7 +50,7 @@
       &>.el-col {
         height: 3.5rem;
         line-height: 3.5rem;
-        &.logo {
+        .logo {
           a {
             display: block;
             text-indent: -9999em;
@@ -59,13 +63,15 @@
             background-repeat: no-repeat;
           }
         }
-        &.nav {
+        .nav {
           text-align: center;
           a {
             font-size: 16px;
             transition-property: color;
             transition-duration: 0.3s;
             transition-timing-function: ease;
+            display: block;
+            width: 100%;
             &:hover, &.nuxt-link-active {
               color: #6cc788;
               transition-property: color;
@@ -74,7 +80,7 @@
             }
           }
         }
-        &.search {
+        .search {
           text-align: right;
         }
       }

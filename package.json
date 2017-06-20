@@ -5,12 +5,13 @@
   "author": "psychokiller666 <fucked@psychokiller.me>",
   "private": true,
   "dependencies": {
+    "alloylever": "^1.0.1",
     "css-loader": "^0.28.0",
     "nuxt": "latest",
     "vue-style-loader": "^2.0.5"
   },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt dev",
     "build": "nuxt build",
     "start": "PORT=3333 HOST=10.1.1.100 nuxt start",
     "generate": "nuxt generate",
