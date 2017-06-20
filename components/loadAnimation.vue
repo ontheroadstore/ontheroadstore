@@ -7,7 +7,6 @@
     <div class="title">
       <div class="mask">
         <div class="flag">
-          <!-- <h2>为了你不找边际的企图心</h2> -->
           <img src="/flag_min.gif" width="320" />
         </div>
       </div>
@@ -18,6 +17,7 @@
 <script>
   // const backgroundImgPath = '/transitions'
   // import _ from 'underscore'
+  // import Store from './store'
   import { mapState } from 'vuex'
 
   export default {
@@ -60,13 +60,14 @@
       },
       backgrounds: store => {
         let temp = []
-        for (var items of store.Option.pageAnimation.transitionActive.array) {
+        for (var items of store.option.pageAnimation.transitionActive.array) {
           temp.push({
-            src: store.Option.globalOption.baseCdn + items,
+            src: store.option.globalOption.baseCdn + items,
             size: null,
             loaded: false
           })
         }
+        // console.log(Store)
         return temp
       },
       title: store => {
