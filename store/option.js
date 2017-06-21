@@ -20,7 +20,6 @@ export const state = () => ({
     }
   },
   infiniteScroll: {
-    sizeContent: null,
     callback: null,
     loading: false
   }
@@ -54,5 +53,11 @@ export const mutations = {
         top: randomTop + 'px'
       })
     })
+  }
+}
+
+export const getters = {
+  GET_SET_INFINTE: (state) => {
+    return state.infiniteScroll
   }
 }

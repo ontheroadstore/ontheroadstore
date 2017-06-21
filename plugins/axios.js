@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Axios from 'axios'
 
 const service = Axios.create({
-  baseURL: 'https://apitest.ontheroadstore.com/www/index',
+  baseURL: 'https://apitest.ontheroadstore.com/www/',
   headers: {
     // 'X-Requested-With': 'XMLHttpRequest',
     'Accept': 'application/json'
