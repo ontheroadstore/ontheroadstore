@@ -17,10 +17,10 @@ export default Vue.directive('smooth-scroll', {
       })
       // 控制下拉加载刷新
       Scrollbar.get(el).infiniteScroll(() => {
-        if (app.$store.state.option.infiniteScroll.loading) {
-          // app.$store.dispatch('OPTION_INFINTE_LOADING', false)
-          app.$store.state.option.infiniteScroll.callback().then(() => {
-            // app.$store.dispatch('OPTION_INFINTE_LOADING', true)
+        if (app.$store.getters['option/GET_SET_INFINTE'].loading) {
+          app.$store.commit('option/SET_INFINTE_LOADING', false)
+          app.$store.getters['option/GET_SET_INFINTE'].callback().then(() => {
+            app.$store.commit('option/SET_INFINTE_LOADING', true)
           })
         }
       }, 100)

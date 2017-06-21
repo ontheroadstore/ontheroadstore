@@ -6,8 +6,6 @@
   </el-row>
 </template>
 <script>
-  import { mapState } from 'vuex'
-
   export default {
     name: 'pagination-infinite',
     props: {
@@ -22,16 +20,18 @@
         }
       }
     },
-    computed: mapState({
-      loading: store => store.Option.infiniteScroll.loading
-    }),
+    computed: {
+      loading () {
+        return this.$store.state.option.infiniteScroll.loading
+      }
+    },
     created () {
-      this.$store.dispatch('OPTION_INFINTE_LOADING', true)
-      this.$store.dispatch('OPTION_INFINITE_SCROLL', this.infinite)
+      this.$store.commit('option/SET_INFINTE_LOADING', true)
+      this.$store.commit('option/SET_INFINTE', this.infinite)
     },
     destroyed () {
-      this.$store.dispatch('OPTION_INFINTE_LOADING', false)
-      this.$store.dispatch('OPTION_INFINITE_SCROLL', null)
+      this.$store.commit('option/SET_INFINTE_LOADING', false)
+      this.$store.commit('option/SET_INFINTE', null)
     }
   }
 </script>

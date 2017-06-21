@@ -7,13 +7,13 @@
         <!-- 视频 -->
         <!-- <MyVideo :items="video_items" /> -->
         <!-- 文章 -->
-        <!-- <MyArticle :items="article_items" /> -->
+        <MyArticle :items="article_items" />
         <!-- 商品 -->
-        <!-- <MyStore :items="store.items" :isMore="isMore" :infinite="infinite" :testa="next_page" /> -->
+        <MyStore :items="store_items" :infinite="infinite" />
       </el-col>
       <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- TOP10 -->
-        <!-- <MyTop10 :items="top10_items" /> -->
+        <MyTop10 :items="top10_items" />
       </el-col>
     </el-row>
   </div>
@@ -31,8 +31,8 @@
         title: '为了你不找边际的企图心'
       }
     },
-    fetch ({ store }) {
-      store.dispatch('home/INIT')
+    async fetch ({ store }) {
+      await store.dispatch('home/INIT')
     },
     computed: {
       banner_carousel_items () {
@@ -40,6 +40,15 @@
       },
       banner_recommend_items () {
         return this.$store.state.home.banner.recommend
+      },
+      article_items () {
+        return this.$store.state.home.article
+      },
+      top10_items () {
+        return this.$store.state.home.top10
+      },
+      store_items () {
+        return this.$store.state.home.store.items
       }
     },
     components: {
@@ -51,7 +60,8 @@
     },
     methods: {
       infinite () {
-        // this.$store.dispatch('INDEX_GET_STORE_ITEMS', this.next_page)
+        console.log('sdfff')
+        this.$store.dispatch('option/REQ_STORE', 2)
       }
     }
   }

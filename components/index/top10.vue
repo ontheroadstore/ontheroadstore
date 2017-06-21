@@ -3,12 +3,12 @@
     <h3 class="title hvr-wobble-top">大家最近都看在</h3>
     <el-row>
       <el-col :span="24" class="item" v-for="item in items" :key="item.id">
-        <nuxt-link :to="{ path: item.category, name: item.category + '-detail-id', params: { id: item.id } }" class="el-row" :title="item.title">
+        <nuxt-link :to="{ path: '/', params: { id: item.id } }" class="el-row" :title="item.title">
           <el-col :span="4" class="item-image" v-lazy:background-image.container="item.thumb"></el-col>
           <el-col :span="20" class="item-title">
             <h4>{{ item.title }}</h4>
             <div class="item-info">
-              <span class="view"><i class="el-icon-view"></i>{{ item.views }}</span>
+              <span class="view"><i class="el-icon-view"></i>{{ item.view }}</span>
               <span class="time"><i class="el-icon-time"></i>{{ item.date }}</span>
             </div>
           </el-col>
