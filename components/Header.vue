@@ -19,7 +19,7 @@
 
       <el-col :xs="4" :sm="4" :md="8" :lg="8">
         <div class="search">
-          <el-button size="mini" icon="search"></el-button>
+          <el-button size="mini" icon="search" @click="openSearchDialog"></el-button>
         </div>
       </el-col>
 
@@ -30,7 +30,7 @@
   export default {
     methods: {
       openSearchDialog () {
-        this.$store.dispatch('SEARCH_DIALOG_SHOW')
+        this.$store.commit('option/SET_SEARCH_DIALOG', true)
       }
     }
   }

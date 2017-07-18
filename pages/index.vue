@@ -9,7 +9,7 @@
         <!-- 文章 -->
         <MyArticle :items="article_items" />
         <!-- 商品 -->
-        <MyStore :items="store_items" :infinite="infinite" />
+        <MyStore :items="store_items" :infinite="infinite" :isMore="store_isMore" />
       </el-col>
       <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- TOP10 -->
@@ -19,50 +19,58 @@
   </div>
 </template>
 <script>
-  import MyIndexBanner from '~/components/index/Banner'
-  import MyIndexArticle from '~/components/index/Article'
-  import MyIndexVideo from '~/components/index/Video'
-  import MyIndexStore from '~/components/index/Store'
-  import MyIndexTop10 from '~/components/index/Top10'
+import MyIndexBanner from '~/components/index/Banner'
+import MyIndexArticle from '~/components/index/Article'
+import MyIndexVideo from '~/components/index/Video'
+import MyIndexStore from '~/components/index/Store'
+import MyIndexTop10 from '~/components/index/Top10'
 
-  export default {
-    head () {
-      return {
-        title: '为了你不找边际的企图心'
+export default {
+  head () {
+    return {
+      title: '为了你不找边际的企图心'
+    }
+  },
+  async fetch ({ store }) {
+    await store.dispatch('home/INIT')
+  },
+  computed: {
+    banner_carousel_items () {
+      return this.$store.state.home.banner.carousel
+    },
+    banner_recommend_items () {
+      return this.$store.state.home.banner.recommend
+    },
+    article_items () {
+      return this.$store.state.home.article
+    },
+    top10_items () {
+      return this.$store.state.home.top10
+    },
+    store_items () {
+      return this.$store.state.home.store.items
+    },
+    store_page () {
+      return this.$store.state.home.store.pagination.current + 1
+    },
+    store_isMore () {
+      if (this.$store.state.home.store.pagination.current === 3) {
+        return true
       }
-    },
-    async fetch ({ store }) {
-      await store.dispatch('home/INIT')
-    },
-    computed: {
-      banner_carousel_items () {
-        return this.$store.state.home.banner.carousel
-      },
-      banner_recommend_items () {
-        return this.$store.state.home.banner.recommend
-      },
-      article_items () {
-        return this.$store.state.home.article
-      },
-      top10_items () {
-        return this.$store.state.home.top10
-      },
-      store_items () {
-        return this.$store.state.home.store.items
-      }
-    },
-    components: {
-      'MyBanner': MyIndexBanner,
-      'MyArticle': MyIndexArticle,
-      'MyVideo': MyIndexVideo,
-      'MyStore': MyIndexStore,
-      'MyTop10': MyIndexTop10
-    },
-    methods: {
-      infinite () {
-        console.log('sdfff')
-        this.$store.dispatch('option/REQ_STORE', 2)
-      }
+      return false
+    }
+  },
+  components: {
+    'MyBanner': MyIndexBanner,
+    'MyArticle': MyIndexArticle,
+    'MyVideo': MyIndexVideo,
+    'MyStore': MyIndexStore,
+    'MyTop10': MyIndexTop10
+  },
+  methods: {
+    infinite () {
+      this.$store.dispatch('home/REQ_STORE', this.store_page)
     }
   }
+}
 </script>

@@ -10,7 +10,7 @@
     <!-- 底部 -->
     <MyFooter ref="footer" />
     <!-- 搜索组建 -->
-    <!-- <MySearch /> -->
+    <MySearch />
     <!-- 加载动画 -->
     <MyLoadAnimation @leaveAnimateEnded="leaveAnimateEnded" />
 <!--     <div class="surprises">
@@ -78,86 +78,52 @@
   }
 </script>
 <style lang="scss">
-  @import '~normalize.css';
-
-  html {
-    height:100%;
-    overflow:auto;
-    background: transparent;
-    body {
-      color: rgba(0, 0, 0, 0.87);
-      font-size: 0.875rem;
-      background-color: #f3f3f3;
-      -webkit-font-smoothing: antialiased;
-      height:100%;
-      overflow:hidden;
-      font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-    }
-    *:focus {
-      outline: 0 !important;
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
-      cursor: pointer;
-      outline: 0;
-      &:hover,
-      &:focus {
-        color: inherit;
-        text-decoration: none;
-      }
-    }
-    [data-scrollbar] .scrollbar-thumb, [scrollbar] .scrollbar-thumb, scrollbar .scrollbar-thumb {
-    // background-color: #13ce66;
-    background: rgba(19,206,102,.8);
-  }
-}
-.main {
-  position: absolute;
-  width: 100%;
-  transition-duration: 0.5s;
-  transition-property: transform;
-  transition-timing-function: ease-out;
-  &.reverted {
-    transform:rotateY(180deg);
-  }
-  &.rotated {
-    transform:rotate(-35deg);
-  }
-}
-.surprises {
-  .rainbow {
-    position: fixed;
-    left: 0;
-    top: 0;
+  .main {
+    position: absolute;
     width: 100%;
-    height: 100%;
-    z-index: 850;
-    & > div {
-      position: absolute;
-      left: -100%;
+    transition-duration: 0.5s;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+    &.reverted {
+      transform:rotateY(180deg);
+    }
+    &.rotated {
+      transform:rotate(-35deg);
+    }
+  }
+  .surprises {
+    .rainbow {
+      position: fixed;
+      left: 0;
       top: 0;
       width: 100%;
-      height: 20%;
-      .blue {
-        background: blue;
-        top: 80%;
-      }
-      .green {
-        background: green;
-        top: 60%;
-      }
-      .yellow {
-        background: yellow;
-        top: 40%;
-      }
-      .orange {
-        background: orange; top: 20%;
-      }
-      .red {
-        background: red;
+      height: 100%;
+      z-index: 850;
+      & > div {
+        position: absolute;
+        left: -100%;
+        top: 0;
+        width: 100%;
+        height: 20%;
+        .blue {
+          background: blue;
+          top: 80%;
+        }
+        .green {
+          background: green;
+          top: 60%;
+        }
+        .yellow {
+          background: yellow;
+          top: 40%;
+        }
+        .orange {
+          background: orange; top: 20%;
+        }
+        .red {
+          background: red;
+        }
       }
     }
   }
-}
 </style>

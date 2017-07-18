@@ -67,9 +67,11 @@ export const actions = {
       commit('SET_TOP10', response)
     })
   },
-  REQ_STORE: ({commit}, page) => {
+  REQ_STORE ({commit}, page) {
     return Service.get('index/store', {
-      page: page
+      params: {
+        page: page
+      }
     }).then(response => {
       commit('SET_STORE_ITEMS', response)
     })

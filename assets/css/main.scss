@@ -1,0 +1,34 @@
+   @import '~normalize.css';
+
+   html {
+    height:100%;
+    overflow:auto;
+    background: transparent;
+    body {
+      color: rgba(0, 0, 0, 0.87);
+      font-size: 0.875rem;
+      background-color: #f3f3f3;
+      -webkit-font-smoothing: antialiased;
+      height:100%;
+      overflow:hidden;
+      font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    }
+    *:focus {
+      outline: 0 !important;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      outline: 0;
+      &:hover,
+      &:focus {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+    [data-scrollbar] .scrollbar-thumb, [scrollbar] .scrollbar-thumb, scrollbar .scrollbar-thumb {
+    // background-color: #13ce66;
+    background: rgba(19,206,102,.8);
+  }
+}

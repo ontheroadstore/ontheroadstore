@@ -20,7 +20,7 @@
     <el-row v-else>
       <el-col :span="24" class="ismore">
         <nuxt-link :to="{ name: 'store-pages', params: { pages: '4' } }">
-          <el-button>查看更多内容</el-button>
+          <el-button>更多黑市商品</el-button>
         </nuxt-link>
       </el-col>
     </el-row>
