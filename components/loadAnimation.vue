@@ -15,10 +15,8 @@
 </template>
 
 <script>
-  // const backgroundImgPath = '/transitions'
-  // import _ from 'underscore'
-  // import Store from './store'
   import { mapState } from 'vuex'
+  import _ from 'underscore'
 
   export default {
     name: 'loadAnimation',
@@ -67,36 +65,16 @@
             loaded: false
           })
         }
-        // console.log(Store)
         return temp
-      },
-      title: store => {
-        // console.log(store)
-        return store.route.name
       }
     }),
     methods: {
-      // 生成随机数
-      randomNum (Min, Max) {
-        if (Min === 0 && Max === 0) {
-          return 0
-        }
-        let Range = Max - Min
-        let Rand = Math.random()
-        if (Math.round(Rand * Range) === 0) {
-          return Min + 1
-        }
-        let num = Min + Math.round(Rand * Range)
-        return num
-      },
-
       // 设置一个随机背景图为要用的图
       setARandomBackground ({ randomIndex, size }) {
         // 这会说明图已经loaded成功了，所以可以改状态了
         this.backgrounds[randomIndex].size = size
         this.backgrounds[randomIndex].loaded = true
         this.currentActiveBgImgIndex = randomIndex
-        // console.log(this.backgrounds)
       },
 
       // 更新某个遮罩子元素的可见性状态
@@ -111,8 +89,7 @@
       loadBgImgAndSetActive () {
         // 这行日志无论是初次加载或者页面切换，你一定会看到，初次加载不会阻塞，页面切换会阻塞，这也是要的效果
         // 生成个下标（图片总数）范围内的随机数
-        const randomIndex = this.randomNum(1, this.backgrounds.length) - 1
-
+        const randomIndex = _.random(1, this.backgrounds.length)
         // 生成的随机图片
         const randomImg = this.backgrounds[randomIndex]
 
@@ -146,10 +123,7 @@
             img.onerror = () => {
               // console.log('图片加载失败')
               // 失败了，则把失败的图片pop出去，且递归的
-              this.backgrounds.replace(
-                this.backgrounds.splice(i => Object.is(i.src, img.src)),
-                1
-                )
+              this.backgrounds.replace(this.backgrounds.splice(i => Object.is(i.src, img.src)), 1)
               this.loadBgImgAndSetActive()
               // 如果一张有效的图都没了，就放弃吧
               if (!this.backgrounds.length) {
@@ -231,7 +205,7 @@
           // 如果还有在展示状态的遮罩层，则继续执行
           if (visibleItems.length) {
             // 在他们的id中生成一个随机数，把这个对应的item隐藏
-            const randomId = this.randomNum(0, visibleItems.length - 1)
+            const randomId = _.random(0, visibleItems.length)
             this.setMaskItemState({ id: visibleItems[randomId], visible: false })
 
             // 如果已经没有了，则定时两秒执行结束动画，跳出函数
@@ -256,7 +230,7 @@
         const step = () => {
           const visibleItems = this.maskItems.filter(item => !item.visible).map(item => item.id)
           if (visibleItems.length) {
-            const randomId = this.randomNum(0, visibleItems.length - 1)
+            const randomId = _.random(0, visibleItems.length)
             this.setMaskItemState({ id: visibleItems[randomId], visible: true })
           } else {
             this.maskActive = false

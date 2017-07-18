@@ -1,6 +1,7 @@
 <template>
-  <el-dialog v-model="searchDialogDisplay" size="full" v-on:close="closeSearchDialog" :lock-scroll="false" class="search" custom-class="search_dialog">
+  <el-dialog v-model="searchDialogDisplay" size="full" :lock-scroll="false" class="search" custom-class="search_dialog" :close-on-click-modal="false" :show-close="false" :close-on-press-escape="false">
     <el-row class="search_content">
+      <el-col :span="2" :offset="22"><el-button type="primary" icon="close" size="mini" @click="CloseSearchDialog()"></el-button></el-col>
       <el-col :xs="{ span: '22', pull: '1', push: '1' }" :sm="{ span: '22', pull: '1', push: '1' }" :md="{ span: '14', pull: '5', push: '5' }" :lg="{ span: '14', pull: '5', push: '5' }">
         <el-autocomplete :fetch-suggestions="SearchAsync" placeholder="请输入内容" v-model="keyWords">
           <el-button slot="append" icon="search" @click="submitSearch"></el-button>
@@ -18,47 +19,49 @@
   </el-dialog>
 </template>
 <script>
-  import { mapState } from 'vuex'
-  export default {
-    data () {
-      return {
-        keyWords: null,
-        restaurants: [],
-        timeout: null
-      }
+export default {
+  data () {
+    return {
+      keyWords: null,
+      restaurants: [],
+      timeout: null
+    }
+  },
+  methods: {
+    // 关闭搜索框
+    CloseSearchDialog () {
+      this.$store.commit('option/SET_SEARCH_DIALOG', false)
     },
-    methods: {
-      closeSearchDialog () {
-        this.$store.dispatch('SEARCH_DIALOG_HIDE')
-      },
-      SearchAsync (queryString, cb) {
-        let restaurants = this.restaurants
-        let results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants
+    SearchAsync (queryString, cb) {
+      let restaurants = this.restaurants
+      let results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants
 
-        clearTimeout(this.timeout)
-        this.timeout = setTimeout(() => {
-          cb(results)
-        }, 3000 * Math.random())
-      },
-      createStateFilter (queryString) {
-        return (state) => {
-          return (state.value.indexOf(queryString.toLowerCase()) === 0)
-        }
-      },
-      submitSearch () {
-        this.$router.push({ name: 'search', query: { keyword: this.keyWords } })
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        cb(results)
+      }, 3000 * Math.random())
+    },
+    createStateFilter (queryString) {
+      return (state) => {
+        return (state.value.indexOf(queryString.toLowerCase()) === 0)
       }
     },
-    computed: mapState({
-      searchDialogDisplay: store => store.Option.globalOption.searchDialogDisplay
-    })
+    submitSearch () {
+      this.$router.push({ name: 'search', query: { keyword: this.keyWords } })
+    }
+  },
+  computed: {
+    searchDialogDisplay () {
+      return this.$store.state.option.globalOption.searchDialogSwitch
+    }
   }
+}
 </script>
 <style lang="scss">
-  .search {
-    .search_dialog {
-      background-color: rgba(0, 0, 0, 0.9);
-    }
+.search {
+  .search_dialog {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
     // .search_content {
     //   position: fixed;
     //   top: 50%;
@@ -67,4 +70,4 @@
     // }
   }
 
-</style>
+  </style>

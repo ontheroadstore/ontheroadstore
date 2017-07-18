@@ -14,7 +14,7 @@
       <el-col :xs="18" :sm="18" :md="8" :lg="8">
         <div class="link">
           <nuxt-link to="/about">关于我们</nuxt-link>
-          <nuxt-link to="/job">加入我们</nuxt-link>
+          <nuxt-link to="/job">工作机会</nuxt-link>
           <nuxt-link to="/contact">联系我们</nuxt-link>
           <nuxt-link to="/service">黑市客服</nuxt-link>
         </div>

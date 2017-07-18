@@ -13,13 +13,23 @@ export default Vue.directive('smooth-scroll', {
       // 路由每次发生变化
       app.$nuxt.$on('routeChanged', (to, from) => {
         // 页面Scrollbar初始化，头部置顶，infinte_loading状态为false（初始页面不自动加载）
-        Scrollbar.get(el).scrollTo(0, 0)
+        // Scrollbar.get(el).scrollTo(0, 0)
+        Scrollbar.get(el).setPosition(0, 0)
       })
       // 控制下拉加载刷新
       Scrollbar.get(el).infiniteScroll(() => {
-        if (app.$store.getters['option/GET_SET_INFINTE'].loading) {
+        let infiniteScroll = new Promise(function (resolve) {
+          if (app.$store.state.option.infiniteScroll.callback != null) {
+            app.$store.state.option.infiniteScroll.callback()
+            resolve()
+          } else {
+            app.$store.commit('option/SET_INFINTE_LOADING', false)
+          }
+        })
+        if (app.$store.state.option.infiniteScroll.loading) {
           app.$store.commit('option/SET_INFINTE_LOADING', false)
-          app.$store.getters['option/GET_SET_INFINTE'].callback().then(() => {
+          infiniteScroll
+          .then(() => {
             app.$store.commit('option/SET_INFINTE_LOADING', true)
           })
         }

@@ -4,7 +4,8 @@ export const state = () => ({
   userAgent: null,
   isMobile: null,
   globalOption: {
-    baseCdn: process.env.NODE_ENV !== 'production' ? '/' : '/'
+    baseCdn: process.env.NODE_ENV !== 'production' ? '/' : '/',
+    searchDialogSwitch: false
   },
   pageAnimation: {
     switch: true,
@@ -53,11 +54,8 @@ export const mutations = {
         top: randomTop + 'px'
       })
     })
-  }
-}
-
-export const getters = {
-  GET_SET_INFINTE: (state) => {
-    return state.infiniteScroll
+  },
+  SET_SEARCH_DIALOG: (state, action) => {
+    state.globalOption.searchDialogSwitch = action
   }
 }
