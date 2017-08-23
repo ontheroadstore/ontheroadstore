@@ -9,7 +9,7 @@
         <!-- 文章 -->
         <MyArticle :items="article_items" />
         <!-- 商品 -->
-        <MyStore :items="store_items" :infinite="infinite" :isMore="store_isMore" />
+        <MyStore :items="store_items" :infinite="infinite" :pagination="pagination" :isMore="store_isMore" />
       </el-col>
       <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- TOP10 -->
@@ -28,11 +28,18 @@ import MyIndexTop10 from '~/components/index/Top10'
 export default {
   head () {
     return {
-      title: '为了你不找边际的企图心'
+      title: '为了你不着边际的企图心'
     }
   },
-  async fetch ({ store }) {
-    await store.dispatch('home/INIT')
+  fetch ({ store }) {
+    return Promise.all([
+      store.dispatch('home/REQ_BANNER_CAROUSEL'),
+      store.dispatch('home/REQ_BANNER_RECOMMEND'),
+      store.dispatch('home/REQ_ARTICLE'),
+      store.dispatch('home/REQ_TOP10'),
+      store.dispatch('home/REQ_STORE', 1),
+      store.dispatch('home/REQ_VIDEO', 1)
+    ])
   },
   computed: {
     banner_carousel_items () {
@@ -53,6 +60,12 @@ export default {
     store_page () {
       return this.$store.state.home.store.pagination.current + 1
     },
+    video_items () {
+      return this.$store.state.home.video
+    },
+    pagination () {
+      return this.$store.state.home.store.pagination
+    },
     store_isMore () {
       if (this.$store.state.home.store.pagination.current === 3) {
         return true
@@ -71,6 +84,9 @@ export default {
     infinite () {
       this.$store.dispatch('home/REQ_STORE', this.store_page)
     }
+  },
+  destroyed () {
+    this.$store.commit('home/CLEAR_STORE_ITEMS')
   }
 }
 </script>

@@ -5,7 +5,7 @@
         <el-carousel-item class="item" v-for="item in carousel_items" v-lazy:background-image.container="item.thumb" :key="item.id">
           <nuxt-link :to="{ path: '/', params: { id: item.id } }" :title="item.title" class="item-title">
             <h3>{{ item.title }}</h3>
-            <p>{{ item.description }}</p>
+            <p v-html="item.description"></p>
           </nuxt-link>
         </el-carousel-item>
       </el-carousel>

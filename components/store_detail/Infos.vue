@@ -3,7 +3,7 @@
     <el-col class="title"><h1>{{ item.title }}</h1></el-col>
     <el-col class="time">
       <span><i class="el-icon-time"></i>{{ item.date }}</span>
-      <span><i class="el-icon-view"></i>{{ item.views }}</span>
+      <span><i class="el-icon-view"></i>{{ item.view }}</span>
     </el-col>
     <el-col :span="24">
       <el-row>
@@ -14,10 +14,10 @@
           <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
         </el-col>
         <el-col :span="14" class="price">
-          <h2><i>￥</i><span>{{ item.price }}</span></h2>
-          <h3>运费：<i>￥</i><span>{{ item.express }}</span></h3>
-          <h4>库存：<span>{{ item.inventory }}</span></h4>
-          <h4>销量：{{ item.sales }}</h4>
+          <h2><i>￥</i><span>{{ price }}</span></h2>
+          <h3>运费：<i>￥</i><span>{{ item.fare }}</span></h3>
+          <h4>库存：<span>{{ item.remain }}</span></h4>
+          <!-- <h4>销量：{{ item.sales }}</h4> -->
         </el-col>
       </el-row>
     </el-col>
@@ -27,7 +27,7 @@
   </el-row>
 </template>
 <script>
-  import qrCode from '~components/Qrcode'
+  import qrCode from '~/components/Qrcode'
 
   export default {
     props: {
@@ -35,7 +35,7 @@
         type: Object,
         default: () => {
           return {
-            value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/9964.html',
+            value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/' + this.item.id + '.html',
             ec_level: 'M',
             type: 'png',
             size: 5
@@ -43,18 +43,15 @@
         }
       },
       item: {
-        type: Object,
-        default: () => {
-          return {
-            title: null,
-            date: null,
-            views: null,
-            tags: [],
-            price: null,
-            express: null,
-            inventory: null,
-            sales: null
-          }
+        type: Object
+      }
+    },
+    computed: {
+      price () {
+        if (this.item.price.length === 1) {
+          return this.item.price[0]
+        } else {
+          return this.item.price[0] + '~' + this.item.price[1]
         }
       }
     },

@@ -13,13 +13,13 @@
           <el-col :span="6"><nuxt-link to="/" exact>首页</nuxt-link></el-col>
           <el-col :span="6"><nuxt-link to="/article">文章</nuxt-link></el-col>
           <el-col :span="6"><nuxt-link to="/store">商品</nuxt-link></el-col>
-          <el-col :span="6"><nuxt-link to="/video">视频</nuxt-link></el-col>
+          <!-- <el-col :span="6"><nuxt-link to="/video">视频</nuxt-link></el-col> -->
         </el-row>
       </el-col>
 
       <el-col :xs="4" :sm="4" :md="8" :lg="8">
         <div class="search">
-          <el-button size="mini" icon="search" @click="openSearchDialog"></el-button>
+          <el-button size="mini" icon="search" @click="openSearchDialog()"></el-button>
         </div>
       </el-col>
 
@@ -30,7 +30,7 @@
   export default {
     methods: {
       openSearchDialog () {
-        this.$store.commit('option/SET_SEARCH_DIALOG', true)
+        this.$store.dispatch('search/OPEN_DIALOG')
       }
     }
   }

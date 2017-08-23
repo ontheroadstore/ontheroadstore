@@ -2,39 +2,45 @@
   <div class="container">
     <el-row>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '12', offset: '5' }" :lg="{ span: '12', offset: '5' }" class="search">
-        <el-autocomplete :fetch-suggestions="SearchAsync" v-model="keyWords" placeholder="请输入关键词">
+        <el-autocomplete :fetch-suggestions="querySearchAsync" v-model="keyWords" placeholder="请输入关键词">
           <el-button slot="append" icon="search" @click="submitSearch"></el-button>
         </el-autocomplete>
-        <span><b>{{ resultsNumber }}</b>个搜索结果</span>
+        <span><b>{{ pagination.total }}</b>个搜索结果</span>
       </el-col>
     </el-row>
     <el-row class="search-list">
-      <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '12', offset: '5' }" :lg="{ span: '12', offset: '5' }" class="item" v-for="item in items" :key="item.id">
-        <nuxt-link :to="{ name: item.category + '-detail-id', params: { id: '123' } }" class="el-row">
-          <el-col :span="5" class="item-image" v-lazy:background-image.container="item.thumb">
-            <div class="tag">{{ item.category }}</div>
+      <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '12', offset: '5' }" :lg="{ span: '12', offset: '5' }" class="item" v-for="item in items" :key="item.goods_id">
+        <nuxt-link :to="{ name: 'store-detail-id', params: { id: item.goods_id } }" class="el-row">
+          <el-col :span="5" class="item-image" v-lazy:background-image.container="item.goods_cover_img">
           </el-col>
           <el-col :span="18" :offset="1" class="item-title">
-            <h4 v-highlight="keyWords">{{ item.title }}</h4>
-            <p v-highlight="keyWords">{{ item.abstract }}</p>
+            <h4 v-highlight="keyWords">{{ item.goods_title }}</h4>
+            <div class="tag">
+              <span v-for="tag in item.goods_keywords">{{ tag }}</span>
+            </div>
             <div class="item-info">
-              <span class="view"><i class="el-icon-view"></i>{{ item.views }}</span>
-              <span class="time"><i class="el-icon-time"></i>{{ item.date }}</span>
+              <span class="view"><i class="el-icon-view"></i>{{ item.goods_hits }}</span>
+              <span class="time"><i class="el-icon-time"></i>{{ item.goods_comments }}</span>
             </div>
           </el-col>
         </nuxt-link>
       </el-col>
+      <el-col :span="24">
+        <MyPagination :pagination="pagination" :infinite="infinite" :most="0" />
+      </el-col>
     </el-row>
-    <MyPagination :infinite="infinite" v-if="!isMore" />
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import MyPagination from '~/components/Pagination_infinite'
 
 export default {
   fetch ({ store, query }) {
-    return Promise.all([store.dispatch('SEARCH_INIT_ITEMS', query.keyword), store.dispatch('SEARCH_DIALOG_HIDE')])
+    return Promise.all([
+      store.commit('search/SET_QUERY', query.keyword),
+      store.dispatch('search/REQ_SEARCH_QUERY', 1),
+      store.dispatch('search/CLOSE_DIALOG')
+    ])
   },
   asyncData ({ query }) {
     return {
@@ -43,47 +49,45 @@ export default {
   },
   data () {
     return {
-      restaurants: []
+      keyWords: '酒市',
+      timeout: null
     }
   },
-  computed: mapState({
-    items: store => store.Search.items,
-    next_page: store => store.Search.pagination.current + 1,
-    isMore: store => {
-      if (store.Search.pagination.current === 3) {
-        return true
-      }
-      return false
+  computed: {
+    items () {
+      return this.$store.state.search.pages.items
     },
-    resultsNumber: store => store.Search.pagination.total
-  }),
+    pagination () {
+      return this.$store.state.search.pages.pagination
+    },
+    next_page () {
+      return this.$store.state.search.pages.pagination.current + 1
+    },
+    suggest_items () {
+      return this.$store.state.search.dialog.suggest
+    }
+  },
   components: {
     'MyPagination': MyPagination
   },
   methods: {
-    SearchAsync (queryString, cb) {
-      let restaurants = this.restaurants
-      let results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants
-
+    querySearchAsync (queryString, cb) {
       clearTimeout(this.timeout)
-      this.timeout = setTimeout(() => {
-        cb(results)
-      }, 3000 * Math.random())
-    },
-    createStateFilter (queryString) {
-      return (state) => {
-        return (state.value.indexOf(queryString.toLowerCase()) === 0)
-      }
+      this.$store.dispatch('search/REQ_SEARCH_SUGGEST', queryString).then(() => {
+        this.timeout = setTimeout(() => {
+          cb(this.suggest_items)
+        }, 1000 * Math.random())
+      })
     },
     submitSearch () {
       this.$router.push({ name: 'search', query: { keyword: this.keyWords } })
     },
     infinite () {
-      this.$store.dispatch('SEARCH_GET_ITEMS', this.next_page)
+      this.$store.dispatch('search/REQ_SEARCH_QUERY', this.next_page)
     }
   },
   destroyed () {
-    this.$store.commit('SEARCH_CLEAR_ITEMS')
+    this.$store.commit('search/CLEAR_PAGES')
   }
 }
 </script>
@@ -124,18 +128,6 @@ export default {
             display: block;
             padding-bottom: 100%;
           }
-          .tag {
-            position: absolute;
-            bottom: .5rem;
-            right: .5rem;
-            padding: .4rem .6rem;
-            line-height: 1em;
-            height: 1em;
-            background-color: #767a7e;
-            border-radius: 0.2rem;
-            color: #fff;
-            font-size: 12px;
-          }
         }
         .item-title {
           box-sizing: border-box;
@@ -148,6 +140,19 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size: 16px;
+          }
+          .tag {
+            padding-top: .5rem;
+            span {
+              line-height: 1em;
+              height: 1em;
+              background-color: #6cc788;
+              border-radius: 0.2rem;
+              color: #fff;
+              font-size: 12px;
+              padding: .4rem;
+              margin-right: 1rem;
+            }
           }
           p {
             margin: .5rem 0;

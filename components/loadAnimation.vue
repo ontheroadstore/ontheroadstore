@@ -124,7 +124,7 @@
               // console.log('图片加载失败')
               // 失败了，则把失败的图片pop出去，且递归的
               this.backgrounds.replace(this.backgrounds.splice(i => Object.is(i.src, img.src)), 1)
-              this.loadBgImgAndSetActive()
+              // this.loadBgImgAndSetActive()
               // 如果一张有效的图都没了，就放弃吧
               if (!this.backgrounds.length) {
                 reject()

@@ -44,7 +44,7 @@
 </div>
 </template>
 <script>
-  import qrCode from '~components/Qrcode'
+  import qrCode from '~/components/Qrcode'
   export default {
     data () {
       return {
