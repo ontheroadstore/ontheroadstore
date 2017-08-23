@@ -10,7 +10,7 @@
     <!-- 底部 -->
     <MyFooter ref="footer" />
     <!-- 搜索组建 -->
-    <MySearch />
+    <MySearch :dialogShow="dialogShow" />
     <!-- 加载动画 -->
     <MyLoadAnimation @leaveAnimateEnded="leaveAnimateEnded" />
 <!--     <div class="surprises">
@@ -26,11 +26,11 @@
 </template>
 <script>
   import _ from 'underscore'
-  import MyHeader from '~components/Header.vue'
-  import MyFooter from '~components/Footer.vue'
-  import MySearch from '~components/Search.vue'
-  import MyLoadAnimation from '~components/loadAnimation.vue'
-  import MyRandomBackground from '~components/randomBackground.vue'
+  import MyHeader from '~/components/Header.vue'
+  import MyFooter from '~/components/Footer.vue'
+  import MySearch from '~/components/Search.vue'
+  import MyLoadAnimation from '~/components/loadAnimation.vue'
+  import MyRandomBackground from '~/components/randomBackground.vue'
 
   export default {
     data () {
@@ -49,6 +49,9 @@
     computed: {
       isMobile () {
         return this.$store.state.option.isMobile
+      },
+      dialogShow () {
+        return this.$store.state.search.dialog.show
       }
     },
     components: {

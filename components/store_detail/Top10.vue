@@ -2,14 +2,14 @@
   <el-row class="top10-items">
     <el-col :span="24" class="title"><h3>大家还买了什么</h3></el-col>
     <el-row>
-      <el-col :span="24" class="item" v-for="item in top10" :key="item.src">
-        <nuxt-link to="/" class="el-row">
-          <el-col :span="4" class="item-image" v-lazy:background-image.container="item.src"></el-col>
+      <el-col :span="24" class="item" v-for="item in items" :key="item.id">
+        <nuxt-link :to="{ name: 'store-detail-id', params: { id: item.id } }" class="el-row">
+          <el-col :span="4" class="item-image" v-lazy:background-image.container="item.image"></el-col>
           <el-col :span="20" class="item-title">
-            <h4>大家都在看啥呢？？呵呵呵这是个标题大家大家都在看啥呢？？呵呵呵这是个标题大家大家都在看啥呢？？呵呵呵这是个标题大家</h4>
+            <h4>{{ item.post_title }}</h4>
             <div class="item-info">
-              <span class="view"><i class="el-icon-view"></i> 12122</span>
-              <span class="time"><i class="el-icon-time"></i> 2017/11/02</span>
+              <span class="view"><i class="el-icon-view"></i> {{ item.post_hits }}</span>
+              <span class="time"><i class="el-icon-time"></i> {{ item.comment_count }}</span>
             </div>
           </el-col>
         </nuxt-link>
@@ -20,14 +20,9 @@
 <script>
   export default {
     name: 'store-top10',
-    data () {
-      return {
-        top10: [{'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c4.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c1.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c2.jpg'},
-        {'url': '/', 'src': 'http://flatfull.com/themes/pulse/images/c3.jpg'}]
+    props: {
+      items: {
+        type: Array
       }
     }
   }

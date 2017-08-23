@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Axios from 'axios'
+
 import { Message } from 'element-ui'
 
 const service = Axios.create({
@@ -15,6 +16,8 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
   if (response.data.status === 0) {
     return response.data.data
+  } else if (response.data.status === 1) {
+    return Promise.reject(response.data)
   } else {
     Message.error({
       message: {

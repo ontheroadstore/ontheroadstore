@@ -1,4 +1,4 @@
-import Service from '~plugins/axios'
+import Service from '~/plugins/axios'
 
 export const state = () => ({
   banner: {
@@ -37,16 +37,20 @@ export const mutations = {
       total: parseInt(action.total_count),
       pagetotal: parseInt(action.total_pages)
     }
+  },
+  SET_VIDEO: (state, action) => {
+    state.video = action.list
+  },
+  CLEAR_STORE_ITEMS: (state) => {
+    state.store.items = []
+    state.store.pagination = {
+      current: null,
+      total: null,
+      pagetotal: null
+    }
   }
 }
 export const actions = {
-  async INIT ({ dispatch }) {
-    await dispatch('REQ_BANNER_CAROUSEL')
-    await dispatch('REQ_BANNER_RECOMMEND')
-    await dispatch('REQ_ARTICLE')
-    await dispatch('REQ_TOP10')
-    await dispatch('REQ_STORE', 1)
-  },
   REQ_BANNER_CAROUSEL: ({commit}) => {
     return Service.get('index/recommend').then(response => {
       commit('SET_BANNER_CAROUSEL', response)
@@ -74,6 +78,16 @@ export const actions = {
       }
     }).then(response => {
       commit('SET_STORE_ITEMS', response)
+    })
+  },
+  REQ_VIDEO ({commit}, page) {
+    return Service.get('index/video', {
+      params: {
+        page: page,
+        page_size: 9
+      }
+    }).then(response => {
+      commit('SET_VIDEO', response)
     })
   }
 }

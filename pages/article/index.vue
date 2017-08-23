@@ -21,127 +21,126 @@
         </el-row>
       </el-col>
     </el-row>
-    <MyPagination :infinite="infinite" v-if="!isMore" />
-    <el-row v-else>
-      <el-col :span="24" class="ismore">
-        <nuxt-link :to="{ name: 'article-pages', params: { pages: '4' } }">
-          <el-button>查看更多内容</el-button>
-        </nuxt-link>
-      </el-col>
-    </el-row>
+    <MyPagination :infinite="infinite" :pagination="pagination" routerName="article-pages" />
   </div>
 </div>
 </template>
 <script>
-  import { mapState } from 'vuex'
-  import MyPagination from '~/components/Pagination_infinite'
+import MyPagination from '~/components/Pagination_infinite'
 
-  export default {
-    fetch ({ store }) {
-      return Promise.all([store.dispatch('ARTICLE_INDEX_INIT')])
-    },
-    computed: mapState({
-      items: store => store.Article.index.items,
-      next_page: store => store.Article.index.pagination.current + 1,
-      isMore: store => {
-        if (store.Article.index.pagination.current === 3) {
-          return true
-        }
-        return false
-      }
-    }),
-    components: {
-      'MyPagination': MyPagination
-    },
-    methods: {
-      infinite () {
-        this.$store.dispatch('ARTICLE_INDEX_GET_ITEMS', this.next_page)
-      }
+export default {
+  head () {
+    return {
+      title: '文章'
     }
+  },
+  fetch ({ store }) {
+    return Promise.all([store.dispatch('article/REQ_LIST', 1)])
+  },
+  computed: {
+    items () {
+      return this.$store.state.article.index.items
+    },
+    pagination () {
+      return this.$store.state.article.index.pagination
+    },
+    next_page () {
+      return this.$store.state.article.index.pagination.current + 1
+    }
+  },
+  components: {
+    'MyPagination': MyPagination
+  },
+  methods: {
+    infinite () {
+      this.$store.dispatch('article/REQ_LIST', this.next_page)
+    }
+  },
+  destroyed () {
+    this.$store.commit('article/CLEAR_INDEX')
   }
+}
 </script>
 <style lang="scss" scoped>
-  .container {
-    & > .el-row {
-
-      .ismore {
-        padding: 1rem;
-        text-align: center;
-      }
-      .article-list {
-        .el-row {
-          margin: 0 -.5rem;
-          .el-col {
-            &.item {
-              padding: 0 .5rem;
-              a {
-                display: block;
-                padding-bottom: .5rem;
-                &:hover {
-                  .item-image {
-                    .item-tag {
-                      background-color: #6cc788;
-                      transition-property: background-color;
-                      transition-duration: 0.3s;
-                      transition-timing-function: ease;
-                    }
-                    &:after {
-                      transition-property: background-color;
-                      transition-duration: 0.3s;
-                      transition-timing-function: ease;
-                      background-color: rgba(0, 0, 0, 0.2);
-                    }
-                  }
-                  .item-title {
-                    opacity: 1;
-                  }
-                }
+.container {
+  & > .el-row {
+    .ismore {
+      padding: 1rem;
+      text-align: center;
+    }
+    .article-list {
+      .el-row {
+        margin: 0 -.5rem;
+        .el-col {
+          &.item {
+            padding: 0 .5rem;
+            a {
+              display: block;
+              padding-bottom: .5rem;
+              &:hover {
                 .item-image {
-                  border-radius: inherit;
-                  background-size: cover;
-                  background-repeat: no-repeat;
-                  background-position: 50% 50%;
-                  background-color: rgba(120,120,120,.2);
-                  border-radius: 0.2rem;
-                  position: relative;
                   .item-tag {
-                    position: absolute;
-                    bottom: .5rem;
-                    right: .5rem;
-                    padding: .4rem;
-                    line-height: 1em;
-                    height: 1em;
-                    background-color: #767a7e;
-                    border-radius: 0.2rem;
-                    color: #fff;
-                    font-size:12px;
+                    background-color: #6cc788;
+                    transition-property: background-color;
+                    transition-duration: 0.3s;
+                    transition-timing-function: ease;
                   }
                   &:after {
-                    content: '';
-                    display: block;
-                    padding-bottom: 56.25%;
+                    transition-property: background-color;
+                    transition-duration: 0.3s;
+                    transition-timing-function: ease;
+                    background-color: rgba(0, 0, 0, 0.2);
                   }
                 }
                 .item-title {
+                  opacity: 1;
+                }
+              }
+              .item-image {
+                border-radius: inherit;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+                background-color: rgba(120,120,120,.2);
+                border-radius: 0.2rem;
+                position: relative;
+                .item-tag {
+                  position: absolute;
+                  bottom: .5rem;
+                  right: .5rem;
+                  padding: .4rem;
+                  line-height: 1em;
+                  height: 1em;
+                  background-color: #767a7e;
+                  border-radius: 0.2rem;
+                  color: #fff;
+                  font-size:12px;
+                }
+                &:after {
+                  content: '';
                   display: block;
-                  opacity: .9;
+                  padding-bottom: 56.25%;
+                }
+              }
+              .item-title {
+                display: block;
+                opacity: .9;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                h3 {
                   white-space: nowrap;
                   overflow: hidden;
                   text-overflow: ellipsis;
-                  h3 {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    margin: .5em 0;
-                  }
-                  p {
-                    margin: 0;
-                    opacity: .6;
-                    span {
-                      margin-right: 1rem;
-                      i {
-                        margin-right: .5rem;
-                      }
+                  margin: .5em 0;
+                }
+                p {
+                  margin: 0;
+                  opacity: .6;
+                  span {
+                    margin-right: 1rem;
+                    i {
+                      margin-right: .5rem;
                     }
                   }
                 }
@@ -152,4 +151,5 @@
       }
     }
   }
+}
 </style>
