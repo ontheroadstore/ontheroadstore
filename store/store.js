@@ -11,7 +11,8 @@ export const state = () => ({
       pagetotal: null
     },
     praises: {},
-    alike: []
+    alike: [],
+    keywords: []
   },
   index: {
     items: [],
@@ -84,7 +85,7 @@ export const mutations = {
     state.detail.sellers = {}
     state.detail.comments = {}
     state.detail.comment_total_count = {}
-    state.detail.isError = false
+    state.detail.keywords = []
   }
 }
 

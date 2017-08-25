@@ -52,12 +52,12 @@ export const mutations = {
 }
 export const actions = {
   REQ_BANNER_CAROUSEL: ({commit}) => {
-    return Service.get('index/recommend').then(response => {
+    return Service.get('index/articlebanner').then(response => {
       commit('SET_BANNER_CAROUSEL', response)
     })
   },
   REQ_BANNER_RECOMMEND: ({commit}) => {
-    return Service.get('index/recommend').then(response => {
+    return Service.get('index/storebanner').then(response => {
       commit('SET_BANNER_RECOMMEND', response)
     })
   },

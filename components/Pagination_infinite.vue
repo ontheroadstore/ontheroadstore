@@ -7,7 +7,7 @@
       <nuxt-link :to="{ name: this.routerName, params: { pages: nextPage } }" v-if="isMore">
         <el-button>获取更多内容</el-button>
       </nuxt-link>
-      <el-button :disabled="true" v-else>没有更多内容了</el-button>
+      <!-- <el-button :disabled="true" v-show="!isMore">没有更多内容了</el-button> -->
     </el-col>
   </el-row>
 </template>

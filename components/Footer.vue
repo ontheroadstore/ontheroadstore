@@ -55,7 +55,7 @@
     right: 0;
     margin: 0;
     z-index: 1020;
-    background-color: #363c43;
+    background-color: #cd2532;
     box-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
     -webkit-transform: translateZ(0);
     .el-row {

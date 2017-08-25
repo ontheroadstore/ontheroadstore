@@ -57,13 +57,16 @@ export default {
       title: this.item.title,
       meta: [
         { hid: 'description', name: 'description', content: this.item.abstract },
-        { name: 'keywords', content: 'asd' }
+        { name: 'keywords', content: this.keyword }
       ]
     }
   },
   computed: {
     item () {
       return this.$store.state.store.detail.items
+    },
+    keyword () {
+      return this.$store.state.store.detail.keywords.join(',')
     },
     sellers () {
       return this.$store.state.store.detail.sellers
@@ -118,7 +121,7 @@ export default {
       content: '';
       height: 50%;
       width: 100%;
-      background-image: linear-gradient(to bottom,rgba(255,255,255,0),#f2f2f2);
+      background-image: linear-gradient(to bottom,rgba(255,255,255,0),#ffffde);
       background-repeat: repeat-x;
       bottom: 0;
       position: absolute;

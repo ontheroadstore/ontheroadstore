@@ -1,6 +1,6 @@
 <template>
-  <div class="sousuo">
-    <el-dialog v-model="dialogShow" size="full" :lock-scroll="false" class="search" custom-class="search_dialog" :close-on-click-modal="false" :show-close="false" :close-on-press-escape="false">
+  <div class="search">
+    <el-dialog v-model="dialogShow" size="full" :lock-scroll="false" custom-class="search_dialog" :close-on-click-modal="false" :show-close="false" :close-on-press-escape="false">
       <el-button class="close-btn" icon="close" size="mini" @click="CloseSearchDialog()"></el-button>
       <el-row class="search_content">
         <el-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }" :md="{ span: 10, offset: 7 }">
@@ -9,11 +9,9 @@
           </el-autocomplete>
         </el-col>
         <el-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }" :md="{ span: 10, offset: 7 }">
-          <h4>大家都在搜什么：</h4>
+          <h4>热门搜索：</h4>
           <ul>
-            <!-- <li>sdsjjdj</li> -->
-            <li>sdsjjdj</li>
-            <li>sdsjjdj</li>
+            <li @!click="select_keyword(keyword.name)" v-for="keyword in hot_keyword">{{ keyword.name }}</li>
           </ul>
         </el-col>
       </el-row>
@@ -28,6 +26,9 @@ export default {
       timeout: null
     }
   },
+  fetch ({ store }) {
+    return store.dispatch('search/REQ_HOT_KEYWORD')
+  },
   props: {
     dialogShow: {
       type: Boolean,
@@ -37,6 +38,9 @@ export default {
   computed: {
     items () {
       return this.$store.state.search.dialog.suggest
+    },
+    hot_keyword () {
+      return this.$store.state.search.dialog.hot_keyword
     }
   },
   methods: {
@@ -54,6 +58,9 @@ export default {
     },
     submitSearch () {
       this.$router.push({ name: 'search', query: { keyword: this.keyWords } })
+    },
+    select_keyword (keyword) {
+      this.keyWords = keyword
     }
   }
 }
