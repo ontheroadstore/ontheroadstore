@@ -20,6 +20,10 @@ import _ from 'underscore'
 export default {
   data: () => ({
     loading: false,
+    // 入场动画是否已结束
+    enterLoading: false,
+    // 出场动画是否已结束
+    leaveLoading: false,
     // 当前活动背景图下标，随便默认一个，反正初始化的没意义
     currentActiveBgImgIndex: 0,
     // 背景图是否活动
@@ -27,9 +31,7 @@ export default {
     // 遮罩层尺寸
     maskSize: {},
     // 遮罩层数量
-    maskItems: [],
-    // 存储个定时器，不然会出问题
-    animateTimer: null
+    maskItems: []
   }),
   computed: {
     currentActiveBgImg () {
@@ -57,10 +59,21 @@ export default {
       this.loadBgImgAndSetActive()
     },
     finish () {
-      this.leaveBackgroundAnimate()
+      this.forceEndAnimation()
     },
     fail () {
-      this.leaveBackgroundAnimate()
+      this.forceEndAnimation()
+    },
+    forceEndAnimation () {
+      const leave = () => {
+        const canLeave = !this.enterLoading && !this.leaveLoading && this.loading
+        if (canLeave) {
+          window.requestAnimationFrame(this.leaveBackgroundAnimate.bind(this))
+        } else {
+          window.requestAnimationFrame(leave.bind(this))
+        }
+      }
+      leave()
     },
     // 设置一个随机背景图为要用的图
     setARandomBackground ({ randomIndex, size }) {
@@ -120,6 +133,7 @@ export default {
             // this.loadBgImgAndSetActive()
             // 如果一张有效的图都没了，就放弃吧
             if (!this.backgrounds.length) {
+              this.enterLoading = false
               this.reject()
             }
           }
@@ -130,12 +144,9 @@ export default {
 
     // 核心 - 动画初始化逻辑
     initBackgroundAnimate () {
-      // 先判断，要是在动画结束之前，就进入了新的页面，那就不取消了，直接初始化
-      // console.log('有定时器吗', this.animateTimer)
-      if (this.animateTimer) {
-        clearTimeout(this.animateTimer)
+      if (this.enterLoading) {
+        return false
       }
-      // console.log('还有定时器吗', this.animateTimer)
 
       // 执行这段逻辑的时候说明要用的图片已经load到内存了
       // 所以，可以造dom了，同时把所有dom遍历出去，且透明度全部为1
@@ -187,6 +198,7 @@ export default {
     // 动画开始的主逻辑
     intoBackgroundAnimate () {
       // console.log('入场动画开始')
+      this.enterLoading = true
 
       // 这里需要一个递归帧动画的方法，去一直到没有遮罩层在展示为止
       const step = () => {
@@ -202,20 +214,22 @@ export default {
 
           // 如果已经没有了，则定时两秒执行结束动画，跳出函数
         } else {
-          this.animateTimer = setTimeout(() => {
-            this.finish()
-          }, 1000)
-          // console.log('定时器已安置', this.animateTimer)
+          this.enterLoading = false
+          // console.log('入场动画结束')
           return false
         }
         window.requestAnimationFrame(step)
       }
       window.requestAnimationFrame(step)
-      // console.log('入场动画结束')
     },
 
     // 动画结束的主逻辑
     leaveBackgroundAnimate () {
+      if (this.leaveLoading) {
+        return false
+      }
+      // console.log('出厂结束开始')
+      this.leaveLoading = true
       const step = () => {
         const visibleItems = this.maskItems.filter(item => !item.visible).map(item => item.id)
         if (visibleItems.length) {
@@ -224,12 +238,13 @@ export default {
         } else {
           this.loading = false
           this.bgImgActive = false
+          // console.log('出厂结束结束')
+          this.leaveLoading = false
           return false
         }
         window.requestAnimationFrame(step)
       }
       window.requestAnimationFrame(step)
-      // console.log('出厂结束结束')
     }
   }
 }
