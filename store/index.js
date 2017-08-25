@@ -6,5 +6,6 @@ export const actions = {
     const isMobile = /(iPhone|iPod|Opera Mini|Android.*Mobile|NetFront|PSP|BlackBerry|Windows Phone)/ig.test(userAgent)
     store.commit('option/SET_USER_AGENT', userAgent)
     store.commit('option/SET_MOBILE_LAYOUT', isMobile)
+    store.dispatch('search/REQ_HOT_KEYWORD')
   }
 }

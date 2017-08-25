@@ -42,9 +42,10 @@
     z-index: 1020;
     left: 0;
     right: 0;
-    background-color: #fff;
-    box-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+    background-color: #f0e042;
+    box-shadow: 0 0.1rem 0.2rem rgba(0,0,0,.1), 0 -0.1rem 0 rgba(0,0,0,.02);
     -webkit-transform: translateZ(0);
+    border-bottom: 0.2rem solid #cd2836;
     &>.el-row {
       padding: 0 1rem;
       &>.el-col {
@@ -73,7 +74,7 @@
             display: block;
             width: 100%;
             &:hover, &.nuxt-link-active {
-              color: #6cc788;
+              color: #cd2836;
               transition-property: color;
               transition-duration: 0.3s;
               transition-timing-function: ease;

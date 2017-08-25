@@ -15,7 +15,7 @@
           </el-col>
           <el-col :span="18" :offset="1" class="item-title">
             <h4 v-highlight="keyWords">{{ item.goods_title }}</h4>
-            <div class="tag">
+            <div class="tag" v-show="item.goods_keywords.length">
               <span v-for="tag in item.goods_keywords">{{ tag }}</span>
             </div>
             <div class="item-info">

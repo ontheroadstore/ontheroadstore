@@ -3,7 +3,8 @@ import Service from '~/plugins/axios'
 export const state = () => ({
   dialog: {
     show: false,
-    suggest: []
+    suggest: [],
+    hot_keyword: []
   },
   pages: {
     query: null,
@@ -37,6 +38,9 @@ export const mutations = {
       pagetotal: parseInt(action.total_page)
     }
   },
+  SET_HOT_KEYWORD: (state, action) => {
+    state.dialog.hot_keyword = action
+  },
   CLEAR_PAGES: (state) => {
     state.pages.query = null
     state.pages.items = []
@@ -66,6 +70,11 @@ export const actions = {
       }
     }).then(response => {
       commit('SET_DIALOG_SUGGEST', response)
+    })
+  },
+  REQ_HOT_KEYWORD: ({commit}) => {
+    return Service.get('search/tagsuggestions').then(response => {
+      commit('SET_HOT_KEYWORD', response.keyword.list)
     })
   },
   CLOSE_DIALOG: ({commit}) => {

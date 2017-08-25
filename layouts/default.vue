@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <MyHeader ref="header" />
     <!-- 主题内容 -->
-    <main id="main" :style="{ 'top': margin.top, 'bottom': margin.bottom }" class="main animated" v-smooth-scroll :class="surprises.current">
+    <main id="main" :style="{ 'top': margin.top, 'bottom': margin.bottom }" class="main animated" v-smooth-scroll :class="surprises">
       <nuxt />
       <MyRandomBackground />
     </main>
@@ -11,21 +11,9 @@
     <MyFooter ref="footer" />
     <!-- 搜索组建 -->
     <MySearch :dialogShow="dialogShow" />
-    <!-- 加载动画 -->
-    <!-- <MyLoadAnimation @leaveAnimateEnded="leaveAnimateEnded" /> -->
-<!--     <div class="surprises">
-      <div class="rainbow">
-        <div class="blue"></div>
-        <div class="green"></div>
-        <div class="yellow"></div>
-        <div class="orange"></div>
-        <div class="red"></div>
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
-  import _ from 'underscore'
   import MyHeader from '~/components/Header.vue'
   import MyFooter from '~/components/Footer.vue'
   import MySearch from '~/components/Search.vue'
@@ -38,11 +26,6 @@
         margin: {
           top: null,
           bottom: null
-        },
-        surprises: {
-          random: 2,
-          current: null,
-          array: ['bounce', 'flash', 'pulse', 'rubberBand', 'shake', 'swing', 'tada', 'wobble', 'jello', 'bounceIn', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp', 'fadeIn', 'fadeInDown', 'fadeInDownBig', 'fadeInLeft', 'fadeInLeftBig', 'fadeInRight', 'fadeInRightBig', 'fadeInUp', 'fadeInUpBig', 'flip', 'flipInX', 'flipInY', 'lightSpeedIn', 'rotateIn', 'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'slideInUp', 'slideInDown', 'slideInLeft', 'slideInRight', 'zoomIn', 'zoomInDown', 'zoomInLeft', 'zoomInRight', 'zoomInUp', 'hinge', 'rollIn', 'reverted', 'rotated']
         }
       }
     },
@@ -52,30 +35,19 @@
       },
       dialogShow () {
         return this.$store.state.search.dialog.show
+      },
+      surprises () {
+        return this.$store.state.option.pageAnimation.surprises.current
       }
     },
     components: {
       MyFooter, MyHeader, MySearch, MyLoadAnimation, MyRandomBackground
     },
-    methods: {
-      leaveAnimateEnded () {
-        this.initSurprises()
-      },
-      initSurprises () {
-        if (_.random(1, this.surprises.random) % this.surprises.random === 0) {
-          let surprisesTemp = _.sample(this.surprises.array)
-          this.surprises.current = surprisesTemp
-          setTimeout(() => {
-            this.surprises.current = null
-          }, 1200)
-        }
-      }
-    },
     mounted () {
       this.margin.top = this.$refs.header.$el.clientHeight + 'px'
       this.margin.bottom = this.$refs.footer.$el.clientHeight + 'px'
       if (process.env.NODE_ENV === 'production') {
-        console.log('%c直接发简历 %cdoub@ontheroadstore.com', 'color:red;font-size:3em;', 'color:red;font-size:13px;')
+        console.log('%c招聘各种岗位，详细查看： %chttp://localtest.ontheroadstore.com:3333/job', 'color:red;font-size:3em;', 'color:red;font-size:13px;')
       }
     }
   }
@@ -94,39 +66,8 @@
       transform:rotate(-35deg);
     }
   }
-  .surprises {
-    .rainbow {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 850;
-      & > div {
-        position: absolute;
-        left: -100%;
-        top: 0;
-        width: 100%;
-        height: 20%;
-        .blue {
-          background: blue;
-          top: 80%;
-        }
-        .green {
-          background: green;
-          top: 60%;
-        }
-        .yellow {
-          background: yellow;
-          top: 40%;
-        }
-        .orange {
-          background: orange; top: 20%;
-        }
-        .red {
-          background: red;
-        }
-      }
-    }
+  // 饿了么css hack
+  .el-autocomplete {
+    width: 100%;
   }
 </style>
