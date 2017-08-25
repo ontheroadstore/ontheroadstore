@@ -28,8 +28,7 @@ export default Vue.directive('smooth-scroll', {
         })
         if (app.$store.state.option.infiniteScroll.loading) {
           app.$store.commit('option/SET_INFINTE_LOADING', false)
-          infiniteScroll
-          .then(() => {
+          infiniteScroll.then(() => {
             app.$store.commit('option/SET_INFINTE_LOADING', true)
           })
         }

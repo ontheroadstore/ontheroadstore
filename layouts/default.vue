@@ -12,7 +12,7 @@
     <!-- 搜索组建 -->
     <MySearch :dialogShow="dialogShow" />
     <!-- 加载动画 -->
-    <MyLoadAnimation @leaveAnimateEnded="leaveAnimateEnded" />
+    <!-- <MyLoadAnimation @leaveAnimateEnded="leaveAnimateEnded" /> -->
 <!--     <div class="surprises">
       <div class="rainbow">
         <div class="blue"></div>

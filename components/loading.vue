@@ -1,7 +1,7 @@
 <template>
-  <div class="loadanimation-container" v-show="maskActive">
+  <div class="loadanimation-container" v-if="loading">
     <!-- 动画背景层 -->
-    <div class="mask" v-show="maskActive" :style="[currentBgStyle, maskSize]">
+    <div class="mask" v-show="loading" :style="[currentBgStyle, maskSize]">
       <div class="item" :style="mask.style" :class="{ visible: mask.visible }" v-for="mask in maskItems"></div>
     </div>
     <div class="title">
@@ -15,37 +15,23 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import _ from 'underscore'
 
 export default {
-  name: 'loadAnimation',
-  data () {
-    return {
-      // 当前活动背景图下标，随便默认一个，反正初始化的没意义
-      currentActiveBgImgIndex: 0,
-      // 背景图是否活动
-      bgImgActive: false,
-      // 遮罩层是否展示
-      maskActive: false,
-      // 遮罩层尺寸
-      maskSize: {},
-      // 遮罩层数量
-      maskItems: [],
-      // 存储个定时器，不然会出问题
-      animateTimer: null
-    }
-  },
-  mounted () {
-    // 组件加载完就执行动画
-    this.loadBgImgAndSetActive()
-
-    // 路由跳转时再执行，当动画返回成功或失败时再跳转路由
-    this.$router.beforeEach((to, from, next) => {
-      this.loadBgImgAndSetActive().then(next).catch(next)
-    })
-  },
-  computed: mapState({
+  data: () => ({
+    loading: false,
+    // 当前活动背景图下标，随便默认一个，反正初始化的没意义
+    currentActiveBgImgIndex: 0,
+    // 背景图是否活动
+    bgImgActive: false,
+    // 遮罩层尺寸
+    maskSize: {},
+    // 遮罩层数量
+    maskItems: [],
+    // 存储个定时器，不然会出问题
+    animateTimer: null
+  }),
+  computed: {
     currentActiveBgImg () {
       return this.backgrounds[this.currentActiveBgImgIndex].src
     },
@@ -54,19 +40,28 @@ export default {
         'background-image': `url(${this.currentActiveBgImg})`
       }
     },
-    backgrounds: store => {
+    backgrounds () {
       let temp = []
-      for (var items of store.option.pageAnimation.transitionActive.array) {
+      for (var items of this.$store.state.option.pageAnimation.transitionActive.array) {
         temp.push({
-          src: store.option.globalOption.baseCdn + items,
+          src: this.$store.state.option.globalOption.baseCdn + items,
           size: null,
           loaded: false
         })
       }
       return temp
     }
-  }),
+  },
   methods: {
+    start () {
+      this.loadBgImgAndSetActive()
+    },
+    finish () {
+      this.leaveBackgroundAnimate()
+    },
+    fail () {
+      this.leaveBackgroundAnimate()
+    },
     // 设置一个随机背景图为要用的图
     setARandomBackground ({ randomIndex, size }) {
       // 这会说明图已经loaded成功了，所以可以改状态了
@@ -182,7 +177,7 @@ export default {
       // console.log('遮罩层展示，背景图+遮罩层展示')
       this.maskItems = maskItems
       this.maskSize = maskSize
-      this.maskActive = true
+      this.loading = true
       this.bgImgActive = true
 
       // 开始动画
@@ -192,7 +187,6 @@ export default {
     // 动画开始的主逻辑
     intoBackgroundAnimate () {
       // console.log('入场动画开始')
-      this.$emit('intoAnimateStart')
 
       // 这里需要一个递归帧动画的方法，去一直到没有遮罩层在展示为止
       const step = () => {
@@ -209,7 +203,7 @@ export default {
           // 如果已经没有了，则定时两秒执行结束动画，跳出函数
         } else {
           this.animateTimer = setTimeout(() => {
-            this.leaveBackgroundAnimate()
+            this.finish()
           }, 1000)
           // console.log('定时器已安置', this.animateTimer)
           return false
@@ -218,20 +212,17 @@ export default {
       }
       window.requestAnimationFrame(step)
       // console.log('入场动画结束')
-      this.$emit('intoAnimateEnded')
     },
 
     // 动画结束的主逻辑
     leaveBackgroundAnimate () {
-      // console.log('出厂结束开始')
-      this.$emit('leaveAnimateStart')
       const step = () => {
         const visibleItems = this.maskItems.filter(item => !item.visible).map(item => item.id)
         if (visibleItems.length) {
           const randomId = _.random(0, visibleItems.length)
           this.setMaskItemState({ id: visibleItems[randomId], visible: true })
         } else {
-          this.maskActive = false
+          this.loading = false
           this.bgImgActive = false
           return false
         }
@@ -239,7 +230,6 @@ export default {
       }
       window.requestAnimationFrame(step)
       // console.log('出厂结束结束')
-      this.$emit('leaveAnimateEnded')
     }
   }
 }
@@ -252,7 +242,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1020;
+  z-index: 1040;
   .mask {
     position: absolute;
     width: 100%;

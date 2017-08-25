@@ -56,8 +56,8 @@ export default {
     return {
       title: this.item.title,
       meta: [
-      { hid: 'description', name: 'description', content: this.item.abstract },
-      { name: 'keywords', content: 'asd' }
+        { hid: 'description', name: 'description', content: this.item.abstract },
+        { name: 'keywords', content: 'asd' }
       ]
     }
   },
