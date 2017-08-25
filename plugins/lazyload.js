@@ -5,4 +5,3 @@ Vue.use(VueLazyload, {
   loading: '/loading.gif',
   attempt: 0
 })
-

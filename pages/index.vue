@@ -19,11 +19,11 @@
   </div>
 </template>
 <script>
-import MyIndexBanner from '@/components/index/Banner.vue'
-import MyIndexArticle from '@/components/index/Article.vue'
-import MyIndexVideo from '@/components/index/Video.vue'
-import MyIndexStore from '@/components/index/Store.vue'
-import MyIndexTop10 from '@/components/index/Top10.vue'
+import MyIndexBanner from '~/components/index/Banner.vue'
+import MyIndexArticle from '~/components/index/Article.vue'
+import MyIndexVideo from '~/components/index/Video.vue'
+import MyIndexStore from '~/components/index/Store.vue'
+import MyIndexTop10 from '~/components/index/Top10.vue'
 
 export default {
   head () {
