@@ -19,14 +19,14 @@ service.interceptors.response.use(response => {
   } else if (response.data.status === 1) {
     return Promise.reject(response.data)
   } else {
-    Message.error({
-      message: {
-        'code': response.data.status,
-        'info': response.data.info
-      },
-      type: 'error'
-    })
-    return response
+    // Message.error({
+    //   message: {
+    //     'code': response.data.status,
+    //     'info': response.data.info
+    //   },
+    //   type: 'error'
+    // })
+    return response.data
   }
 }, error => {
   Message.error({
