@@ -1,7 +1,7 @@
 <template>
   <div class="loadanimation-container" v-if="loading">
     <!-- 动画背景层 -->
-    <div class="mask" v-show="loading" :style="[currentBgStyle, maskSize]">
+    <div class="mask" v-show="loading" v-lazy:background-image="currentBgStyle" :style="[maskSize]">
       <div class="item" :style="mask.style" :class="{ visible: mask.visible }" v-for="mask in maskItems"></div>
     </div>
     <div class="title">
@@ -16,6 +16,7 @@
 
 <script>
 import _ from 'underscore'
+import Service from '~/plugins/axios'
 
 export default {
   data: () => ({
@@ -34,19 +35,23 @@ export default {
     leaveLoading: false
   }),
   computed: {
+    baseCdn () {
+      return this.$store.state.option.globalOption.baseCdn
+    },
     currentActiveBgImg () {
       return this.backgrounds[this.currentActiveBgImgIndex].src
     },
     currentBgStyle () {
-      return !this.bgImgActive ? {} : {
-        'background-image': `url(${this.currentActiveBgImg})`
+      return {
+        src: this.currentActiveBgImg,
+        loading: this.currentActiveBgImg + '?x-oss-process=image/quality,Q_5'
       }
     },
     backgrounds () {
       let temp = []
       for (var items of this.$store.state.option.pageAnimation.transitionActive.array) {
         temp.push({
-          src: this.$store.state.option.globalOption.baseCdn + items,
+          src: this.baseCdn + items,
           size: null,
           loaded: false
         })
@@ -110,45 +115,19 @@ export default {
       // 生成的随机图片
       const randomImg = this.backgrounds[randomIndex]
 
-      return new Promise((resolve, reject) => {
-        // 如果这个图片已加载，就直接返回成功，同时执行动画
-        if (randomImg.loaded) {
-          // console.log('图片本身成功了')
-          this.setARandomBackground({
-            randomIndex,
-            size: randomImg.size
-          })
-          resolve()
-          this.initBackgroundAnimate()
-
-          // 否则，加载这个随机图片（内存中）
-        } else {
-          let img = new Image()
-          img.onload = () => {
-            // console.log('图片加载成功', img.width, img.height)
-            // 图片加载成功，则更改状态，同时执行动画
-            this.setARandomBackground({
-              randomIndex,
-              size: {
-                width: img.width,
-                height: img.height
-              }
-            })
-            resolve()
-            this.initBackgroundAnimate()
-          }
-          img.onerror = () => {
-            // console.log('图片加载失败')
-            // 失败了，则把失败的图片pop出去，且递归的
-            this.backgrounds.replace(this.backgrounds.splice(i => Object.is(i.src, img.src)), 1)
-            this.loadBgImgAndSetActive()
-            // 如果一张有效的图都没了，就放弃吧
-            if (!this.backgrounds.length) {
-              this.reject()
-            }
-          }
-          img.src = randomImg.src
+      Service.get(randomImg.src, {
+        params: {
+          'x-oss-process': 'image/info'
         }
+      }).then(response => {
+        this.setARandomBackground({
+          randomIndex,
+          size: {
+            width: response.ImageWidth,
+            height: response.ImageHeight
+          }
+        })
+        this.initBackgroundAnimate()
       })
     },
 

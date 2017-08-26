@@ -4,7 +4,7 @@ export const state = () => ({
   userAgent: null,
   isMobile: null,
   globalOption: {
-    baseCdn: process.env.NODE_ENV !== 'production' ? '/' : '/'
+    baseCdn: 'http://img8.ontheroadstore.com/www/dist/'
   },
   pageAnimation: {
     switch: true,
