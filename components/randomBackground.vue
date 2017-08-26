@@ -15,6 +15,9 @@ export default {
     },
     baseCdn () {
       return this.$store.state.option.globalOption.baseCdn
+    },
+    imgItem (item) {
+      return item.url
     }
   },
   mounted () {

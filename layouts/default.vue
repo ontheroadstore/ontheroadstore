@@ -17,7 +17,6 @@
   import MyHeader from '~/components/Header.vue'
   import MyFooter from '~/components/Footer.vue'
   import MySearch from '~/components/Search.vue'
-  import MyLoadAnimation from '~/components/loadAnimation.vue'
   import MyRandomBackground from '~/components/randomBackground.vue'
 
   export default {
@@ -41,13 +40,13 @@
       }
     },
     components: {
-      MyFooter, MyHeader, MySearch, MyLoadAnimation, MyRandomBackground
+      MyFooter, MyHeader, MySearch, MyRandomBackground
     },
     mounted () {
       this.margin.top = this.$refs.header.$el.clientHeight + 'px'
       this.margin.bottom = this.$refs.footer.$el.clientHeight + 'px'
       if (process.env.NODE_ENV === 'production') {
-        console.log('%c招聘各种岗位，详细查看： %chttp://localtest.ontheroadstore.com:3333/job', 'color:red;font-size:3em;', 'color:red;font-size:13px;')
+        console.log('%c招聘各种岗位，详细查看： %chttp://www.ontheroadstore.com/job', 'color:red;font-size:3em;', 'color:red;font-size:13px;')
       }
     }
   }

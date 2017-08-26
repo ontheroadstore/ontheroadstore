@@ -123,8 +123,8 @@ export default {
         this.setARandomBackground({
           randomIndex,
           size: {
-            width: response.ImageWidth,
-            height: response.ImageHeight
+            width: parseInt(response.ImageWidth.value),
+            height: parseInt(response.ImageHeight.value)
           }
         })
         this.initBackgroundAnimate()
@@ -161,8 +161,6 @@ export default {
         height: `${yCount * height}px`
       }
 
-      // console.log('遮罩层数量黑尺寸', xCount, yCount, maskCount, maskSize)
-
       // 造item行动
       let maskItems = []
       for (let i = 1; i <= maskCount; i++) {
@@ -172,7 +170,7 @@ export default {
           style: { width: `${width}px`, height: `${height}px` }
         })
       }
-
+      // console.log(maskItems)
       // 然后，直接把状态改变
       // console.log('遮罩层展示，背景图+遮罩层展示')
       this.maskItems = maskItems
