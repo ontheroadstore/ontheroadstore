@@ -14,59 +14,62 @@
   </div>
 </template>
 <script>
-  import MyHeader from '~/components/Header.vue'
-  import MyFooter from '~/components/Footer.vue'
-  import MySearch from '~/components/Search.vue'
-  import MyRandomBackground from '~/components/randomBackground.vue'
+import MyHeader from '~/components/Header.vue'
+import MyFooter from '~/components/Footer.vue'
+import MySearch from '~/components/Search.vue'
+import MyRandomBackground from '~/components/randomBackground.vue'
 
-  export default {
-    data () {
-      return {
-        margin: {
-          top: null,
-          bottom: null
-        }
-      }
-    },
-    computed: {
-      isMobile () {
-        return this.$store.state.option.isMobile
-      },
-      dialogShow () {
-        return this.$store.state.search.dialog.show
-      },
-      surprises () {
-        return this.$store.state.option.pageAnimation.surprises.current
-      }
-    },
-    components: {
-      MyFooter, MyHeader, MySearch, MyRandomBackground
-    },
-    mounted () {
-      this.margin.top = this.$refs.header.$el.clientHeight + 'px'
-      this.margin.bottom = this.$refs.footer.$el.clientHeight + 'px'
-      if (process.env.NODE_ENV === 'production') {
-        console.log('%c招聘各种岗位，详细查看： %chttp://www.ontheroadstore.com/job', 'color:red;font-size:3em;', 'color:red;font-size:13px;')
+export default {
+  data () {
+    return {
+      margin: {
+        top: null,
+        bottom: null
       }
     }
+  },
+  computed: {
+    isMobile () {
+      return this.$store.state.option.isMobile
+    },
+    dialogShow () {
+      return this.$store.state.search.dialog.show
+    },
+    surprises () {
+      return this.$store.state.option.pageAnimation.surprises.current
+    }
+  },
+  components: {
+    MyFooter, MyHeader, MySearch, MyRandomBackground
+  },
+  mounted () {
+    this.margin.top = this.$refs.header.$el.clientHeight + 'px'
+    this.margin.bottom = this.$refs.footer.$el.clientHeight + 'px'
+    if (process.env.NODE_ENV === 'production') {
+      console.log('%c招聘各种岗位，详细查看： %chttp://www.ontheroadstore.com/job', 'color:red;font-size:3em;', 'color:red;font-size:13px;')
+    }
   }
+}
 </script>
 <style lang="scss">
-  .main {
-    position: absolute;
-    width: 100%;
-    transition-duration: 0.5s;
-    transition-property: transform;
-    transition-timing-function: ease-out;
-    &.reverted {
-      transform:rotateY(180deg);
-    }
-    &.rotated {
-      transform:rotate(-35deg);
-    }
+.main {
+  position: absolute;
+  width: 100%;
+  transition-duration: 0.5s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  &.reverted {
+    transform:rotateY(180deg);
   }
-  // 饿了么css hack
-  .el-autocomplete {
-    width: 100%;
+  &.rotated {
+    transform:rotate(-35deg);
   }
+}
+// 饿了么css hack
+.el-autocomplete {
+  width: 100%;
+}
+.el-col-xs-0, .el-col-sm-0, .el-col-md-0, .el-col-lg-0 {
+  overflow: hidden;
+}
 </style>
