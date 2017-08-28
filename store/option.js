@@ -9,7 +9,32 @@ export const state = () => ({
   pageAnimation: {
     switch: true,
     transitionActive: {
-      array: ['transitions/0.gif', 'transitions/0.jpg', 'transitions/1.gif', 'transitions/1.jpg', 'transitions/2.gif', 'transitions/2.jpg', 'transitions/3.gif', 'transitions/3.jpg', 'transitions/4.gif', 'transitions/4.jpg', 'transitions/5.gif', 'transitions/5.jpg', 'transitions/6.gif', 'transitions/6.jpg', 'transitions/7.gif', 'transitions/7.jpg', 'transitions/8.gif', 'transitions/9.gif', 'transitions/9.jpg', 'transitions/10.gif', 'transitions/10.jpg', 'transitions/11.gif', 'transitions/11.jpg', 'transitions/12.gif', 'transitions/12.jpg', 'transitions/13.gif', 'transitions/13.jpg', 'transitions/14.gif', 'transitions/14.jpg', 'transitions/15.gif', 'transitions/15.jpg', 'transitions/16.gif', 'transitions/16.jpg', 'transitions/17.gif', 'transitions/17.jpg', 'transitions/18.gif', 'transitions/18.jpg', 'transitions/19.gif', 'transitions/19.jpg', 'transitions/20.gif', 'transitions/21.gif', 'transitions/22.gif', 'transitions/23.gif', 'transitions/24.gif', 'transitions/25.gif', 'transitions/27.gif', 'transitions/28.gif', 'transitions/29.gif', 'transitions/30.gif', 'transitions/1200.gif', 'transitions/horror1.gif', 'transitions/pokemon1.gif', 'transitions/tfelp.gif', 'transitions/tumblr-m2jwxceup81r15otbo5-r1-250.gif', 'transitions/tumblr_l8rhrqykag1qzc4eao1_500.gif', 'transitions/tumblr_lbmcv2oq031qdezf9o1_400.gif', 'transitions/tumblr_lbrfqgasvw1qb8oz7o1_400.gif', 'transitions/tumblr_leod9g5mjp1qa0t82o1_500.gif', 'transitions/tumblr_let12qdtlv1qe0eclo1_r3_500.gif', 'transitions/tumblr_lf5lba3jmp1qeg9a2o1_400.gif', 'transitions/tumblr_lg9n7rhbik1qb68o8o1_400.gif', 'transitions/tumblr_lk0ikbju2k1qbdwboo1_500.gif', 'transitions/tumblr_lkqnt7jeyy1qg39ewo1_500.gif', 'transitions/tumblr_lmpe76cvba1qzniwno1_500.gif', 'transitions/tumblr_lnddjg3mob1qhomlso1_500.gif', 'transitions/tumblr_lpfkqahsqo1qazdhko1_500.gif', 'transitions/tumblr_lpmmenrowy1qazdhko1_500.gif', 'transitions/tumblr_lsjuhx6syq1qaobv7o1_400.gif', 'transitions/tumblr_luxv0pb5cs1r4xjo2o1_250.gif', 'transitions/tumblr_lxmaftq0bd1r50h3xo1_500.gif', 'transitions/tumblr_lxyoq8wefi1rn95k2o1_250.gif', 'transitions/tumblr_m1l7x942j41qz5d8go5_500.gif', 'transitions/tumblr_m1p3n1zdop1r6exezo1_500.gif', 'transitions/tumblr_m2mmngkf7m1rql0f4o1_500.gif', 'transitions/tumblr_m30mr4g62a1rseaazo1_250.gif', 'transitions/vvzu7.gif'],
+      array: [
+        {src: 'transitions/0.gif', width: 200, height: 270},
+        {src: 'transitions/0.jpg', width: 201, height: 300},
+        {src: 'transitions/1.gif', width: 320, height: 240},
+        {src: 'transitions/1.jpg', width: 300, height: 225},
+        {src: 'transitions/2.gif', width: 300, height: 239},
+        {src: 'transitions/2.jpg', width: 233, height: 300},
+        {src: 'transitions/3.gif', width: 300, height: 228},
+        {src: 'transitions/3.jpg', width: 300, height: 228},
+        {src: 'transitions/4.gif', width: 320, height: 240},
+        {src: 'transitions/4.jpg', width: 198, height: 300},
+        {src: 'transitions/5.gif', width: 320, height: 256},
+        {src: 'transitions/5.jpg', width: 243, height: 300},
+        {src: 'transitions/6.gif', width: 300, height: 223},
+        {src: 'transitions/6.jpg', width: 300, height: 253},
+        {src: 'transitions/7.gif', width: 300, height: 321},
+        {src: 'transitions/7.jpg', width: 200, height: 300},
+        {src: 'transitions/8.gif', width: 300, height: 109},
+        {src: 'transitions/9.gif', width: 300, height: 234},
+        {src: 'transitions/9.jpg', width: 300, height: 300},
+        {src: 'transitions/10.gif', width: 300, height: 221},
+        {src: 'transitions/10.jpg', width: 300, height: 199},
+        {src: 'transitions/11.gif', width: 300, height: 229},
+        {src: 'transitions/11.jpg', width: 300, height: 241},
+        {src: 'transitions/12.gif', width: 300, height: 235}
+      ],
       active: []
     },
     interImage: {
