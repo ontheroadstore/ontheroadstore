@@ -117,10 +117,10 @@ export default {
     z-index: 10;
     .qrcode {
       margin-top: 1rem;
-      right: 1rem;
+      // right: 0rem;
       text-align: center;
       width: 100%;
-      padding: 1rem;
+      // padding: 1rem;
       background-color: #fff;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.02);
       z-index: 1020;
@@ -130,7 +130,7 @@ export default {
         height: 100%;
       }
       .qrcode-info {
-        margin-top: 1rem;
+        padding: 0.5rem 0;
         color: #717375;
       }
     }

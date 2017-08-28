@@ -131,7 +131,7 @@ export const actions = {
       params: {
         id: id,
         page: page,
-        page_size: 999
+        page_size: 10
       }
     }).then(response => {
       commit('SET_COMMENT', response)
