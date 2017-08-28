@@ -16,7 +16,7 @@
 
 <script>
 import _ from 'underscore'
-import Service from '~/plugins/axios'
+// import Service from '~/plugins/axios'
 
 export default {
   data: () => ({
@@ -39,20 +39,23 @@ export default {
       return this.$store.state.option.globalOption.baseCdn
     },
     currentActiveBgImg () {
-      return this.backgrounds[this.currentActiveBgImgIndex].src
+      return this.backgrounds[this.currentActiveBgImgIndex]
     },
     currentBgStyle () {
       return {
-        src: this.currentActiveBgImg,
-        loading: this.currentActiveBgImg + '?x-oss-process=image/quality,Q_5'
+        src: this.currentActiveBgImg.src,
+        loading: this.currentActiveBgImg.src + '?x-oss-process=image/quality,Q_5'
       }
     },
     backgrounds () {
       let temp = []
       for (var items of this.$store.state.option.pageAnimation.transitionActive.array) {
         temp.push({
-          src: this.baseCdn + items,
-          size: null,
+          src: this.baseCdn + items.src,
+          size: {
+            width: items.width,
+            height: items.height
+          },
           loaded: false
         })
       }
@@ -114,21 +117,14 @@ export default {
       const randomIndex = _.random(1, this.backgrounds.length)
       // 生成的随机图片
       const randomImg = this.backgrounds[randomIndex]
-
-      Service.get(randomImg.src, {
-        params: {
-          'x-oss-process': 'image/info'
+      this.setARandomBackground({
+        randomIndex,
+        size: {
+          width: randomImg.width,
+          height: randomImg.height
         }
-      }).then(response => {
-        this.setARandomBackground({
-          randomIndex,
-          size: {
-            width: parseInt(response.ImageWidth.value),
-            height: parseInt(response.ImageHeight.value)
-          }
-        })
-        this.initBackgroundAnimate()
       })
+      this.initBackgroundAnimate()
     },
 
     // 核心 - 动画初始化逻辑
