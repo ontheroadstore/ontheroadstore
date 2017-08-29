@@ -4,7 +4,7 @@
     <el-row>
       <el-col :span="24" class="item" v-for="item in items" :key="item.id">
         <nuxt-link :to="{ name: 'store-detail-id', params: { id: item.id } }" class="el-row" :title="item.title">
-          <el-col :span="4" class="item-image" v-lazy:background-image.container="item.thumb"></el-col>
+          <el-col :span="4" class="item-image" v-lazy:background-image.container="item.thumb + '@!320x320'"></el-col>
           <el-col :span="20" class="item-title">
             <h4>{{ item.title }}</h4>
             <div class="item-info">

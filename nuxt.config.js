@@ -49,7 +49,8 @@ module.exports = {
     // { src: '~/plugins/ga.js', ssr: true },
     // { src: '~/plugins/baidu-seo-push.js', ssr: true },
     { src: '~/plugins/highlighter.js', ssr: false },
-    { src: '~/plugins/baidu-map.js', ssr: true }
+    { src: '~/plugins/baidu-map.js', ssr: true },
+    { src: '~/plugins/preview.js', ssr: true }
   ],
   /*
   ** Build configuration

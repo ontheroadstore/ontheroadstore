@@ -3,21 +3,12 @@
     <el-row>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '15', push: '1' }" :lg="{ span: '15', push: '1' }" class="store-list">
         <div class="title">
-          <el-dropdown class="dropdown">
-            <span class="el-dropdown-link">
-              <h1>黑市</h1>全部 <i class="el-icon-caret-bottom el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>推荐</el-dropdown-item>
-              <el-dropdown-item>热门</el-dropdown-item>
-              <el-dropdown-item>文化</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <h1>黑市</h1>
         </div>
         <el-row>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items" :key="item.id">
             <nuxt-link :to="{ name: 'store-detail-id', params: { id: item.id } }">
-              <div class="item-image" v-lazy:background-image.container="item.thumb"></div>
+              <div class="item-image" v-lazy:background-image.container="item.thumb + '@640w_1l'"></div>
               <div class="item-tag" v-show="item.tags[0]">
                 <span v-for="tag in item.tags">{{ tag }}</span>
               </div>

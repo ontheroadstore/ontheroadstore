@@ -8,7 +8,7 @@
         <el-row>
           <el-col :xs="{ span: '12' }" :sm="{ span: '12' }" :md="{ span: '8' }" :lg="{ span: '6' }" class="item" v-for="item in items" :key="item.id">
             <nuxt-link :to="{ name: 'article-detail-id', params: { id: item.id } }">
-              <div class="item-image" v-lazy:background-image.container="item.thumb"></div>
+              <div class="item-image" v-lazy:background-image.container="item.thumb + '@640w_1l'"></div>
               <div class="item-title">
                 <h3>{{ item.title }}</h3>
                 <p>
