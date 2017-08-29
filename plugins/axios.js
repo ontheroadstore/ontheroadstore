@@ -4,7 +4,7 @@ import Axios from 'axios'
 import { Message } from 'element-ui'
 
 const service = Axios.create({
-  baseURL: 'https://apitest.ontheroadstore.com/www/'
+  baseURL: (process.env.NODE_ENV === 'production') ? 'https://api.ontheroadstore.com/www/' : 'https://apitest.ontheroadstore.com/www/'
 })
 // 拦截器
 service.interceptors.request.use(config => {
