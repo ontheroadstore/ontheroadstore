@@ -1,26 +1,24 @@
 <template>
   <div class="container">
-    <div class="page-bg" v-lazy:background-image="item.cover"></div>
+    <div class="page-bg" v-lazy:background-image="item.cover + '@!rel'"></div>
     <el-row class="store-detail">
       <el-col :xs="0" :sm="0" :md="{ span: '2', push: '21' }" :lg="{ span: '2', push: '21' }" v-sticky style="position: absolute">
         <div class="qrcode">
           <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
           <div class="qrcode-info">
-            分享、转发<br>请微信扫一扫
+            扫描二维码，进入黑市购买
           </div>
         </div>
       </el-col>
       <el-col :xs="{ span: 24 }" :sm="{ span: 24 }" :md="{ span: 14, push: 5, pull: 5 }" :lg="{ span: 12, push: 6, pull: 6 }" class="store-detail-bd">
-        <el-col :span="24" class="cover" v-lazy:background-image="item.cover + '@640w_1l'">
-          <!-- <img v-lazy:background-image="item.cover"> -->
-        </el-col>
+        <el-col :span="24" class="cover" v-lazy:background-image="item.cover + '@640w_1l'" v-img="{ src: item.cover + '@!rel' }"></el-col>
         <el-col :span="22" :push="1" :pull="1">
           <h1>{{ item.title }}</h1>
         </el-col>
         <el-col :span="22" :push="1" :pull="1" v-html="item.abstract" class="content"></el-col>
         <el-col :span="22" :push="1" :pull="1">
           <el-row :gutter="12" class="images">
-            <el-col :span="8" v-for="image in item.images" :key="image"><img v-lazy="'http://img8.ontheroadstore.com/' + image + '@!320x320'" /></el-col>
+            <el-col :span="8" v-for="image in item.images" :key="image" v-img="{ src: 'http://img8.ontheroadstore.com/' + image + '@!rel' }"><img v-lazy="'http://img8.ontheroadstore.com/' + image + '@!320x320'" /></el-col>
           </el-row>
         </el-col>
         <el-col :span="24" class="buy">
@@ -38,7 +36,7 @@
                 <div class="nickname"><nuxt-link to="/">{{ comment.full_name }}</nuxt-link><span class="time">{{ comment.createtime }}</span></div>
                 <div class="comment-content">
                   <div class="image" v-if="comment.type == 4">
-                    <img v-lazy="comment.content"/>
+                    <img v-img="{ src: comment.content + '@!rel' }" v-lazy="comment.content + '@!320x320'"/>
                   </div>
                   <div :class="'color_' + comment.type" v-else>{{ comment.content }}</div>
                   <div class="sub">
@@ -63,7 +61,7 @@
           <el-row>
             <el-col :span="24" class="item" v-for="item in alike" :key="item.id">
               <nuxt-link :to="{ name: 'store-detail-id', params: { id: item.id } }" class="el-row">
-                <el-col :span="4" class="item-image" v-lazy:background-image.container="item.image"></el-col>
+                <el-col :span="4" class="item-image" v-lazy:background-image.container="item.image + '@!320x320'"></el-col>
                 <el-col :span="20" class="item-title">
                   <h4>{{ item.post_title }}</h4>
                   <div class="item-info">
@@ -263,6 +261,9 @@ export default {
       }
       .color_2 {
         color: red;
+      }
+      .color_3 {
+        color: #00f;
       }
       img {
         max-width: 100%;

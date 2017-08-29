@@ -11,7 +11,7 @@
     <el-row class="search-list">
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '12', offset: '5' }" :lg="{ span: '12', offset: '5' }" class="item" v-for="item in items" :key="item.goods_id">
         <nuxt-link :to="{ name: 'store-detail-id', params: { id: item.goods_id } }" class="el-row">
-          <el-col :span="5" class="item-image" v-lazy:background-image.container="item.goods_cover_img">
+          <el-col :span="5" class="item-image" v-lazy:background-image.container="item.goods_cover_img + '@!320x320'">
           </el-col>
           <el-col :span="18" :offset="1" class="item-title">
             <h4 v-highlight="keyWords">{{ item.goods_title }}</h4>

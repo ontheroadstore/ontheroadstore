@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="page-bg" v-lazy:background-image="item.cover"></div>
+    <div class="page-bg" v-lazy:background-image="item.cover  + '@!rel'"></div>
     <el-row class="article-detail">
 
       <el-col :xs="0" :sm="0" :md="{ span: '2', push: '21' }" :lg="{ span: '2', push: '21' }" v-sticky style="position: absolute">
