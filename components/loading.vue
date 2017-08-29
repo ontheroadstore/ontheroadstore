@@ -43,23 +43,12 @@ export default {
     },
     currentBgStyle () {
       return {
-        src: this.currentActiveBgImg.src,
-        loading: this.currentActiveBgImg.src + '?x-oss-process=image/quality,Q_5'
+        src: this.baseCdn + this.currentActiveBgImg.src,
+        loading: this.baseCdn + this.currentActiveBgImg.src + '?x-oss-process=image/quality,Q_5'
       }
     },
     backgrounds () {
-      let temp = []
-      for (var items of this.$store.state.option.pageAnimation.transitionActive.array) {
-        temp.push({
-          src: this.baseCdn + items.src,
-          size: {
-            width: items.width,
-            height: items.height
-          },
-          loaded: false
-        })
-      }
-      return temp
+      return this.$store.state.option.pageAnimation.transitionActive.array
     },
     surprises () {
       return this.$store.state.option.pageAnimation.surprises
@@ -87,10 +76,10 @@ export default {
       leave()
     },
     // 设置一个随机背景图为要用的图
-    setARandomBackground ({ randomIndex, size }) {
+    setARandomBackground ({ randomIndex }) {
       // 这会说明图已经loaded成功了，所以可以改状态了
-      this.backgrounds[randomIndex].size = size
-      this.backgrounds[randomIndex].loaded = true
+      // this.backgrounds[randomIndex].size = size
+      // this.backgrounds[randomIndex].loaded = true
       this.currentActiveBgImgIndex = randomIndex
     },
 
@@ -114,15 +103,12 @@ export default {
     loadBgImgAndSetActive () {
       // 这行日志无论是初次加载或者页面切换，你一定会看到，初次加载不会阻塞，页面切换会阻塞，这也是要的效果
       // 生成个下标（图片总数）范围内的随机数
-      const randomIndex = _.random(1, this.backgrounds.length)
+      const randomIndex = _.random(0, this.backgrounds.length - 1)
+      // console.log(randomIndex, this.backgrounds.length)
       // 生成的随机图片
-      const randomImg = this.backgrounds[randomIndex]
+      // const randomImg = this.backgrounds[randomIndex]
       this.setARandomBackground({
-        randomIndex,
-        size: {
-          width: randomImg.width,
-          height: randomImg.height
-        }
+        randomIndex
       })
       this.initBackgroundAnimate()
     },
@@ -140,7 +126,9 @@ export default {
       const { clientHeight, clientWidth } = document.body
 
       // 目标遮罩层大小就是图片大小
-      const { width, height } = this.backgrounds[this.currentActiveBgImgIndex].size
+      // const { width, height } = this.backgrounds[this.currentActiveBgImgIndex].size
+      const width = this.backgrounds[this.currentActiveBgImgIndex].width
+      const height = this.backgrounds[this.currentActiveBgImgIndex].height
 
       // 横向数量，向上取整
       const xCount = Math.ceil(clientWidth / width)
@@ -166,7 +154,7 @@ export default {
           style: { width: `${width}px`, height: `${height}px` }
         })
       }
-      // console.log(maskItems)
+      // console.log(this.backgrounds[this.currentActiveBgImgIndex])
       // 然后，直接把状态改变
       // console.log('遮罩层展示，背景图+遮罩层展示')
       this.maskItems = maskItems
@@ -193,7 +181,6 @@ export default {
           // 在他们的id中生成一个随机数，把这个对应的item隐藏
           const randomId = _.random(0, visibleItems.length)
           this.setMaskItemState({ id: visibleItems[randomId], visible: false })
-
           // 如果已经没有了，则定时两秒执行结束动画，跳出函数
         } else {
           this.enterLoading = false
@@ -211,6 +198,7 @@ export default {
       if (this.leaveLoading) {
         return false
       }
+      // console.log(this.maskItems)
       this.leaveLoading = true
       const step = () => {
         const visibleItems = this.maskItems.filter(item => !item.visible).map(item => item.id)
