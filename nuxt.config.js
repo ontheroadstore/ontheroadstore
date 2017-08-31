@@ -17,7 +17,8 @@ module.exports = {
       { name: 'HandheldFriendly', content: 'True' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: '公路商店致力于发现、探索尚未被商业力量全面污染的青年文化以及一切被年轻人所接纳的事物和观点，以先锋视角演绎有趣的青年生活方式' },
+      { name: 'keywords', content: '公路商店,黑市,疯狂店员,公路商店老公,公路商店小白,青年文化,先锋文化' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

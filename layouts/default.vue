@@ -52,24 +52,27 @@ export default {
 }
 </script>
 <style lang="scss">
-.main {
-  position: absolute;
-  width: 100%;
-  transition-duration: 0.5s;
-  transition-property: transform;
-  transition-timing-function: ease-out;
-  &.reverted {
-    transform:rotateY(180deg);
+body {
+  background-color: #ffffde;
+  .main {
+    position: absolute;
+    width: 100%;
+    transition-duration: 0.5s;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+    &.reverted {
+      transform:rotateY(180deg);
+    }
+    &.rotated {
+      transform:rotate(-35deg);
+    }
   }
-  &.rotated {
-    transform:rotate(-35deg);
-  }
-}
 // 饿了么css hack
 .el-autocomplete {
   width: 100%;
 }
 .el-col-xs-0, .el-col-sm-0, .el-col-md-0, .el-col-lg-0 {
   overflow: hidden;
+}
 }
 </style>
