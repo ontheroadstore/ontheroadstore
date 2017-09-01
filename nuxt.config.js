@@ -47,7 +47,7 @@ module.exports = {
     { src: '~/plugins/lazyload.js', ssr: false },
     { src: '~/plugins/smooth-scroll.js', ssr: false },
     { src: '~/plugins/sticky.js', ssr: false },
-    // { src: '~/plugins/ga.js', ssr: true },
+    { src: '~/plugins/ga.js', ssr: true },
     // { src: '~/plugins/baidu-seo-push.js', ssr: true },
     { src: '~/plugins/highlighter.js', ssr: false },
     { src: '~/plugins/baidu-map.js', ssr: true },
