@@ -116,7 +116,7 @@ export default {
     },
     qrcode () {
       return {
-        value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/' + this.item.id + '.html',
+        value: 'http://hs.ontheroadstore.com/Portal/HsArticle/index/id/' + this.item.id + '.html?from=www.ontheroadstore.com',
         ec_level: 'M',
         type: 'png',
         size: 5
