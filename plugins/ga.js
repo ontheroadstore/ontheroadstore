@@ -12,7 +12,7 @@ if (process.BROWSER_BUILD && process.env.NODE_ENV === 'production') {
   /*
   ** 当前页的访问统计
   */
-  ga('create', 'UA-84887611-3', 'auto')
+  ga('create', 'UA-39750749-2', 'auto')
   ga('send', 'pageview')
   /*
   ** 应用挂载后
