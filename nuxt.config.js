@@ -50,7 +50,7 @@ module.exports = {
     { src: '~/plugins/smooth-scroll.js', ssr: false },
     { src: '~/plugins/sticky.js', ssr: false },
     { src: '~/plugins/ga.js', ssr: false },
-    // { src: '~/plugins/baidu-seo-push.js', ssr: true },
+    { src: '~/plugins/baidu-seo-push.js', ssr: false },
     { src: '~/plugins/highlighter.js', ssr: false },
     { src: '~/plugins/baidu-map.js', ssr: true },
     { src: '~/plugins/preview.js', ssr: true }
