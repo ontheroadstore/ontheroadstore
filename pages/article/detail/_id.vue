@@ -47,7 +47,12 @@ export default {
       title: this.item.title,
       meta: [
         { hid: 'description', name: 'description', content: this.item.abstract },
-        { name: 'keywords', content: this.item.keywords.join(',') }
+        { name: 'keywords', content: this.item.keywords.join(',') },
+        { property: 'og:type', content: 'article' },
+        { property: 'og:title', content: this.item.title },
+        { property: 'og:image', content: this.item.cover },
+        { property: 'og:release_date', content: this.item.date },
+        { property: 'og:description', content: this.item.abstract }
       ]
     }
   },
