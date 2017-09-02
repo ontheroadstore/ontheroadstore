@@ -1,13 +1,17 @@
 <template>
-  <div class="loadanimation-container" v-if="loading">
-    <!-- 动画背景层 -->
-    <div class="mask" v-show="loading" v-lazy:background-image="currentBgStyle" :style="[maskSize]">
-      <div class="item" :style="mask.style" :class="{ visible: mask.visible }" v-for="mask in maskItems"></div>
-    </div>
-    <div class="title">
-      <div class="mask">
-        <div class="flag">
-          <img src="/flag_min.gif" width="320" />
+  <div class="loadanimation">
+    <!-- 预先加载 -->
+    <img :src="currentBgStyle.loading" class="preheating" />
+    <div class="container" v-if="loading">
+      <!-- 动画背景层 -->
+      <div class="mask" v-show="loading" v-lazy:background-image="currentBgStyle" :style="[maskSize]">
+        <div class="item" :style="mask.style" :class="{ visible: mask.visible }" v-for="mask in maskItems"></div>
+      </div>
+      <div class="title">
+        <div class="mask">
+          <div class="flag">
+            <img src="/flag_min.gif" width="320" />
+          </div>
         </div>
       </div>
     </div>
@@ -222,46 +226,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loadanimation-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1040;
-  .mask {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    .item {
-      visibility: hidden;
-      opacity: 0;
-      background-color: rgba(19, 206, 102, 0.87);
-    }
-    .visible {
-      visibility: visible;
-      opacity: 1;
-    }
+.loadanimation {
+  .preheating {
+    display: none;
+    // opacity: 0;
   }
-  .title {
-    position: absolute;
+  .container {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    text-align: center;
+    z-index: 1040;
     .mask {
-      display: table;
-      .flag {
-        display: table-cell;
-        vertical-align:middle;
-        margin: 0;
-        color: #fff;
-        h2 {
-          text-transform: Uppercase;
-        }
-        img {
-          border: .4rem solid #fff;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        visibility: hidden;
+        opacity: 0;
+        background-color: rgba(19, 206, 102, 0.87);
+      }
+      .visible {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+    .title {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      .mask {
+        display: table;
+        .flag {
+          display: table-cell;
+          vertical-align:middle;
+          margin: 0;
+          color: #fff;
+          h2 {
+            text-transform: Uppercase;
+          }
+          img {
+            border: .4rem solid #fff;
+          }
         }
       }
     }
