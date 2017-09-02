@@ -98,7 +98,15 @@ export default {
   head () {
     return {
       title: this.item.title,
-      meta: [{ hid: 'description', name: 'description', content: this.item.abstract }, { name: 'keywords', content: this.keyword }]
+      meta: [
+        { hid: 'description', name: 'description', content: this.item.abstract },
+        { name: 'keywords', content: this.keyword },
+        { property: 'og:type', content: 'product' },
+        { property: 'og:image', content: this.item.cover },
+        { property: 'og:title', content: this.item.title },
+        { property: 'og:description', content: this.item.abstract },
+        { property: 'og:product:price', content: this.price }
+      ]
     }
   },
   computed: {
