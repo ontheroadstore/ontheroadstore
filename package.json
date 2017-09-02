@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3333 nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "HOST=0.0.0.0 nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext --fix .js,.vue --ignore-path .eslintignore .",
     "precommit": "npm run lint"
