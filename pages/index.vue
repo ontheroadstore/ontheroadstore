@@ -28,7 +28,11 @@ import MyIndexTop10 from '~/components/index/Top10.vue'
 export default {
   head () {
     return {
-      title: '为了你不着边际的企图心'
+      title: '为了你不着边际的企图心',
+      meta: [
+        { hid: 'description', name: 'description', content: '公路商店致力于发现、探索尚未被商业力量全面污染的青年文化以及一切被年轻人所接纳的事物和观点，以先锋视角演绎有趣的青年生活方式' },
+        { name: 'keywords', content: '公路商店,黑市,疯狂店员,公路商店老公,公路商店小白,青年文化,先锋文化' }
+      ]
     }
   },
   fetch ({ store }) {

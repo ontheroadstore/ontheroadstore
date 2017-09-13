@@ -26,6 +26,9 @@
         text-decoration: none;
       }
     }
+    [data-scrollbar] .scroll-content, [scrollbar] .scroll-content, scrollbar .scroll-content {
+      will-change: transform;
+    }
     [data-scrollbar] .scrollbar-thumb, [scrollbar] .scrollbar-thumb, scrollbar .scrollbar-thumb {
     background-color: #ffafcc;
     // background: rgba(19,206,102,.8);

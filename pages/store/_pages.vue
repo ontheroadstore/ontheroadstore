@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-row>
-      <el-col :span="16">
+      <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '15', push: '1' }" :lg="{ span: '15', push: '1' }">
         <div class="store-list">
           <div class="title">
             <h1>黑市</h1>
@@ -30,7 +30,7 @@
           </el-row>
         </div>
       </el-col>
-      <el-col :span="8">
+      <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- AD -->
         <div>
           <h3>分享到微信可购买，或者搜索微信公众号：nbheishi</h3>
