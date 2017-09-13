@@ -114,7 +114,9 @@ export default {
       return this.$store.state.store.detail.items
     },
     keyword () {
-      return this.$store.state.store.detail.keywords.join(',')
+      let temp = ['公路商店', '黑市']
+      temp.concat(this.$store.state.store.detail.items.keywords)
+      return temp.concat(this.$store.state.store.detail.items.keywords).join(',')
     },
     comments () {
       return this.$store.state.store.detail.comments
