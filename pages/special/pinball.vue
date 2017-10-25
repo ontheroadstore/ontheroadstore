@@ -128,7 +128,7 @@
   </div>
 </template>
 <script>
-import Parallax from '~/components/parallax'
+import Parallax from '~/components/Parallax'
 import VideoBg from '~/components/videoBackground'
 import { Carousel, Slide } from 'vue-carousel'
 
