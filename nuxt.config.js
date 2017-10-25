@@ -51,7 +51,8 @@ module.exports = {
     { src: '~/plugins/baidu-seo-push.js', ssr: false },
     { src: '~/plugins/highlighter.js', ssr: false },
     { src: '~/plugins/baidu-map.js', ssr: true },
-    { src: '~/plugins/preview.js', ssr: true }
+    { src: '~/plugins/preview.js', ssr: true },
+    { src: '~/plugins/vue-carousel.js', ssr: true }
   ],
   /*
   ** Build configuration
