@@ -10,25 +10,25 @@
       <el-col :span="11" :push="1">
         <div class="nav el-row">
           <el-col :span="6" class="nav-item">
-            <a>
+            <a href="#two">
               <span>文化与起源</span>
               <p>Culture & Origin</p>
             </a>
           </el-col>
           <el-col :span="6" class="nav-item">
-            <a>
+            <a href="#three">
               <span>机型目录</span>
               <p>Game Catalogue</p>
             </a>
           </el-col>
           <el-col :span="6" class="nav-item">
-            <a>
+            <a href="#four">
               <span>活动合作</span>
               <p>cooperation</p>
             </a>
           </el-col>
           <el-col :span="6" class="nav-item">
-            <a>
+            <a href="#four">
               <span>预定购买</span>
               <p>Buy</p>
             </a>
@@ -36,11 +36,8 @@
         </div>
       </el-col>
       <el-col :push="2" :span="20" class="col-img-1" v-lazy:background-image.container="'/pinball/pinball_one_01.png'"></el-col>
-      <el-col :push="2" :span="20" class="slogan">
-        我们专注致力于如何更好的服务愿意及时行乐的年轻人们
-      </el-col>
     </parallax>
-    <parallax :sectionHeight="60" :parallax="false" class="col-two el-row">
+    <parallax :sectionHeight="60" :parallax="false" class="col-two el-row" id="two">
       <el-row>
         <el-col :push="4" :span="16" :pull="4" class="title" v-lazy:background-image.container="'/pinball/pinball_two_01.png'"></el-col>
       </el-row>
@@ -61,7 +58,7 @@
         </el-row>
       </el-col>
     </parallax>
-    <parallax :sectionHeight="70" :parallax="false" class="col-three el-row">
+    <parallax :sectionHeight="70" :parallax="false" class="col-three el-row" id="three">
       <el-row>
         <el-col :push="4" :span="16" :pull="4" class="title" v-lazy:background-image.container="'/pinball/col-three-01.png'"></el-col>
       </el-row>
@@ -121,9 +118,9 @@
       </no-ssr>
       <!-- <div class="overlay"></div> -->
     </parallax>
-    <parallax :sectionHeight="40" class="col-four el-row">
-      <el-col :push="2" :span="10" class="col-img-1" v-lazy:background-image.container="'/pinball/col-four-01.png'"></el-col>
-      <el-col :pull="2" :span="10" class="col-img-2" v-lazy:background-image.container="'/pinball/col-four-02.jpg'"></el-col>
+    <parallax :sectionHeight="40" class="col-four el-row" id="four">
+      <el-col :push="1" :span="11" class="col-img-1" v-lazy:background-image.container="'/pinball/col-four-01.png'"></el-col>
+      <el-col :pull="1" :span="11" class="col-img-2" v-lazy:background-image.container="'/pinball/col-four-02.jpg'"></el-col>
     </parallax>
   </div>
 </template>
@@ -234,6 +231,13 @@ body {
         background-position: center;
       }
       .carousel {
+        .VueCarousel-wrapper {
+          .VueCarousel-navigation {
+            a {
+              font-size: 24px;
+            }
+          }
+        }
         .image {
           background-size: contain;
           background-repeat: no-repeat;
@@ -265,7 +269,7 @@ body {
         z-index: -1;
         position: absolute;
         // top: 0;
-        bottom: 10vh;
+        bottom: 0;
         background-size: 40vh;
         height: 40vh;
         // margin: 2rem 0;
