@@ -1,12 +1,7 @@
 <template>
   <div v-bind:class="[sectionClass]" ref="block" v-bind:style="{ height: sectionHeight + 'vh' }">
-    <div
-    v-bind:class="[parallax ? parallaxClass : '', fixed ? fixedClass : '', containerClass]"
-    ref="parallax"
-    >
     <slot></slot>
   </div>
-</div>
 </template>
 
 <script>
@@ -125,7 +120,6 @@ export default {
   min-height: rem(350);
   scroll-behavior: smooth;
   overflow: hidden;
-  z-index: -1;
   @include has(image) {
     width: 100%;
     overflow: hidden;
