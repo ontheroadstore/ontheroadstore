@@ -36,6 +36,7 @@
         </div>
       </el-col>
       <el-col :push="2" :span="20" class="col-img-1" v-lazy:background-image.container="'/pinball/pinball_one_01.png'"></el-col>
+      <el-col :push="2" :span="20" class="slogan"><img src="/pinball/arrow.png" /></el-col>
     </parallax>
     <parallax :sectionHeight="60" :parallax="false" class="col-two el-row" id="two">
       <el-row>
