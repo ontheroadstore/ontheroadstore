@@ -1,7 +1,7 @@
 <template>
-  <div class="page">
+  <el-container class="container">
     <nuxt />
-  </div>
+  </el-container>
 </template>
 <script>
 export default {
@@ -9,4 +9,9 @@ export default {
 }
 </script>
 <style lang="scss">
+.container {
+  .el-main {
+    padding: 0;
+  }
+}
 </style>

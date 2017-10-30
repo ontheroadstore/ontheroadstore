@@ -1,30 +1,27 @@
 <template>
-  <header class="header">
-    <el-row>
-      <el-col :xs="{ span: 24 }" :sm="{ span: 24 }" :md="{ span:24 }" :lg="{ span: 20, push: 2, pull: 2 }">
-        <el-col :span="8">
-          <div class="logo">
-            <nuxt-link to="/" rel="首页" exact title="公路商店">公路商店 为了你不着边际的企图心</nuxt-link>
-          </div>
-        </el-col>
+  <el-header class="header" height="60">
+    <el-row type="flex" justify="space-between">
+      <el-col :xs="4" :sm="4" :md="8" :lg="8">
+        <div class="logo">
+          <nuxt-link to="/" rel="首页" exact title="公路商店">公路商店 为了你不着边际的企图心</nuxt-link>
+        </div>
+      </el-col>
 
-        <el-col :xs="12" :sm="12" :md="8" :lg="8">
-          <el-row type="flex" justify="space-around" class="nav">
-            <el-col :span="6"><nuxt-link to="/" exact>首页</nuxt-link></el-col>
-            <el-col :span="6"><nuxt-link to="/article">文章</nuxt-link></el-col>
-            <el-col :span="6"><nuxt-link to="/store">商品</nuxt-link></el-col>
-            <!-- <el-col :span="6"><nuxt-link to="/video">视频</nuxt-link></el-col> -->
-          </el-row>
-        </el-col>
+      <el-col :xs="12" :sm="12" :md="8" :lg="8">
+        <el-row type="flex" justify="space-around" class="nav">
+          <el-col :span="6"><nuxt-link to="/" exact>首页</nuxt-link></el-col>
+          <el-col :span="6"><nuxt-link to="/article">文章</nuxt-link></el-col>
+          <el-col :span="6"><nuxt-link to="/store">商品</nuxt-link></el-col>
+        </el-row>
+      </el-col>
 
-        <el-col :xs="4" :sm="4" :md="8" :lg="8">
-          <div class="search">
-            <el-button size="mini" icon="search" @click="openSearchDialog()"></el-button>
-          </div>
-        </el-col>
+      <el-col :xs="2" :sm="4" :md="8" :lg="8">
+        <div class="search">
+          <el-button size="mini" :plain="true" :round="true" icon="el-icon-search" @click="openSearchDialog()"></el-button>
+        </div>
       </el-col>
     </el-row>
-  </header>
+  </el-header>
 </template>
 <script>
 export default {
@@ -47,10 +44,9 @@ export default {
   -webkit-transform: translateZ(0);
   border-bottom: 0.2rem solid #cd2836;
   &>.el-row {
-    padding: 0 1rem;
+    // padding: 0 1rem;
     &>.el-col {
-      height: 3.5rem;
-      line-height: 3.5rem;
+      line-height: 60px;
       .logo {
         a {
           display: block;
@@ -58,7 +54,6 @@ export default {
           overflow: hidden;
           background-image: url('~assets/img/logo.png');
           width: 96px;
-          height: 3.5rem;
           background-size: 96px 32px;
           background-position: center;
           background-repeat: no-repeat;

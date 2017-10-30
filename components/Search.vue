@@ -1,11 +1,11 @@
 <template>
   <div class="search">
-    <el-dialog v-model="dialogShow" size="full" :lock-scroll="false" custom-class="search_dialog" :close-on-click-modal="false" :show-close="false" :close-on-press-escape="false">
+    <el-dialog :visible.sync="dialogShow" :fullscreen="true" :lock-scroll="false" custom-class="search_dialog">
       <el-button class="close-btn" icon="close" size="mini" @click="CloseSearchDialog()"></el-button>
       <el-row class="search_content">
         <el-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }" :md="{ span: 10, offset: 7 }">
           <el-autocomplete :fetch-suggestions="querySearchAsync" placeholder="请输入内容" v-model="keyWords">
-            <el-button slot="append" icon="search" @click="submitSearch"></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="submitSearch"></el-button>
           </el-autocomplete>
         </el-col>
         <el-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }" :md="{ span: 10, offset: 7 }">

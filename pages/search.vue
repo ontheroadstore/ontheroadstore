@@ -3,7 +3,7 @@
     <el-row>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '12', offset: '5' }" :lg="{ span: '12', offset: '5' }" class="search">
         <el-autocomplete :fetch-suggestions="querySearchAsync" v-model="keyWords" placeholder="请输入关键词">
-          <el-button slot="append" icon="search" @click="submitSearch"></el-button>
+          <el-button slot="append" icon="el-icon-search" @click="submitSearch"></el-button>
         </el-autocomplete>
         <span><b>{{ pagination.total }}</b>个搜索结果</span>
       </el-col>

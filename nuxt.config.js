@@ -37,7 +37,8 @@ module.exports = {
   loading: '~/components/loading.vue',
   css: [
     { src: '~/assets/css/main.scss', lang: 'scss' },
-    { src: 'element-ui/lib/theme-default/index.css' },
+    { src: 'element-ui/lib/theme-chalk/index.css' },
+    { src: 'element-ui/lib/theme-chalk/display.css' },
     { src: 'animate.css/animate.min.css' },
     { src: 'hover.css/scss/hover.scss', lang: 'scss' },
     { src: 'smooth-scrollbar/dist/smooth-scrollbar.css' }

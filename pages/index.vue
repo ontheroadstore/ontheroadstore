@@ -11,7 +11,7 @@
         <!-- 商品 -->
         <MyStore :items="store_items" :infinite="infinite" :pagination="pagination" :isMore="store_isMore" />
       </el-col>
-      <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
+      <el-col class="hidden-xs-only hidden-sm-only" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- TOP10 -->
         <MyTop10 :items="top10_items" />
       </el-col>

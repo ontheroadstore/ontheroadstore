@@ -20,7 +20,7 @@
           <p>6. 茶水间，进口零食雪糕饮料随便吃随便喝。<span class="cheater">（ps：是的零食要花钱的。）</span></p>
         </el-col>
 
-        <el-col :span="14" :offset="5">
+        <el-col :span="14" :offset="5" class="recruit">
           <el-collapse v-model="activeName" accordion>
             <el-collapse-item title="产品经理 15~25k" name="1">
               <h3>## 要求：</h3>
@@ -121,6 +121,10 @@ export default {
             color: #6cc788;
           }
         }
+        &.recruit {
+          padding: 1rem;
+          background-color: #fff;
+        }
         &.text {
           padding: 1rem;
           background-color: #fff;
@@ -130,7 +134,7 @@ export default {
         }
         img {
           display: block;
-          max-width: 100%;
+          width: 100%;
         }
       }
     }
