@@ -1,17 +1,19 @@
 <template>
-  <div class="page" v-bind:class="isMobile ? 'mobile' : 'pc'">
+  <el-container class="page" v-bind:class="isMobile ? 'mobile' : 'pc'">
     <!-- 头部 -->
     <MyHeader ref="header" />
     <!-- 主题内容 -->
-    <main id="main" :style="{ 'top': margin.top, 'bottom': margin.bottom }" class="main animated" v-smooth-scroll :class="surprises">
+    <el-main id="main" :style="{ 'top': margin.top, 'bottom': margin.bottom }" class="main animated" v-smooth-scroll :class="surprises">
       <nuxt />
+
+      <!-- 随机元素 -->
       <MyRandomBackground />
-    </main>
+    </el-main>
     <!-- 底部 -->
     <MyFooter ref="footer" />
     <!-- 搜索组建 -->
     <MySearch :dialogShow="dialogShow" />
-  </div>
+  </el-container>
 </template>
 <script>
 import MyHeader from '~/components/Header.vue'
@@ -60,6 +62,7 @@ body {
     transition-duration: 0.5s;
     transition-property: transform;
     transition-timing-function: ease-out;
+    padding: 0;
     &.reverted {
       transform:rotateY(180deg);
     }
@@ -67,12 +70,12 @@ body {
       transform:rotate(-35deg);
     }
   }
-// 饿了么css hack
-.el-autocomplete {
-  width: 100%;
-}
-.el-col-xs-0, .el-col-sm-0, .el-col-md-0, .el-col-lg-0 {
-  overflow: hidden;
-}
+  // 饿了么css hack
+  .el-autocomplete {
+    width: 100%;
+  }
+  .el-col-xs-0, .el-col-sm-0, .el-col-md-0, .el-col-lg-0 {
+    overflow: hidden;
+  }
 }
 </style>

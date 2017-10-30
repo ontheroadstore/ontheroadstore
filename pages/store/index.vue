@@ -27,7 +27,7 @@
         <MyPagination :infinite="infinite" :pagination="pagination" routerName="store-pages" />
       </el-col>
 
-      <el-col :xs="0" :sm="0" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
+      <el-col class="hidden-xs-only hidden-sm-only" :md="{ span: '6', push: '2' }" :lg="{ span: '6', push: '2' }" v-sticky>
         <!-- AD -->
         <div>
           <h3>分享到微信可购买，或者搜索微信公众号：nbheishi</h3>

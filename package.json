@@ -18,7 +18,7 @@
     "axios": "^0.16.2",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.5",
-    "element-ui": "^1.4.2",
+    "element-ui": "2.0.1",
     "hover.css": "^2.2.1",
     "node-sass": "^4.5.3",
     "normalize.css": "^7.0.0",
@@ -28,11 +28,12 @@
     "smooth-scrollbar": "^7.4.0",
     "underscore": "^1.8.3",
     "v-img": "^0.0.9",
+    "vue": "2.5.2",
     "vue-baidu-map": "^0.12.0",
     "vue-carousel": "^0.6.5",
     "vue-lazyload": "^1.0.6",
-    "vue-video-background": "^0.1.2",
-    "vue-videobg": "^2.0.0"
+    "vue-server-renderer": "2.5.2",
+    "vue-template-compiler": "2.5.2",
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
