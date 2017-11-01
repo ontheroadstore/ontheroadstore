@@ -2,7 +2,7 @@
   <div class="container">
     <el-row>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '22', push: '1', pull: '1' }" :lg="{ span: '22', push: '1', pull: '1' }" class="title">
-        <h1>文章</h1>
+        <h1>文章 <nuxt-link :to="{ name: 'article-pages', params: { pages: 1 } }"><el-button round plain size="mini">更多文章内容</el-button></nuxt-link></h1>
       </el-col>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '22', push: '1', pull: '1' }" :lg="{ span: '22', push: '1', pull: '1' }" class="article-list">
         <el-row>
@@ -34,8 +34,8 @@ export default {
       title: '文章'
     }
   },
-  fetch ({ store }) {
-    return Promise.all([store.dispatch('article/REQ_LIST', 1)])
+  async asyncData ({ store }) {
+    await store.dispatch('article/REQ_LIST', 1)
   },
   computed: {
     items () {
@@ -55,9 +55,6 @@ export default {
     infinite () {
       this.$store.dispatch('article/REQ_LIST', this.next_page)
     }
-  },
-  destroyed () {
-    this.$store.commit('article/CLEAR_INDEX')
   }
 }
 </script>

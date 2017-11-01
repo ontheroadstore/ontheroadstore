@@ -3,7 +3,7 @@
     <el-row>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '15', push: '1' }" :lg="{ span: '15', push: '1' }" class="store-list">
         <div class="title">
-          <h1>黑市</h1>
+          <h1>黑市 <nuxt-link :to="{ name: 'store-pages', params: { pages: 1 } }"><el-button round plain size="mini">更多黑市内容</el-button></nuxt-link></h1>
         </div>
         <el-row>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" class="item" v-for="item in items" :key="item.id">
@@ -49,8 +49,8 @@ export default {
       title: '黑市'
     }
   },
-  fetch ({ store }) {
-    return Promise.all([store.dispatch('store/REQ_LIST', 1)])
+  async asyncData ({ store }) {
+    await store.dispatch('store/REQ_LIST', 1)
   },
   computed: {
     items () {
@@ -71,9 +71,6 @@ export default {
     infinite () {
       this.$store.dispatch('store/REQ_LIST', this.next_page)
     }
-  },
-  destroyed () {
-    this.$store.commit('store/CLEAR_INDEX')
   }
 }
 </script>

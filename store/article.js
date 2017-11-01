@@ -1,9 +1,4 @@
-import Service from '~/plugins/axios'
-
 export const state = () => ({
-  detail: {
-    item: {}
-  },
   index: {
     items: [],
     pagination: {
@@ -23,9 +18,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SET_DETAIL: (state, aticon) => {
-    state.detail.item = aticon
-  },
   SET_INDEX: (state, action) => {
     state.index.items = state.index.items.concat(action.list)
     state.index.pagination = {
@@ -41,43 +33,30 @@ export const mutations = {
       total: parseInt(action.total_count),
       pagetotal: parseInt(action.total_pages)
     }
-  },
-  CLEAR_INDEX: (state) => {
-    state.index.items = []
-    state.index.pagination = {
-      current: null,
-      total: null,
-      pagetotal: null
-    }
   }
 }
 
 export const actions = {
-  REQ_DETAIL: ({commit}, id) => {
-    return Service.get('article/detail', {
-      params: {
-        id: id
-      }
-    }).then(response => {
-      commit('SET_DETAIL', response)
-    })
-  },
-  REQ_LIST: ({commit}, page) => {
-    return Service.get('article/list', {
+  async REQ_LIST ({commit}, page) {
+    await this.$axios.get('article/list', {
       params: {
         page: page
       }
-    }).then(response => {
-      commit('SET_INDEX', response)
+    }).then(res => {
+      commit('SET_INDEX', res.data)
     })
   },
-  REQ_PAGES: ({commit}, page) => {
-    return Service.get('article/list', {
+  async REQ_PAGES ({commit}, page) {
+    const res = await this.$axios.get('article/list', {
       params: {
         page: page
       }
-    }).then(response => {
-      commit('SET_PAGES', response)
     })
+    if (page > res.data.total_pages) {
+      return false
+    } else {
+      commit('SET_PAGES', res.data)
+      return true
+    }
   }
 }

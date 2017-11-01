@@ -1,5 +1,5 @@
 <template>
-  <el-footer class="footer" height="57">
+  <el-footer class="footer" height="52px">
     <el-row type="flex" justify="space-around">
       <el-col :xs="4" :sm="4" :md="6" :lg="6">
         <div class="copyright">
@@ -58,11 +58,9 @@
     background-color: #cd2532;
     box-shadow: 0 1px 2px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
     -webkit-transform: translateZ(0);
+    line-height: 52px;
     .el-row {
-      // padding: 0 1rem;
       .el-col {
-        height: 3.25rem;
-        line-height: 3.25rem;
         font-size: 14px;
         color: #fff;
         .link {

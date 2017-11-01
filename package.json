@@ -13,7 +13,8 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@nextindex/next-scss": "^1.2.0",
+    "@nuxtjs/axios": "^4.4.0",
+    "@nuxtjs/proxy": "^1.1.2",
     "animate.css": "^3.5.2",
     "axios": "^0.16.2",
     "cross-env": "^5.0.5",

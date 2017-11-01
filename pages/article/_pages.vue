@@ -2,7 +2,7 @@
   <div class="container">
     <el-row>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '22', push: '1', pull: '1' }" :lg="{ span: '22', push: '1', pull: '1' }" class="title">
-        <h1>文章</h1>
+        <h1>文章 第{{ this.$route.params.pages }}页</h1>
       </el-col>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '22', push: '1', pull: '1' }" :lg="{ span: '22', push: '1', pull: '1' }" class="article-list">
         <el-row>
@@ -39,8 +39,14 @@ export default {
   validate ({ params }) {
     return (!!params.pages && !Object.is(Number(params.pages), NaN))
   },
-  fetch ({ store, params }) {
-    return Promise.all([store.dispatch('article/REQ_PAGES', params.pages)])
+  async asyncData ({ store, params, error }) {
+    const status = await store.dispatch('article/REQ_PAGES', params.pages)
+    if (!status) {
+      error({
+        statusCode: 404,
+        message: 'This page could not be found'
+      })
+    }
   },
   computed: {
     items () {

@@ -35,37 +35,28 @@ export default {
       ]
     }
   },
-  fetch ({ store }) {
-    return Promise.all([
-      store.dispatch('home/REQ_BANNER_CAROUSEL'),
-      store.dispatch('home/REQ_BANNER_RECOMMEND'),
-      store.dispatch('home/REQ_ARTICLE'),
-      store.dispatch('home/REQ_TOP10'),
-      store.dispatch('home/REQ_STORE', 1),
-      store.dispatch('home/REQ_VIDEO', 1)
-    ])
+  async asyncData ({ app }) {
+    const articlebanner = await app.$axios.get('index/articlebanner')
+    const storebanner = await app.$axios.get('index/storebanner')
+    const article = await app.$axios.get('index/article')
+    const top10 = await app.$axios.get('index/top10')
+    const video = await app.$axios.get('index/video')
+    await app.store.dispatch('home/REQ_STORE', 1)
+
+    return {
+      banner_carousel_items: articlebanner.data,
+      banner_recommend_items: storebanner.data,
+      article_items: article.data,
+      top10_items: top10.data,
+      video_items: video.data
+    }
   },
   computed: {
-    banner_carousel_items () {
-      return this.$store.state.home.banner.carousel
-    },
-    banner_recommend_items () {
-      return this.$store.state.home.banner.recommend
-    },
-    article_items () {
-      return this.$store.state.home.article
-    },
-    top10_items () {
-      return this.$store.state.home.top10
-    },
     store_items () {
       return this.$store.state.home.store.items
     },
     store_page () {
       return this.$store.state.home.store.pagination.current + 1
-    },
-    video_items () {
-      return this.$store.state.home.video
     },
     pagination () {
       return this.$store.state.home.store.pagination
@@ -88,9 +79,6 @@ export default {
     infinite () {
       this.$store.dispatch('home/REQ_STORE', this.store_page)
     }
-  },
-  destroyed () {
-    this.$store.commit('home/CLEAR_STORE_ITEMS')
   }
 }
 </script>

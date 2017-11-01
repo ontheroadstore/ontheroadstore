@@ -55,6 +55,29 @@ module.exports = {
     { src: '~/plugins/preview.js', ssr: true },
     { src: '~/plugins/vue-carousel.js', ssr: true }
   ],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
+  ],
+  proxy: [
+    (process.env.NODE_ENV === 'production') ? 'https://api.ontheroadstore.com/www/' : 'https://apitest.ontheroadstore.com/www/'
+  ],
+  axios: {
+    baseURL: '/www/',
+    browserBaseURL: '/www/',
+    responseInterceptor: (res, ctx) => {
+      if (res.data.status === 0) {
+        return res.data
+      } else {
+        ctx.error({
+          statusCode: 404,
+          message: res.data.info
+        })
+      }
+    },
+    credentials: false,
+    proxyHeaders: false
+  },
   /*
   ** Build configuration
   */
