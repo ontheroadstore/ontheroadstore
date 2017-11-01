@@ -5,7 +5,9 @@
       <el-row class="search_content">
         <el-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }" :md="{ span: 10, offset: 7 }">
           <el-autocomplete :fetch-suggestions="querySearchAsync" placeholder="请输入内容" v-model="keyWords">
-            <el-button slot="append" icon="el-icon-search" @click="submitSearch"></el-button>
+            <nuxt-link slot="append" icon="el-icon-search" :to="{ name: 'search', query: { keyword: keyWords } }">
+              <el-button icon="el-icon-search"></el-button>
+            </nuxt-link>
           </el-autocomplete>
         </el-col>
         <el-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }" :md="{ span: 10, offset: 7 }">
@@ -26,9 +28,6 @@ export default {
       timeout: null
     }
   },
-  fetch ({ store }) {
-    return store.dispatch('search/REQ_HOT_KEYWORD')
-  },
   props: {
     dialogShow: {
       type: Boolean,
@@ -46,7 +45,7 @@ export default {
   methods: {
     // 关闭搜索框
     CloseSearchDialog () {
-      this.$store.dispatch('search/CLOSE_DIALOG')
+      this.$store.commit('search/SET_DIALOG_SHOW', false)
     },
     querySearchAsync (queryString, cb) {
       clearTimeout(this.timeout)
@@ -55,9 +54,6 @@ export default {
           cb(this.items)
         }, 1000 * Math.random())
       })
-    },
-    submitSearch () {
-      this.$router.push({ name: 'search', query: { keyword: this.keyWords } })
     },
     select_keyword (keyword) {
       this.keyWords = keyword

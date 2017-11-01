@@ -1,5 +1,3 @@
-import Service from '~/plugins/axios'
-
 export const state = () => ({
   dialog: {
     show: false,
@@ -7,7 +5,6 @@ export const state = () => ({
     hot_keyword: []
   },
   pages: {
-    query: null,
     items: [],
     pagination: {
       current: null,
@@ -27,9 +24,6 @@ export const mutations = {
       state.dialog.suggest.push({'value': value})
     })
   },
-  SET_QUERY: (state, action) => {
-    state.pages.query = action
-  },
   SET_PAGES: (state, action) => {
     state.pages.items = state.pages.items.concat(action.list)
     state.pages.pagination = {
@@ -39,10 +33,9 @@ export const mutations = {
     }
   },
   SET_HOT_KEYWORD: (state, action) => {
-    state.dialog.hot_keyword = action
+    state.dialog.hot_keyword = action.list
   },
   CLEAR_PAGES: (state) => {
-    state.pages.query = null
     state.pages.items = []
     state.pages.pagination = {
       current: null,
@@ -53,34 +46,28 @@ export const mutations = {
 }
 
 export const actions = {
-  REQ_SEARCH_QUERY: ({state, commit}, page) => {
-    return Service.get('search/search', {
+  async REQ_SEARCH_QUERY ({state, commit}, params) {
+    const res = await this.$axios.get('search/search', {
       params: {
-        query: state.pages.query,
-        page: page
+        query: params.keyword,
+        page: params.page
       }
-    }).then(response => {
-      commit('SET_PAGES', response)
     })
+    console.log(res.data)
+    if (res.data) {
+      commit('SET_PAGES', res.data)
+    }
   },
-  REQ_SEARCH_SUGGEST: ({state, commit}, query) => {
-    return Service.get('search/suggest', {
+  async REQ_SEARCH_SUGGEST ({state, commit}, query) {
+    const res = await this.$axios.get('search/suggest', {
       params: {
         query: query
       }
-    }).then(response => {
-      commit('SET_DIALOG_SUGGEST', response)
     })
+    commit('SET_DIALOG_SUGGEST', res.data)
   },
-  REQ_HOT_KEYWORD: ({commit}) => {
-    return Service.get('search/tagsuggestions').then(response => {
-      commit('SET_HOT_KEYWORD', response.keyword.list)
-    })
-  },
-  CLOSE_DIALOG: ({commit}) => {
-    commit('SET_DIALOG_SHOW', false)
-  },
-  OPEN_DIALOG: ({commit}) => {
-    commit('SET_DIALOG_SHOW', true)
+  async REQ_HOT_KEYWORD ({commit}) {
+    const res = await this.$axios.get('search/tagsuggestions')
+    commit('SET_HOT_KEYWORD', res.data.keyword)
   }
 }

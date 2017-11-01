@@ -4,7 +4,7 @@
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '15', push: '1' }" :lg="{ span: '15', push: '1' }">
         <div class="store-list">
           <div class="title">
-            <h1>黑市</h1>
+            <h1>黑市 第{{ this.$route.params.pages }}页</h1>
           </div>
           <el-row>
             <el-col :span="12" class="item" v-for="item in items" :key="item.id">
@@ -55,8 +55,14 @@ export default {
   validate ({ params }) {
     return (!!params.pages && !Object.is(Number(params.pages), NaN))
   },
-  fetch ({ store, params }) {
-    return Promise.all([store.dispatch('store/REQ_PAGES', params.pages)])
+  async asyncData ({ store, params, error }) {
+    const status = await store.dispatch('store/REQ_PAGES', params.pages)
+    if (!status) {
+      error({
+        statusCode: 404,
+        message: 'This page could not be found'
+      })
+    }
   },
   computed: {
     items () {
@@ -74,103 +80,100 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  & > .el-row {
-    & > .el-col {
+  .el-row {
+    .el-col {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
-      &.el-col-16 {
-        border-right: 1px solid rgba(120,130,140,.13);
-        .store-list {
-          padding-bottom: .75rem;
-          .title {
-            margin-top: 12px;
-            .dropdown {
-              color: initial;
-              h1 {
-                display: inline-block;
-                margin: 0;
-                margin-right: 1rem;
-              }
+      .store-list {
+        padding-bottom: .75rem;
+        .title {
+          margin-top: 12px;
+          .dropdown {
+            color: initial;
+            h1 {
+              display: inline-block;
+              margin: 0;
+              margin-right: 1rem;
             }
           }
-          & > .el-row {
-            margin-left: -12px;
-            margin-right: -12px;
-            .item {
-              padding: 12px;
-              border-radius: 5px;
-              transition-property: background-color;
-              transition-duration: 0.3s;
-              transition-timing-function: ease;
-              a {
-                display: block;
-                position: relative;
-                &:hover {
-                  .item-image {
-                    &:after {
-                      background: linear-gradient(0deg,rgba(0,0,0,.2),transparent);
-                    }
-                  }
-                }
+        }
+        .el-row {
+          margin-left: -12px;
+          margin-right: -12px;
+          .item {
+            padding: 12px;
+            border-radius: 5px;
+            transition-property: background-color;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            a {
+              display: block;
+              position: relative;
+              &:hover {
                 .item-image {
-                  background-size: cover;
-                  background-repeat: no-repeat;
-                  background-position: 50% 50%;
-                  background-color: rgba(120,120,120,.2);
                   &:after {
-                    content: '';
-                    display: block;
-                    padding-bottom: 60%;
-                    background: linear-gradient(0deg,rgba(0,0,0,.6),transparent);
+                    background: linear-gradient(0deg,rgba(0,0,0,.2),transparent);
                   }
                 }
-                .item-tag {
-                  position: absolute;
-                  left: .8rem;
-                  top: .8rem;
-                  span {
-                    line-height: 1em;
-                    height: 1em;
-                    background-color: #6cc788;
-                    border-radius: 0.2rem;
-                    color: #fff;
-                    font-size: 12px;
-                    padding: .4rem;
-                    margin-right: 1rem;
-                  }
+              }
+              .item-image {
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+                background-color: rgba(120,120,120,.2);
+                &:after {
+                  content: '';
+                  display: block;
+                  padding-bottom: 60%;
+                  background: linear-gradient(0deg,rgba(0,0,0,.6),transparent);
                 }
-                .item-title {
-                  box-sizing: border-box;
-                  width: 100%;
-                  padding: 0 .8rem;
-                  position: absolute;
-                  bottom: 2.2rem;
+              }
+              .item-tag {
+                position: absolute;
+                left: .8rem;
+                top: .8rem;
+                span {
+                  line-height: 1em;
+                  height: 1em;
+                  background-color: #6cc788;
+                  border-radius: 0.2rem;
                   color: #fff;
-                  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px 2px rgba(0, 0, 0, 0.1);
-                  h3 {
-                    margin: 0;
+                  font-size: 12px;
+                  padding: .4rem;
+                  margin-right: 1rem;
+                }
+              }
+              .item-title {
+                box-sizing: border-box;
+                width: 100%;
+                padding: 0 .8rem;
+                position: absolute;
+                bottom: 2.2rem;
+                color: #fff;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px 2px rgba(0, 0, 0, 0.1);
+                h3 {
+                  margin: 0;
+                }
+              }
+              .item-info {
+                position: absolute;
+                bottom: .8rem;
+                right: .8rem;
+                color: #fff;
+                font-size: 13px;
+                span {
+                  margin-left: 1em;
+                  i {
+                    margin-right: .5em;
                   }
                 }
-                .item-info {
-                  position: absolute;
-                  bottom: .8rem;
-                  right: .8rem;
-                  color: #fff;
-                  font-size: 13px;
-                  span {
-                    margin-left: 1em;
-                    i {
-                      margin-right: .5em;
-                    }
-                  }
-                }
-                .item-time {
-                  font-size: 13px;
-                  position: absolute;
-                  color: #fff;
-                  left: .8rem;
-                  bottom: .8rem;
-                }
+              }
+              .item-time {
+                font-size: 13px;
+                position: absolute;
+                color: #fff;
+                left: .8rem;
+                bottom: .8rem;
               }
             }
           }

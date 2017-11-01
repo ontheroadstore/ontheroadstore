@@ -2,7 +2,6 @@
   <div class="container">
     <div class="page-bg" v-lazy:background-image="item.cover  + '@!rel'"></div>
     <el-row class="article-detail">
-
       <el-col class="hidden-xs-only hidden-sm-only" :md="{ span: '2', push: '21' }" :lg="{ span: '2', push: '21' }" v-sticky style="position: absolute">
         <div class="qrcode">
           <qrCode :value="qrcode.value" :ec_level="qrcode.level" :type="qrcode.type" :size="qrcode.size" />
@@ -11,7 +10,6 @@
           </div>
         </div>
       </el-col>
-
       <el-col :xs="{ span: '22' ,push : '1' ,pull : '1' }" :sm="{ span: '22' ,push : '1' ,pull : '1' }" :md="{ span: '16' ,push : '4' ,pull : '4' }" :lg="{ span: '16' ,push : '4' ,pull : '4' }">
         <MyContent :item="item" />
       </el-col>
@@ -34,13 +32,15 @@ export default {
   validate ({ params }) {
     return (!!params.id && !Object.is(Number(params.id), NaN))
   },
-  fetch ({ store, params, error }) {
-    return store.dispatch('article/REQ_DETAIL', params.id).catch((data) => {
-      error({
-        statusCode: 404,
-        message: data.info
-      })
+  async asyncData ({ app, params }) {
+    const res = await app.$axios.get('article/detail', {
+      params: {
+        id: params.id
+      }
     })
+    return {
+      item: res.data
+    }
   },
   head () {
     return {
@@ -57,9 +57,6 @@ export default {
     }
   },
   computed: {
-    item () {
-      return this.$store.state.article.detail.item
-    },
     qrcode () {
       return {
         value: this.item.link,

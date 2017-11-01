@@ -5,7 +5,6 @@
     <!-- 主题内容 -->
     <el-main id="main" :style="{ 'top': margin.top, 'bottom': margin.bottom }" class="main animated" v-smooth-scroll :class="surprises">
       <nuxt />
-
       <!-- 随机元素 -->
       <MyRandomBackground />
     </el-main>
@@ -45,7 +44,7 @@ export default {
     MyFooter, MyHeader, MySearch, MyRandomBackground
   },
   mounted () {
-    this.margin.top = this.$refs.header.$el.clientHeight + 'px'
+    this.margin.top = this.$refs.header.$el.clientHeight + 3 + 'px'
     this.margin.bottom = this.$refs.footer.$el.clientHeight + 'px'
     if (process.env.NODE_ENV === 'production') {
       console.log('%c招聘各种岗位，详细查看： %chttp://www.ontheroadstore.com/job', 'color:red;font-size:3em;', 'color:red;font-size:13px;')
@@ -71,11 +70,11 @@ body {
     }
   }
   // 饿了么css hack
+  .el-main {
+    padding: 0;
+  }
   .el-autocomplete {
     width: 100%;
-  }
-  .el-col-xs-0, .el-col-sm-0, .el-col-md-0, .el-col-lg-0 {
-    overflow: hidden;
   }
 }
 </style>

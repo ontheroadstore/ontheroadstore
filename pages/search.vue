@@ -2,10 +2,12 @@
   <div class="container">
     <el-row>
       <el-col :xs="{ span: '22', push: '1', pull: '1' }" :sm="{ span: '22', push: '1', pull: '1' }" :md="{ span: '12', offset: '5' }" :lg="{ span: '12', offset: '5' }" class="search">
-        <el-autocomplete :fetch-suggestions="querySearchAsync" v-model="keyWords" placeholder="请输入关键词">
-          <el-button slot="append" icon="el-icon-search" @click="submitSearch"></el-button>
+        <el-autocomplete :fetch-suggestions="querySearchAsync" v-model="keyWord" placeholder="请输入关键词">
+          <nuxt-link slot="append" icon="el-icon-search" :to="{ name: 'search', query: { keyword: keyWord } }">
+            <el-button icon="el-icon-search"></el-button>
+          </nuxt-link>
         </el-autocomplete>
-        <span><b>{{ pagination.total }}</b>个搜索结果</span>
+        <span><b>{{ pagination.total ? pagination.total + '个搜索结果' : '什么都没搜到' }}</b></span>
       </el-col>
     </el-row>
     <el-row class="search-list">
@@ -14,7 +16,7 @@
           <el-col :span="5" class="item-image" v-lazy:background-image.container="item.goods_cover_img + '@!320x320'">
           </el-col>
           <el-col :span="18" :offset="1" class="item-title">
-            <h4 v-highlight="keyWords">{{ item.goods_title }}</h4>
+            <h4 v-highlight="keyWord">{{ item.goods_title }}</h4>
             <div class="tag" v-show="item.goods_keywords.length">
               <span v-for="tag in item.goods_keywords">{{ tag }}</span>
             </div>
@@ -35,21 +37,19 @@
 import MyPagination from '~/components/Pagination_infinite'
 
 export default {
-  fetch ({ store, query }) {
-    return Promise.all([
-      store.commit('search/SET_QUERY', query.keyword),
-      store.dispatch('search/REQ_SEARCH_QUERY', 1),
-      store.dispatch('search/CLOSE_DIALOG')
-    ])
-  },
-  asyncData ({ query }) {
+  async asyncData ({ app, store, query, params }) {
+    await store.commit('search/SET_DIALOG_SHOW', false)
+    await store.dispatch('search/REQ_SEARCH_QUERY', {
+      page: 1,
+      keyword: query.keyword
+    })
     return {
-      keyWords: query.keyword
+      keyWord: query.keyword
     }
   },
   data () {
     return {
-      keyWords: '酒市',
+      keyWord: null,
       timeout: null
     }
   },
@@ -79,15 +79,13 @@ export default {
         }, 1000 * Math.random())
       })
     },
-    submitSearch () {
-      this.$router.push({ name: 'search', query: { keyword: this.keyWords } })
-    },
     infinite () {
       this.$store.dispatch('search/REQ_SEARCH_QUERY', this.next_page)
     }
   },
-  destroyed () {
-    this.$store.commit('search/CLEAR_PAGES')
+  beforeDestroy () {
+    console.log('aaaa')
+    // this.$store.commit('search/CLEAR_PAGES')
   }
 }
 </script>

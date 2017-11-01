@@ -1,17 +1,11 @@
-import Service from '~/plugins/axios'
-
 export const state = () => ({
   detail: {
-    items: {},
-    sellers: {},
     comments: {},
     pagination: {
       current: null,
       total: null,
       pagetotal: null
-    },
-    praises: {},
-    alike: []
+    }
   },
   index: {
     items: [],
@@ -32,12 +26,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SET_DETAIL: (state, action) => {
-    state.detail.items = action
-  },
-  SET_SELLERS: (state, action) => {
-    state.detail.sellers = action
-  },
   SET_COMMENT: (state, action) => {
     state.detail.comments = action.comments
     state.detail.pagination = {
@@ -45,12 +33,6 @@ export const mutations = {
       total: parseInt(action.total_count),
       pagetotal: parseInt(action.total_pages)
     }
-  },
-  SET_ALIKE: (state, action) => {
-    state.detail.alike = action
-  },
-  SET_PRAISE: (state, action) => {
-    state.detail.praises = action.list
   },
   SET_INDEX: (state, action) => {
     state.index.items = state.index.items.concat(action.list)
@@ -67,91 +49,39 @@ export const mutations = {
       total: parseInt(action.total_count),
       pagetotal: parseInt(action.total_pages)
     }
-  },
-  SET_DETAIL_ERROR: (state, action) => {
-    state.detail.isError = action
-  },
-  CLEAR_INDEX: (state) => {
-    state.index.items = []
-    state.index.pagination = {
-      current: null,
-      total: null,
-      pagetotal: null
-    }
-  },
-  CLEAR_DETAIL: (state) => {
-    state.detail.items = {}
-    state.detail.sellers = {}
-    state.detail.comments = {}
-    state.detail.comment_total_count = {}
   }
 }
 
 export const actions = {
-  REQ_DETAIL: ({commit}, id) => {
-    return Service.get('store/detail', {
-      params: {
-        id: id
-      }
-    }).then(response => {
-      commit('SET_DETAIL', response)
-    })
-  },
-  REQ_SELLERS: ({state, commit}, id) => {
-    return Service.get('store/sellers', {
-      params: {
-        post_id: id
-      }
-    }).then(response => {
-      commit('SET_SELLERS', response)
-    })
-  },
-  REQ_LIST: ({commit}, page) => {
-    return Service.get('store/list', {
+  async REQ_LIST ({commit}, page) {
+    const res = await this.$axios.get('store/list', {
       params: {
         page: page
       }
-    }).then(response => {
-      commit('SET_INDEX', response)
     })
+    commit('SET_INDEX', res.data)
   },
-  REQ_PAGES: ({commit}, page) => {
-    return Service.get('store/list', {
+  async REQ_PAGES ({commit}, page) {
+    const res = await this.$axios.get('store/list', {
       params: {
         page: page
       }
-    }).then(response => {
-      commit('SET_PAGES', response)
     })
+    if (page > res.data.total_pages) {
+      return false
+    } else {
+      commit('SET_PAGES', res.data)
+      return true
+    }
   },
-  REQ_COMMENT: ({state, commit}, id, page) => {
-    return Service.get('store/comment', {
+  async REQ_COMMENT ({state, commit}, id, page) {
+    const res = await this.$axios.get('store/comment', {
       params: {
         id: id,
         page: page,
         page_size: 10
       }
-    }).then(response => {
-      commit('SET_COMMENT', response)
     })
-  },
-  REQ_PRAISE: ({commit}, id) => {
-    return Service.get('store/praise', {
-      params: {
-        id: id,
-        page_size: 100
-      }
-    }).then(response => {
-      commit('SET_PRAISE', response)
-    })
-  },
-  REQ_ALIKE: ({state, commit}, id) => {
-    return Service.get('store/alike', {
-      params: {
-        id: id
-      }
-    }).then(response => {
-      commit('SET_ALIKE', response)
-    })
+    commit('SET_COMMENT', res.data)
   }
 }

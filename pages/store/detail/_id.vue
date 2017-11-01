@@ -36,7 +36,7 @@
                 <div class="nickname"><nuxt-link to="/">{{ comment.full_name }}</nuxt-link><span class="time">{{ comment.createtime }}</span></div>
                 <div class="comment-content">
                   <div class="image" v-if="comment.type == 4">
-                    <img v-img="{ src: comment.content + '@!rel' }" v-lazy="comment.content + '@!320x320'"/>
+                    <img v-img="{ src: comment.content + '@!rel' }" v-lazy="{ src: comment.content + '@!320x320' }"/>
                   </div>
                   <div :class="'color_' + comment.type" v-else>{{ comment.content }}</div>
                   <div class="sub">
@@ -45,7 +45,12 @@
                         <el-col :span="4" class="avatar" v-lazy:background-image.container="sub.uid_img"></el-col>
                         <el-col :span="19" :offset="1" class="item-bd">
                           <div class="nickname"><nuxt-link to="/">{{ sub.full_name }}</nuxt-link><span class="time">{{ sub.createtime }}</span></div>
-                          <div class="comment-content">{{ sub.content }}</div>
+                          <div class="comment-content">
+                            <div class="image" v-if="sub.type == 4">
+                              <img v-img="{ src: 'http://img8.ontheroadstore.com/' + sub.content + '@!rel' }" v-lazy="{ src: 'http://img8.ontheroadstore.com/' + sub.content + '@!320x320' }"/>
+                            </div>
+                            <div v-else>{{ sub.content }}</div>
+                          </div>
                         </el-col>
                       </el-row>
                     </div>
@@ -84,16 +89,24 @@ export default {
   validate ({ params }) {
     return (!!params.id && !Object.is(Number(params.id), NaN))
   },
-  asyncData ({ store, params, error }) {
-    return store.dispatch('store/REQ_DETAIL', params.id).catch((data) => {
-      error({
-        statusCode: 404,
-        message: data.info
-      })
+  async asyncData ({ app, params, error }) {
+    const detail = await app.$axios.get('store/detail', {
+      params: {
+        id: params.id
+      }
     })
-  },
-  fetch ({ store, params }) {
-    return Promise.all([store.dispatch('store/REQ_SELLERS', params.id), store.dispatch('store/REQ_COMMENT', params.id, 1), store.dispatch('store/REQ_PRAISE', params.id), store.dispatch('store/REQ_ALIKE', params.id)])
+    const alike = await app.$axios.get('store/alike', {
+      params: {
+        id: params.id
+      }
+    })
+    await app.store.dispatch('store/REQ_COMMENT', params.id, 1)
+    if (detail) {
+      return {
+        item: detail.data,
+        alike: alike.data
+      }
+    }
   },
   head () {
     return {
@@ -110,19 +123,10 @@ export default {
     }
   },
   computed: {
-    item () {
-      return this.$store.state.store.detail.items
-    },
     keyword () {
       let temp = ['公路商店', '黑市']
-      temp.concat(this.$store.state.store.detail.items.keywords)
-      return temp.concat(this.$store.state.store.detail.items.keywords).join(',')
-    },
-    comments () {
-      return this.$store.state.store.detail.comments
-    },
-    alike () {
-      return this.$store.state.store.detail.alike
+      temp.concat(this.item.keywords)
+      return temp.concat(this.item.keywords).join(',')
     },
     qrcode () {
       return {
@@ -131,6 +135,9 @@ export default {
         type: 'png',
         size: 5
       }
+    },
+    comments () {
+      return this.$store.state.store.detail.comments
     },
     isMobile () {
       return this.$store.state.option.isMobile
@@ -330,6 +337,7 @@ export default {
           margin: 0;
           color: inherit;
           opacity: .6;
+          // margin-bottom: 1rem;
         }
       }
       & > .el-row {
