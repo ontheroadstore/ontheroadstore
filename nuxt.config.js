@@ -55,12 +55,13 @@ module.exports = {
     { src: '~/plugins/preview.js', ssr: true },
     { src: '~/plugins/vue-carousel.js', ssr: true }
   ],
+  dev: process.env.NODE_ENV !== 'production',
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/proxy'
   ],
   proxy: [
-    (process.env.NODE_ENV === 'production') ? 'https://api.ontheroadstore.com/www/' : 'https://apitest.ontheroadstore.com/www/'
+    'https://api.ontheroadstore.com/www/'
   ],
   axios: {
     baseURL: '/www/',
